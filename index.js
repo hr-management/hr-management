@@ -1,11 +1,8 @@
-const express = require("express");
+const server = require("./server");
+const mongooseDB = require("./db/config");
 
-const app = express();
-
-app.get("/", (req, res) => {
-  res.send("HR management");
-});
-
-app.listen(3001, () => {
-  console.log("Listening on port 3001...");
+mongooseDB(() => {
+  server.listen(3001, () => {
+    console.log("listening on 3001");
+  });
 });
