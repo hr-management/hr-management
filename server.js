@@ -1,6 +1,8 @@
 const express = require("express");
 const server = express();
 const hrRouter = require("./routers/hrRouter");
+const mongooseDB = require('./db/config');
+const User = require("./models/User")
 
 const cors = require("cors");
 server.use(cors());
