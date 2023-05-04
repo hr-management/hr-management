@@ -4,13 +4,13 @@ exports.checkEmail = (req, res, next) => {
   const email = req.body.email;
   if (!email) {
     return res.status(401).json({
-      statuscode: 401,
+      success: false,
       message: "Please provide email.",
     });
   }
   if (!validator.isEmail(email)) {
     return res.status(401).json({
-      statuscode: 401,
+       success: false,
       message: "Please provide valid email.",
     });
   }
@@ -23,7 +23,7 @@ exports.checkUsername = (req, res, next) => {
   const username = req.body.username;
   if (!username) {
     return res.status(401).json({
-      statuscode: 401,
+       success: false,
       message: "Please provide username.",
     });
   }
@@ -33,7 +33,7 @@ exports.checkUsername = (req, res, next) => {
     !validator.isByteLength(username, { min: 5, max: 50 })
   ) {
     return res.status(401).json({
-      statuscode: 401,
+      success: false,
       message:
         "Please provide valid username, username only contains letters and numbers and less than 50 characters",
     });
@@ -46,7 +46,7 @@ exports.checkPassword = (req, res, next) => {
   const password = req.body.password;
   if (!password) {
     return res.status(401).json({
-      statuscode: 401,
+       success: false,
       message: "Please provide password.",
     });
   }
@@ -56,13 +56,13 @@ exports.HROnly = (req, res, next) => {
   const role = req.userToken.role;
   if (!role) {
     return res.status(401).json({
-      statuscode: 401,
+       success: false,
       message: "Please provide role.",
     });
   }
   if (role!=="HR") {
     return res.status(401).json({
-      statuscode: 401,
+       success: false,
       message: "You don't have permission to access this information.",
     });
   }

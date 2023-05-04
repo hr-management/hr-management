@@ -49,7 +49,7 @@ exports.invitation = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "can't send email", err });
+    return res.status(500).json({ success: false,message: "can't send email", err });
   }
   try {
     await RegistrationHistoryModel.create({
@@ -62,18 +62,18 @@ exports.invitation = async (req, res) => {
     console.log(err);
     return res
       .status(500)
-      .json({ message: "can't create registration history", err });
+      .json({ success: true,message: "can't create registration history", err });
   }
 
-  return res.status(200).json({ message: "invited" });
+  return res.status(200).json({ success: true,message: "invited" });
 };
 
 exports.getInvitationHistory = async (req, res) => {
   const history = await RegistrationHistoryModel.find();
-  return res.status(200).json({ message: "success", history });
+  return res.status(200).json({ success: true, history });
 };
 
 exports.getInfoForNewApplicaiton = async (req, res) => {
   const email = req.tokenUser.email;
-  return res.status(200).json({ message: "success", user: email });
+  return res.status(200).json({ success: true, user: email });
 };
