@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const RegistrationHistorySchema = new mongoose.Schema({
   email: {
     type: String,

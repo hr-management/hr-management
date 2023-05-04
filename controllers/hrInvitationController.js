@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const RegistrationHistoryModel = require("../models/registrationHistory");
 
 // generate token and send email
 exports.invitation = async (req, res) => {
@@ -49,6 +50,18 @@ exports.invitation = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "can't send email", err });
+  }
+  try {
+    await RegistrationHistoryModel.create({
+      email,
+      name,
+      registrationLink,
+    });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ message: "can't create registration history", err });
   }
 
   return res.status(200).json({ message: "invited" });
