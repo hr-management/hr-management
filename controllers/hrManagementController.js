@@ -19,7 +19,7 @@ exports.getEmployeeById = async (req, res) => {
    return  res.status(200).json({success: true, employee1})
 } 
 
-
+// get application by status: pending | rejected | approved
 exports.getApplicationsByStatus = async (req, res) => {
     const {status} = req.params
     if (!["pending","rejected","approved"].includes(status)) {
@@ -33,5 +33,24 @@ exports.getApplicationsByStatus = async (req, res) => {
     } else {
         applications = await userModel.find({applicationStatus:"approved"})
     }
-     return res.status(200).json({success: true, applicationType:"status",length:applications.length,applications})
+     return res.status(200).json({success: true, applicationType:status,length:applications.length,applications})
 }
+
+// get visaEmplyees, if status===all, return all visa-employees, 
+// if status === inprogress, return inprogress F1 employees
+exports.getVisaEmployees = async (req, res) => {
+    const { status } = req.params
+    let visaEmplyees, employeeType;
+    if (!["all","inprogress"].includes(status)) {
+        return res.status(400).json({success: false, message:"Invaild status, only all or inprogress."})
+    }
+    if (status==="all") {
+        visaEmplyees = await userModel.find({ requireWorkAuthorization: true })
+        employeeType="All visa employees"
+    } else {
+        //requireWorkAuthorization && visa===F1(CPT/OPT) && applicationStatus===pending
+        visaEmplyees = await userModel.find({ requireWorkAuthorization: true, visa: { type: "F1(CPT/OPT)" }, applicationStatus: "pending" })
+        employeeType="Inprogress visa employees" 
+    }
+     return res.status(200).json({success: true, employeeType, length:visaEmplyees.length,visaEmplyees})
+}  
