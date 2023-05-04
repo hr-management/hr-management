@@ -72,3 +72,8 @@ exports.getInvitationHistory = async (req, res) => {
   const history = await RegistrationHistoryModel.find();
   return res.status(200).json({ message: "success", history });
 };
+
+exports.getInfoForNewApplicaiton = async (req, res) => {
+  const email = req.tokenUser.email;
+  return res.status(200).json({ message: "success", user: email });
+};
