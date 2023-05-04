@@ -6,7 +6,7 @@ const {
   getInvitationHistory,
   getInfoForNewApplicaiton,
 } = require("../controllers/hrInvitationController");
-const { getAllEmployees } = require("../controllers/hrManagementController")
+const { getAllEmployees,getEmployeeById } = require("../controllers/hrManagementController")
 const { checkEmail } = require("../middlewares/validator")
 
 Router.post("/invitation",checkEmail, invitation);
@@ -16,9 +16,7 @@ Router.get("/newApplicationInfo", authorization, getInfoForNewApplicaiton);
 // get all employees
 Router.get('/',getAllEmployees)
 // get one emplyee by ID
-Router.get('/:id', (req, res) => {
-    res.send("")
-})
+Router.get('/:id', getEmployeeById)
 // get application by status: pending | rejected | approved
 Router.get("/applications/:status", (req, res) => {
     res.send("")
