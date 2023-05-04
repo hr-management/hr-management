@@ -75,9 +75,14 @@ exports.getReportComments = async (req, res) => {
 };
 
 // adding a comment to a specific facility report
-
 exports.addReportComment = async (req, res) => {
   try {
+    if (!req.body.description || !req.body.createdBy) {
+      return res
+        .status(400)
+        .json({ error: "Both description and createdBy are required" });
+    }
+
     const housing = await Housing.findOne(
       { "reports._id": req.params.reportId },
       { "reports.$": 1 }
@@ -85,56 +90,34 @@ exports.addReportComment = async (req, res) => {
     if (!housing) {
       return res.status(404).json({ error: "Report not found" });
     }
-    res
-      .status(200)
-      .json({req: req.body.description });
+
+    const report = housing.reports[0];
+
+    if (!report) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+
+    const comment = {
+      description: req.body.description,
+      createdBy: req.body.createdBy,
+    };
+    await Housing.updateOne(
+      { "reports._id": req.params.reportId },
+      { $push: { "reports.$.comments": comment } }
+    );    
+    res.status(201).json(comment);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-// exports.addReportComment = async (req, res) => {
-//   try {
-//     const description = req.body.createdBy;
-//     // if (!req.body.description || !req.body.createdBy) {
-//     //   return res
-//     //     .status(400)
-//     //     .json({ error: "Both description and createdBy are required" });
-//     // }
-
-//     // const housing = await Housing.findOne(
-//     //     { "reports._id": req.params.reportId },
-//     //     { "reports.$": 1 }
-//     //   );
-//     //   if (!housing) {
-//     //     return res.status(404).json({ error: "Report not found" });
-//     //   }
-
-//     // const report = housing.reports[0].comments;
-
-//     // if (!report) {
-//     //   return res.status(404).json({ error: "Report not found" });
-//     // }
-
-//     // const comment = {
-//     //   description: req.body.description,
-//     //   createdBy: req.body.createdBy,
-//     // };
-//     // report.comments.push(comment);
-//     // await housing.save();
-//     // res.status(201).json(comment);
-//     res.status(200).json(description);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
 // updating a comment on a specific facility report
 exports.updateReportComment = async (req, res) => {
   try {
-    const housing = await Housing.findOne({
-      "reports._id": req.params.reportId,
-    });
+    const housing = await Housing.findOne(
+      { "reports._id": req.params.reportId },
+      { "reports.$": 1 }
+    );
     if (!housing) {
       return res.status(404).json({ error: "Report not found" });
     }
