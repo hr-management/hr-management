@@ -7,9 +7,18 @@ const RegistrationHistoryModel = require("../models/registrationHistory");
 exports.invitation = async (req, res) => {
   const hr = "hr1"; // should get it from token
   const { email, name } = req.body;
-  if (!email || !name) {
-    return res.status(401).json({ message: "Please provide email and name." });
+  if ( !name) {
+    return res.status(400).json({ message: "Please provide name." });
   }
+  //check if email is unique
+    const existingEmailUser = await RegistrationHistoryModel.findOne({ email });
+    if (existingEmailUser) {
+        return res.status(400).json({
+            success: false,
+            message: 'Email address is already in use',
+        });
+  }
+  // create token - valid for 3 hours 
   const salt = process.env.JWT_SALT;
   const token = jwt.sign(
     {
@@ -21,6 +30,7 @@ exports.invitation = async (req, res) => {
       expiresIn: 60 * 60 * 3,
     }
   );
+  // create email and send email
   let transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
@@ -51,6 +61,7 @@ exports.invitation = async (req, res) => {
     console.log(err);
     return res.status(500).json({ success: false,message: "can't send email", err });
   }
+  //save to database for future checking
   try {
     await RegistrationHistoryModel.create({
       email,
@@ -62,7 +73,7 @@ exports.invitation = async (req, res) => {
     console.log(err);
     return res
       .status(500)
-      .json({ success: true,message: "can't create registration history", err });
+      .json({ success: false,message: "can't create registration history", err });
   }
 
   return res.status(200).json({ success: true,message: "invited" });

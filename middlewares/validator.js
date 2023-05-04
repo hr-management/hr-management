@@ -3,13 +3,13 @@ const validator = require("validator");
 exports.checkEmail = (req, res, next) => {
   const email = req.body.email;
   if (!email) {
-    return res.status(401).json({
+    return res.status(400).json({
       success: false,
       message: "Please provide email.",
     });
   }
   if (!validator.isEmail(email)) {
-    return res.status(401).json({
+    return res.status(400).json({
        success: false,
       message: "Please provide valid email.",
     });
@@ -22,7 +22,7 @@ exports.checkEmail = (req, res, next) => {
 exports.checkUsername = (req, res, next) => {
   const username = req.body.username;
   if (!username) {
-    return res.status(401).json({
+    return res.status(400).json({
        success: false,
       message: "Please provide username.",
     });
@@ -32,7 +32,7 @@ exports.checkUsername = (req, res, next) => {
     !validator.isAlphanumeric(username) ||
     !validator.isByteLength(username, { min: 5, max: 50 })
   ) {
-    return res.status(401).json({
+    return res.status(400).json({
       success: false,
       message:
         "Please provide valid username, username only contains letters and numbers and less than 50 characters",
@@ -45,7 +45,7 @@ exports.checkUsername = (req, res, next) => {
 exports.checkPassword = (req, res, next) => {
   const password = req.body.password;
   if (!password) {
-    return res.status(401).json({
+    return res.status(400).json({
        success: false,
       message: "Please provide password.",
     });
@@ -55,13 +55,13 @@ exports.checkPassword = (req, res, next) => {
 exports.HROnly = (req, res, next) => {
   const role = req.userToken.role;
   if (!role) {
-    return res.status(401).json({
+    return res.status(400).json({
        success: false,
       message: "Please provide role.",
     });
   }
   if (role!=="HR") {
-    return res.status(401).json({
+    return res.status(400).json({
        success: false,
       message: "You don't have permission to access this information.",
     });
