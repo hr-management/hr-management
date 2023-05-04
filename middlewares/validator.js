@@ -1,5 +1,4 @@
 const validator = require("validator");
-const UserModel = require("../models/User")
 
 exports.checkEmail = (req, res, next) => {
   const email = req.body.email;
@@ -18,17 +17,7 @@ exports.checkEmail = (req, res, next) => {
   next();
 };
 
-exports.checkUniqueEmail = async (req, res, next) => {
-  const email = req.body.email;
-  const checkUser = await UserModel.findOne({ email });
-  if (checkUser) {
-    return res.status(401).json({
-      statuscode: 401,
-      message: `${email} is used. Please provide another email.`,
-    });
-  }
-  next();
-};
+
 
 exports.checkUsername = (req, res, next) => {
   const username = req.body.username;
@@ -52,17 +41,7 @@ exports.checkUsername = (req, res, next) => {
 
   next();
 };
-exports.checkUniqueUsername = async (req, res, next) => {
-  const username = req.body.username;
-  const checkUser = await UserModel.findOne({ username });
-  if (checkUser) {
-    return res.status(401).json({
-      statuscode: 401,
-      message: `${username} is used. Please provide another username.`,
-    });
-  }
-  next();
-};
+
 exports.checkPassword = (req, res, next) => {
   const password = req.body.password;
   if (!password) {
