@@ -56,6 +56,7 @@ exports.invitation = async (req, res) => {
       email,
       name,
       registrationLink,
+      status: "sent",
     });
   } catch (err) {
     console.log(err);
@@ -65,4 +66,9 @@ exports.invitation = async (req, res) => {
   }
 
   return res.status(200).json({ message: "invited" });
+};
+
+exports.getInvitationHistory = async (req, res) => {
+  const history = await RegistrationHistoryModel.find();
+  return res.status(200).json({ message: "success", history });
 };
