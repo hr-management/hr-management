@@ -7,6 +7,8 @@ const User = require("./models/User")
 const cors = require("cors");
 server.use(cors());
 
+server.use(express.json());
+
 server.get("/", (req, res) => {
   res.send("HR management");
 });
