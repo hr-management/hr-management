@@ -6,9 +6,20 @@ const {
   getInvitationHistory,
   getInfoForNewApplicaiton,
 } = require("../controllers/hrInvitationController");
+const { getAllEmployees,getEmployeeById,getApplicationsByStatus,getVisaEmployees } = require("../controllers/hrManagementController")
+const { checkEmail } = require("../middlewares/validator")
 
-Router.post("/invitation", invitation);
+Router.post("/invitation",checkEmail, invitation);
 Router.get("/invitationHistory", getInvitationHistory);
 Router.get("/newApplicationInfo", authorization, getInfoForNewApplicaiton);
 
+// get all employees
+Router.get('/',getAllEmployees)
+// get one emplyee by ID
+Router.get('/:id', getEmployeeById)
+// get application by status: pending | rejected | approved
+Router.get("/applications/:status", getApplicationsByStatus)
+// get visaEmplyees, if status===all, return all visa-employees, 
+// if status === inprogress, return inprogress F1 employees
+Router.get("/visaEmployees/:status", getVisaEmployees)
 module.exports = Router;
