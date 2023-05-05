@@ -4,7 +4,7 @@ const expect = chai.expect;
 const request = require("supertest");
 const server = require("../server");
 
-describe("validator file", () => {
+describe("validator middleware ", () => {
   it("should fail without email to make invitation", async () => {
     const res = await request(server).post("/api/employees/invitation").send({
       name: "user2",
