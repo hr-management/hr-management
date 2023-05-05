@@ -60,7 +60,8 @@ const userLogin = async (req, res) => {
 };
 
 const userInfo = async (req, res) => {
-    const user = await userModel.findOne({ username: req.name });
+    const { id } = req.body;
+    const user = await userModel.findOne({ _id: new ObjectId(id) });
     res.status(200).json({ success: true, user });
 };
 
