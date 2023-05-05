@@ -20,4 +20,8 @@ Router.post(
 Router.get(
     '/user/info',
     authController.userInfo);
+
+Router.put(
+    '/user/info',
+    authController.updateUserInfo);
 module.exports = Router;

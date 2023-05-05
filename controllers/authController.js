@@ -65,8 +65,26 @@ const userInfo = async (req, res) => {
     res.status(200).json({ success: true, user });
 };
 
+//updateUserInfo, lack of Documents update
+const updateUserInfo = async (req, res) => {
+    const { id } = req.body;
+    const updatedUser = req.body;
+    const user = await userModel.findOne({ _id: new ObjectId(id) });
+    if (!user) {
+        return res
+            .status(400)
+            .json({ success: false, message: 'User not found' });
+    }
+
+    Object.keys(updatedUser).forEach(key => {
+        user[key] = updatedUser[key];
+    });
+    res.status(200).json({ success: true, user: user });
+};
+
 module.exports = {
     userSignup,
     userLogin,
-    userInfo
+    userInfo,
+    updateUserInfo
 };
