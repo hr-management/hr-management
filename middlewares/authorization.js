@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const userModel = require('../models/User');
 
 module.exports = (req, res, next) => {
   if (!req.headers.authorization) {
@@ -7,12 +8,14 @@ module.exports = (req, res, next) => {
       .json({  success: false, message: "No token provided" });
   }
   const token = req.headers.authorization.split(" ")[1];
-  jwt.verify(token, process.env.JWT_SALT, async (error, user) => {
+  jwt.verify(token, process.env.JWT_SALT, async (error, payload) => {
     if (error) {
       return res.status(403).json({  success: false, message: error.message });
     }
-      req.tokenUser = user;
-      console.log(user)
+    const user = await userModel.findOne({ _id: payload.userId });
+    req.tokenUser = user;
+    console.log(user);
+    console.log('------------------')
     next();
   });
 };
