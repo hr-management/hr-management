@@ -47,7 +47,8 @@ const userLogin = async (req, res) => {
     }
     userModel.login(password, user).then(
         () => {
-            const token = jwt.sign({ user: user }, salt);
+            //updated to only pass userId
+            const token = jwt.sign({ userId: user._id }, salt);
             res.status(200)
                 .json({ success: true, message: 'Login successful', data: user, token });
         },
