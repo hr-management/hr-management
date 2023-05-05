@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const authController = require('../controllers/authController');
-const auth = require('../middlewares/authorization');
+const authorization = require('../middlewares/authorization');
 const validator = require('../middlewares/validator');
 
 Router.post(
@@ -19,9 +19,11 @@ Router.post(
 );
 Router.get(
     '/user/info',
+    authorization,
     authController.userInfo);
 
 Router.put(
     '/user/info',
+    authorization,
     authController.updateUserInfo);
 module.exports = Router;
