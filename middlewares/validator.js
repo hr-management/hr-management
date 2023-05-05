@@ -19,7 +19,6 @@ exports.checkEmail = (req, res, next) => {
 
 exports.checkUsername = (req, res, next) => {
   const username = req.body.username;
-  console.log(username);
   if (!username) {
     return res.status(400).json({
       success: false,
