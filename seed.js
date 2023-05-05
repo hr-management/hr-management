@@ -17,24 +17,21 @@ db.once('open', function () {
 });
 
 const newUser1 = new userModel({
-    _id: uuid.v4(),
-    username: 'HR1',
-    email: 'hr1@gmail.com',
-    password: 'HR1123',
+    username: 'HR4',
+    email: 'hr4@gmail.com',
+    password: 'HR4123',
     role: 'HR'
 });
 const newUser2 = new userModel({
-    _id: uuid.v4(),
-    username: 'HR2',
-    email: 'hr2@gmail.com',
-    password: 'HR2123',
+    username: 'HR5',
+    email: 'hr5@gmail.com',
+    password: 'HR5123',
     role: 'HR'
 });
 const newUser3 = new userModel({
-    _id: uuid.v4(),
-    username: 'HR3',
-    email: 'hr3@gmail.com',
-    password: 'HR3123',
+    username: 'HR6',
+    email: 'hr6@gmail.com',
+    password: 'HR6123',
     role: 'HR'
 });
 

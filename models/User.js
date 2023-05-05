@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-    _id: { type: String },
     username: { type: String },
     password: { type: String },
     firstName: { type: String},
@@ -37,7 +36,7 @@ const userSchema = new mongoose.Schema({
     },
     workAuthDoc: [
         {
-            type: { type: String },
+            type: { type: String, default: '' },
             status: { type: String, enum: ['notSubmitted', 'submitted', 'rejected', 'approved'], default: 'notSubmitted' },
             file: { type: String, default: '' },
             feedback: { type: String, default: '' }
