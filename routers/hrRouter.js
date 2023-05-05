@@ -11,7 +11,6 @@ const { getAllEmployees,
   getApplicationsByStatus,
   getVisaEmployees,
   updateApplicationStatus,
-  updateApplicationRejectedFeedback,
 updateVisaAuthStatus
 } = require("../controllers/hrManagementController")
 const { checkEmail } = require("../middlewares/validator")
@@ -32,6 +31,6 @@ Router.get("/applications/:status", getApplicationsByStatus)
 Router.get("/visaEmployees/:status", getVisaEmployees)
 
 Router.put("/:id/applicationStatus", findEmployeeById,updateApplicationStatus)
-Router.put("/:id/application/feedback", findEmployeeById,updateApplicationRejectedFeedback)
+
 Router.put("/visaEmployees/workAuthStatus",findEmployeeById,updateVisaAuthStatus)
 module.exports = Router;

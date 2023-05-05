@@ -66,7 +66,7 @@ exports.getVisaEmployees = async (req, res) => {
 
 exports.updateApplicationStatus = async (req, res) => {
     try {
-        const { status } = req.body
+        const { status,feedback } = req.body
           
         if (status !== "pending") {
             return res.status(400).json({success: false, message:"You can't update this application status."})
@@ -75,33 +75,57 @@ exports.updateApplicationStatus = async (req, res) => {
             return res.status(400).json({success: false, message:"Invaild status, only rejected or approved."})
         } 
         const employee = req.employee // from findEmplyeeById middleware
-        await userModel.updateOne({ _id: employee._id }, { applicationStatus: status })  
-
-        return res.status(200).json({ success: true, applicationStatus: status, message: "updated!" })
+        if (status === "approved") {
+            await userModel.updateOne({ _id: employee._id }, { applicationStatus: status })  
+            return res.status(200).json({ success: true, applicationStatus: status,  })
+        } else {
+            await userModel.updateOne({ _id: employee._id }, { applicationStatus: status,applicationRejectedFeedback:feedback })  
+            return res.status(200).json({ success: true, applicationStatus: status, feedback,  })
+        }
+        
     } catch (err) {
         return res.status(500).json({success: false, message:"Something went wrong.",err} )
     }
 }
 
-exports.updateApplicationRejectedFeedback = async (req, res) => {
-    try {
-        const { feedback } = req.body
-        if (!feedback) {
-            return res.status(400).json({success: false, message:"Please provide feedback for this application."})
-        }
-        const employee = req.employee // from findEmplyeeById middleware
-        await userModel.updateOne({ _id: employee._id }, { applicationRejectedFeedback: feedback })
-        return res.status(200).json({ success: true, feedback, message: "updated!" })
-    } catch (err) {
-    return res.status(500).json({ success: false,message: "Something went wrong", err });
-  }
+// exports.updateApplicationRejectedFeedback = async (req, res) => {
+//     try {
+//         const { feedback } = req.body
+//         if (!feedback) {
+//             return res.status(400).json({success: false, message:"Please provide feedback for this application."})
+//         }
+//         const employee = req.employee // from findEmplyeeById middleware
+//         await userModel.updateOne({ _id: employee._id }, { applicationRejectedFeedback: feedback })
+//         return res.status(200).json({ success: true, feedback, message: "updated!" })
+//     } catch (err) {
+//     return res.status(500).json({ success: false,message: "Something went wrong", err });
+//   }
     
-}
+// }
 
 exports.updateVisaAuthStatus = async (req, res) => {
     try {
+        const { status } = req.body
+        if (!["rejected","approved"].includes(status)) {
+            return res.status(400).json({success: false, message:"Invaild status, only rejected or approved."})
+        } 
         const employee = req.employee // from findEmplyeeById middleware
-        
+        if (!employee.requireWorkAuthorization || employee.visa.type !== "F1(CPT/OPT)") {
+            return res.status(400).json({ success: false, message: "This is not a F1(CPT/OPT) employee." })
+        } else {
+            const workAuthDocs = employee.workAuthDoc
+            const docTypes = ["OPT_Receipt", "OPT_EAD", "I-983", "I-20"]
+            let curStep = 0
+            for (let i = 0; i < workAuthDocs.length; i++){
+                if (workAuthDocs[i].status === "approved") {
+                    curStep ++
+                } else {
+                    break
+                }
+            }
+
+        }
+        return res.send("hi")
     } catch (err) {
         return res.status(500).json({ success: false,message: "Something went wrong", err });
   }
