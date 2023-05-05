@@ -61,26 +61,23 @@ const userLogin = async (req, res) => {
 };
 
 const userInfo = async (req, res) => {
-    const { id } = req.body;
-    const user = await userModel.findOne({ _id: new ObjectId(id) });
-    res.status(200).json({ success: true, user });
+    res.status(200).json({ success: true, user: req.tokenUser });
 };
 
 //updateUserInfo, lack of Documents update
 const updateUserInfo = async (req, res) => {
-    const { id } = req.body;
-    const updatedUser = req.body;
-    const user = await userModel.findOne({ _id: new ObjectId(id) });
-    if (!user) {
+    const id = req.tokenUser._id;
+    try {
+        const user = await userModel.findOneAndUpdate(
+            { _id: new ObjectId(id) },
+            { ...req.body },
+            { new: true });
+        res.status(200).json({ success: true, user: user });
+    } catch (err) {
         return res
             .status(400)
-            .json({ success: false, message: 'User not found' });
+            .json({ success: false, message: err || 'updated error' });
     }
-
-    Object.keys(updatedUser).forEach(key => {
-        user[key] = updatedUser[key];
-    });
-    res.status(200).json({ success: true, user: user });
 };
 
 module.exports = {

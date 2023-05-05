@@ -14,8 +14,6 @@ module.exports = (req, res, next) => {
     }
     const user = await userModel.findOne({ _id: payload.userId });
     req.tokenUser = user;
-    console.log(user);
-    console.log('------------------')
     next();
   });
 };
