@@ -66,7 +66,8 @@ exports.getVisaEmployees = async (req, res) => {
 
 exports.updateApplicationStatus = async (req, res) => {
     try {
-        const { status,feedback } = req.body
+        const status = req.body.status
+        let feedback = req.body.feedback
           
         if (status !== "pending") {
             return res.status(400).json({success: false, message:"You can't update this application status."})
@@ -79,6 +80,9 @@ exports.updateApplicationStatus = async (req, res) => {
             await userModel.updateOne({ _id: employee._id }, { applicationStatus: status })  
             return res.status(200).json({ success: true, applicationStatus: status,  })
         } else {
+            if (!feedback) {
+                feedback = ""
+            }
             await userModel.updateOne({ _id: employee._id }, { applicationStatus: status,applicationRejectedFeedback:feedback })  
             return res.status(200).json({ success: true, applicationStatus: status, feedback,  })
         }
@@ -87,6 +91,49 @@ exports.updateApplicationStatus = async (req, res) => {
         return res.status(500).json({success: false, message:"Something went wrong.",err} )
     }
 }
+
+
+exports.updateVisaAuthStatus = async (req, res) => {
+    try {
+        const { status,feedback } = req.body
+        if (!["rejected","approved"].includes(status)) {
+            return res.status(400).json({success: false, message:"Invaild status, only rejected or approved."})
+        } 
+        const employee = req.employee // from findEmplyeeById middleware
+        if (employee.requireWorkAuthorization && employee.visa.type === "F1(CPT/OPT)") {       
+            const workAuthDocs = employee.workAuthDoc
+            const docTypes = ["OPT_Receipt", "OPT_EAD", "I-983", "I-20"]
+            let curStep = workAuthDocs.length-1
+            if (workAuthDocs[curStep].status !== "submitted") {
+                return res.status(400).json({success: false, message:"You can't update this visa auth status."})
+            }
+            if (status === "approved") {
+                workAuthDocs[curStep].status = "approved"
+                if (curStep < 3) {
+                    workAuthDocs.push({type:docTypes[curStep+1],status: "notSubmitted"})
+                }
+                await userModel.updateOne({ _id: employee._id }, { workAuthDoc})  
+                return res.status(200).json({success: true, nextStep:docTypes[curStep+1]?docTypes[curStep+1]:"Approved all documentations."})
+            } else {
+                workAuthDocs[curStep].status = "rejected"
+                if (!feedback) {
+                     feedback = ""
+                }
+                workAuthDocs[curStep].feedback = feedback
+                await userModel.updateOne({ _id: employee._id }, { workAuthDoc})  
+                return res.status(200).json({success: true, rejected:docTypes[curStep],feedback})
+            }
+        }
+         return res.status(400).json({ success: false, message: "This is not a F1(CPT/OPT) employee." })
+    } catch (err) {
+        return res.status(500).json({ success: false,message: "Something went wrong", err });
+  }
+}
+
+
+
+
+
 
 // exports.updateApplicationRejectedFeedback = async (req, res) => {
 //     try {
@@ -103,32 +150,6 @@ exports.updateApplicationStatus = async (req, res) => {
     
 // }
 
-exports.updateVisaAuthStatus = async (req, res) => {
-    try {
-        const { status } = req.body
-        if (!["rejected","approved"].includes(status)) {
-            return res.status(400).json({success: false, message:"Invaild status, only rejected or approved."})
-        } 
-        const employee = req.employee // from findEmplyeeById middleware
-        if (!employee.requireWorkAuthorization || employee.visa.type !== "F1(CPT/OPT)") {
-            return res.status(400).json({ success: false, message: "This is not a F1(CPT/OPT) employee." })
-        } else {
-            const workAuthDocs = employee.workAuthDoc
-            const docTypes = ["OPT_Receipt", "OPT_EAD", "I-983", "I-20"]
-            let curStep = 0
-            for (let i = 0; i < workAuthDocs.length; i++){
-                if (workAuthDocs[i].status === "approved") {
-                    curStep ++
-                } else {
-                    break
-                }
-            }
 
-        }
-        return res.send("hi")
-    } catch (err) {
-        return res.status(500).json({ success: false,message: "Something went wrong", err });
-  }
-}
 
 
