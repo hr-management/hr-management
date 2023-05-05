@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     },
     workAuthDoc: [
         {
-            type: { type: String },
+            type: { type: String, default: '' },
             status: { type: String, enum: ['notSubmitted', 'submitted', 'rejected', 'approved'], default: 'notSubmitted' },
             file: { type: String, default: '' },
             feedback: { type: String, default: '' }
