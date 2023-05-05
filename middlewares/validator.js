@@ -41,7 +41,7 @@ exports.checkUsername = (req, res, next) => {
 
   if (
     !validator.isAlphanumeric(username) ||
-    !validator.isByteLength(username, { min: 5, max: 50 })
+    !validator.isByteLength(username, { min: 3, max: 50 })
   ) {
     return res.status(401).json({
       statuscode: 401,

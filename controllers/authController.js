@@ -1,5 +1,6 @@
 const userModel = require('../models/User');
 const jwt = require('jsonwebtoken');
+const { ObjectId } = require('mongodb');
 require("dotenv").config();
 
 
@@ -58,8 +59,13 @@ const userLogin = async (req, res) => {
     );
 };
 
+const userInfo = async (req, res) => {
+    const user = await userModel.findOne({ username: req.name });
+    res.status(200).json({ success: true, user });
+};
 
 module.exports = {
     userSignup,
-    userLogin
+    userLogin,
+    userInfo
 };
