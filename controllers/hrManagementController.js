@@ -135,21 +135,3 @@ exports.updateVisaAuthStatus = async (req, res) => {
 
 
 
-// exports.updateApplicationRejectedFeedback = async (req, res) => {
-//     try {
-//         const { feedback } = req.body
-//         if (!feedback) {
-//             return res.status(400).json({success: false, message:"Please provide feedback for this application."})
-//         }
-//         const employee = req.employee // from findEmplyeeById middleware
-//         await userModel.updateOne({ _id: employee._id }, { applicationRejectedFeedback: feedback })
-//         return res.status(200).json({ success: true, feedback, message: "updated!" })
-//     } catch (err) {
-//     return res.status(500).json({ success: false,message: "Something went wrong", err });
-//   }
-    
-// }
-
-
-
-
