@@ -1,6 +1,5 @@
 const userModel = require('../models/User');
-const mongoose = require("mongoose")
-const objectId = require("mongoose").ObjectId;
+
 exports.getAllEmployees = async (req, res) => {
     try{
         const employees = await userModel.find({ role: "employee" })
@@ -12,15 +11,6 @@ exports.getAllEmployees = async (req, res) => {
 
 exports.getEmployeeById = async (req, res) => {
     try{
-        const id =new mongoose.Types.ObjectId(req.params.id) 
-    // console.log(typeof id)
-    // console.log(id)
-    //  console.log(mongoose.Types.ObjectId.isValid(id))
-    // const employee = await userModel.findOne({ firstName: "John" })
-    // console.log(employee._id) 
-    // console.log(req.params.id)
-    // console.log(employee._id === req.params.id)
-    
         return res.status(200).json({ success: true, employee: req.employee })
     }
     catch (err) {
@@ -44,7 +34,7 @@ exports.getApplicationsByStatus = async (req, res) => {
         applications = await userModel.find({applicationStatus:"approved"})
         } 
        return res.status(200).json({success: true, applicationType:status,length:applications.length,applications}) 
-     } catch (err) {
+    } catch (err) {
         return res.status(500).json({success: false, message:"Something went wrong.",err} )
     }
    
@@ -110,9 +100,10 @@ exports.updateApplicationRejectedFeedback = async (req, res) => {
 
 exports.updateVisaAuthStatus = async (req, res) => {
     try {
+        const employee = req.employee // from findEmplyeeById middleware
         
     } catch (err) {
-    return res.status(500).json({ success: false,message: "Something went wrong", err });
+        return res.status(500).json({ success: false,message: "Something went wrong", err });
   }
 }
 
