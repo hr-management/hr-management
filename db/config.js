@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 function mongooseDB(success) {
   mongoose.connect(
-    `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_KEY}@cluster0.bdlgbaa.mongodb.net/hr_management?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_KEY}@cluster0.bdlgbaa.mongodb.net/hr_management`
   );
   mongoose.connection.once("open", () => {
     console.log("connected mongoDB");
