@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "mocha --recursive ./test",
+    "test:report": "nyc mocha  --timeout 10000 ./test --exit",
+    "test": "mocha  --timeout 10000 ./test --exit",
     "lint:format": "prettier --write --loglevel warn \"src/**/*.{js,ts,json,tsx,css,less,vue,html,md}\""
   },
   "author": "Min, Kiki, Haohao",

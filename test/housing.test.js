@@ -43,7 +43,7 @@ describe("Housing Controller", () => {
         done();
       });
   });
-  
+
   it("should get a specific facility report", async () => {
     const res = await request(app).get(`/facility-reports/${reportId}`);
     expect(res.status).to.equal(200);
