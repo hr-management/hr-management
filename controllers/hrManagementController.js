@@ -1,6 +1,8 @@
 const userModel = require('../models/User');
 const mongoose = require("mongoose")
 const objectId = require("mongoose").ObjectId;
+const { upload } = require("../utils/s3Handler");
+
 exports.getAllEmployees = async (req, res) => {
     const employees = await userModel.find({ role: "employee" })
     return res.status(200).json({success: true, length:employees.length,employees})
