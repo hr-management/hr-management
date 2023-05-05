@@ -22,15 +22,15 @@ describe("validator file", () => {
   });
 
   it("should fail without username when signup", async () => {
-    const res = await request(server).post("/api/user/signup").send({
+    const res = await request(server).post("/api/auth/user/signup").send({
       email: "user2@gmail.com",
     });
     expect(res.statusCode).to.equal(400);
     expect(res.body.message).to.equal("Please provide username.");
   });
   it("should fail without valid username when signup", async () => {
-    const res = await request(server).post("/api/user/signup").send({
-      email: "user!@<>",
+    const res = await request(server).post("/api/auth/user/signup").send({
+      username: "user!@<>",
     });
     expect(res.statusCode).to.equal(400);
     expect(res.body.message).to.equal(
@@ -38,14 +38,14 @@ describe("validator file", () => {
     );
   });
   it("should fail without password when login", async () => {
-    const res = await request(server).post("/api/user/login").send({
+    const res = await request(server).post("/api/auth/user/login").send({
       username: "user2",
     });
     expect(res.statusCode).to.equal(400);
     expect(res.body.message).to.equal("Please provide password.");
   });
   it("should fail without valid password when login", async () => {
-    const res = await request(server).post("/api/user/login").send({
+    const res = await request(server).post("/api/auth/user/login").send({
       username: "user2",
       password: "pa",
     });
