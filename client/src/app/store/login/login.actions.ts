@@ -1,15 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 
-export const loadLoginsStart = createAction(
+export const LoginsStart = createAction(
   '[Login] Load Logins start',props<{ payload:{username: string, password: string }}>()
 );
 
-export const loadLoginsSuccess = createAction(
+export const LoginsSuccess = createAction(
   '[Login] Load Logins Success',
   props<{ data: any }>()
 );
 
-export const loadLoginsFailure = createAction(
+export const LoginsFailure = createAction(
   '[Login] Load Logins Failure',
   props<{ error: any }>()
 );

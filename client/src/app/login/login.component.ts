@@ -42,7 +42,7 @@ export class LoginComponent {
     //     this.snackBar.open('Invalid username or password', 'Close', { duration: 3000 });
     //   }
     // );
-    this.store.dispatch(LoginAction.loadLoginsStart({ payload:{username: this.username, password: this.password }}))
+    this.store.dispatch(LoginAction.LoginsStart({ payload:{username: this.username, password: this.password }}))
   }
   ngOnChange() {
     console.log("state", this.state)

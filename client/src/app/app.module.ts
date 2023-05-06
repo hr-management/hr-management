@@ -20,12 +20,14 @@ import { AuthInterceptor } from './auth-interceptor';
 import { HousingComponent } from './housing/housing.component';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './store/login/login.effects';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({ 
   declarations: [
     AppComponent,
     LoginComponent,
-    HousingComponent
+    HousingComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
