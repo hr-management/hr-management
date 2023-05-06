@@ -70,9 +70,8 @@ exports.getVisaEmployees = async (req, res) => {
       visaEmployees = await userModel.find({ requireWorkAuthorization: true });
       employeeType = "All visa employees";
     } else {
-      //requireWorkAuthorization && visa===F1(CPT/OPT) && applicationStatus===pending
+      //visa===F1(CPT/OPT) && applicationStatus===pending
       visaEmployees = await userModel.find({
-        requireWorkAuthorization: true,
         visa: { type: "F1(CPT/OPT)" },
         applicationStatus: "pending",
       });
@@ -144,10 +143,7 @@ exports.updateVisaAuthStatus = async (req, res) => {
       });
     }
     const employee = req.employee; // from findEmplyeeById middleware
-    if (
-      employee.requireWorkAuthorization &&
-      employee.visa.type === "F1(CPT/OPT)"
-    ) {
+    if (employee.visa.type === "F1(CPT/OPT)") {
       const workAuthDocs = employee.workAuthDoc;
       const docTypes = ["OPT_Receipt", "OPT_EAD", "I-983", "I-20"];
       let curStep = workAuthDocs.length - 1;
