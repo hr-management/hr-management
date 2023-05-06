@@ -19,7 +19,7 @@ const findEmployeeById = require("../middlewares/findEmployeeById");
 
 Router.post("/invitation", checkEmail, authorization, HROnly, invitation);
 Router.get("/invitationHistory", authorization, HROnly, getInvitationHistory);
-Router.get("/newApplicationInfo", authorization, getInfoForNewApplicaiton);
+Router.get("/newApplicationInfo", getInfoForNewApplicaiton);
 
 // get all employees
 Router.get("/", getAllEmployees);

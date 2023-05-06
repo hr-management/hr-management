@@ -6,38 +6,38 @@ const RegistrationHistoryModel = require("../models/registrationHistory");
 // generate token and send email
 exports.invitation = async (req, res) => {
   try {
-      const hr = "hr1"; // should get it from token
-      const { email, name } = req.body;
-      if ( !name) {
-          return res.status(400).json({ message: "Please provide name." });
-      }
-       //check if email is unique
-       const existingEmailUser = await RegistrationHistoryModel.findOne({ email });
-      if (existingEmailUser) {
-              return res.status(400).json({
-                     success: false,
-                      message: 'Email address is already in use',
-                      });
-        }
-      // create token - valid for 3 hours 
-      const salt = process.env.JWT_SALT;
-      const token = jwt.sign({email,name,},salt,{expiresIn: 60 * 60 * 3});
-      // create email and send email
-      let transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
-            auth: {
-                  user: `${process.env.ETHEREAL_USERNAME}`, //  ethereal user
-                  pass: `${process.env.ETHEREAL_PASSWORD}`, //  ethereal password
-                  },
-        });
-      const registrationLink = `${req.protocol}://${req.headers.host}/signup?token=${token}`;
-  
-      await transporter.sendMail({
-          from: "hr@example.email", // sender address
-          to: `${email}`, // list of receivers
-          subject: "Invitation to register with Company XXX",
-          html: `<p>Dear ${name},</p>
+    const hr = req.tokenUser.firstName + " " + req.tokenUser.lastName;
+    const { email, name } = req.body;
+    if (!name) {
+      return res.status(400).json({ message: "Please provide name." });
+    }
+    //check if email is unique
+    const existingEmailUser = await RegistrationHistoryModel.findOne({ email });
+    if (existingEmailUser) {
+      return res.status(400).json({
+        success: false,
+        message: "Email address is already in use",
+      });
+    }
+    // create token - valid for 3 hours
+    const salt = process.env.JWT_SALT;
+    const token = jwt.sign({ email, name }, salt, { expiresIn: 60 * 60 * 3 });
+    // create email and send email
+    let transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      auth: {
+        user: `${process.env.ETHEREAL_USERNAME}`, //  ethereal user
+        pass: `${process.env.ETHEREAL_PASSWORD}`, //  ethereal password
+      },
+    });
+    const registrationLink = `${req.protocol}://${req.headers.host}/signup?token=${token}`;
+
+    await transporter.sendMail({
+      from: "hr@example.email", // sender address
+      to: `${email}`, // list of receivers
+      subject: "Invitation to register with Company XXX",
+      html: `<p>Dear ${name},</p>
                 <p>We are delighted to invite you to join Company XXX. As one of our newest members, you'll have access to a wide range of resources and opportunities to advance your career.</p>
                 <p>To complete your registration, please follow the link below:</p>
                 <a href="${registrationLink}">Registration Link</a>
@@ -46,25 +46,25 @@ exports.invitation = async (req, res) => {
                 <p>We look forward to welcoming you to the Company XXX community!</p>
                 <br>
                 <p>Best regards,</p>
-                <p>${hr}</p>
+                <p>${hr ? hr : "HR Department"}</p>
                 <p>Company XXX</p>`,
-          });
-  
-        //save to database for future checking
- 
-              await RegistrationHistoryModel.create({
-                  email,
-                  name,
-                  registrationLink,
-                  status: "sent",
-              });
+    });
+
+    //save to database for future checking
+
+    await RegistrationHistoryModel.create({
+      email,
+      name,
+      registrationLink,
+      status: "sent",
+    });
     return res.status(200).json({ success: true, message: "invited" });
   } catch (err) {
-        console.log(err);
-        return res
-            .status(500)
-            .json({ success: false,message: "Something went wrong", err });
-}
+    console.log(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong", err });
+  }
 };
 
 exports.getInvitationHistory = async (req, res) => {
@@ -72,18 +72,31 @@ exports.getInvitationHistory = async (req, res) => {
     const history = await RegistrationHistoryModel.find();
     return res.status(200).json({ success: true, history });
   } catch (err) {
-    return res.status(500).json({ success: false,message: "Something went wrong", err });
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong", err });
   }
-}
-  
-
+};
 
 exports.getInfoForNewApplicaiton = async (req, res) => {
   try {
-    const email = req.tokenUser.email;
-    return res.status(200).json({ success: true, user: email });
- } catch (err) {
-    return res.status(500).json({ success: false,message: "Something went wrong", err });
+    if (!req.headers.authorization) {
+      return res
+        .status(403)
+        .json({ success: false, message: "No token provided" });
+    }
+    const token = req.headers.authorization.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SALT, (error, payload) => {
+      if (error) {
+        return res.status(403).json({ success: false, message: error.message });
+      }
+      const email = payload.email;
+      return res.status(200).json({ success: true, user: email });
+    });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong", err });
   }
-  
 };
