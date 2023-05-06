@@ -13,22 +13,19 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router, private authService: AuthService) {}
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {}
 
   login() {
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        const authHeader = response.headers.get('Authorization');
-        if (authHeader) {
-          const token = authHeader.split(' ')[1];
-          localStorage.setItem('token', token);
-          // this.router.navigate(['/api/user/info']);
-        } else {
-          console.log('No Authorization header found in response');
-        }
+    this.http.post('/api/auth/user/login', { username: this.username, password: this.password })
+    .subscribe(
+      (response: any) => {
+        localStorage.setItem('token', response.token);
+        console.log(response.token);
+        // Redirect 
       },
-      (error) => {
-        console.log(error);
+      (error: any) => {
+        console.error(error);
+        this.snackBar.open('Invalid username or password', 'Close', { duration: 3000 });
       }
     );
   }

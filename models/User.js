@@ -103,7 +103,7 @@ userModel.login = (password, user) => {
   return new Promise((resovle, reject) => {
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) reject(err);
-      isMatch ? resovle() : reject("Invalid email or password");
+      isMatch ? resovle() : reject("Invalid username or password");
     });
   });
 };
