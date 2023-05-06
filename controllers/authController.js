@@ -32,7 +32,7 @@ const userSignup = async (req, res) => {
         password
     });
     await userModel.register(user);
-    const token = jwt.sign({ user: user }, salt);
+    const token = jwt.sign({ userId: user._id }, salt);
     res.status(200).json({ success: true, data: user, token: token });
 };
 
