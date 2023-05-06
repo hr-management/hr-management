@@ -7,13 +7,15 @@ import {
   MetaReducer
 } from '@ngrx/store';
 
+import * as fromLogin from './login/login.reducer';
+
 
 export interface AppState {
-
+  [fromLogin.loginFeatureKey]: fromLogin.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-
+  [fromLogin.loginFeatureKey]: fromLogin.reducer,
 };
 
 

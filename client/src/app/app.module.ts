@@ -18,8 +18,10 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component'; // Angular CLI environemnt
 import { AuthInterceptor } from './auth-interceptor';
 import { HousingComponent } from './housing/housing.component';
+import { EffectsModule } from '@ngrx/effects';
+import { LoginEffects } from './store/login/login.effects';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AppComponent,
     LoginComponent,
@@ -39,7 +41,8 @@ import { HousingComponent } from './housing/housing.component';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    EffectsModule.forRoot([LoginEffects])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
