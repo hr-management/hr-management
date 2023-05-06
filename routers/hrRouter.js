@@ -22,19 +22,32 @@ Router.get("/invitationHistory", authorization, HROnly, getInvitationHistory);
 Router.get("/newApplicationInfo", getInfoForNewApplicaiton);
 
 // get all employees
-Router.get("/", getAllEmployees);
+Router.get("/", authorization, HROnly, getAllEmployees);
 // get one emplyee by ID
-Router.get("/:id", findEmployeeById, getEmployeeById);
+Router.get("/:id", authorization, HROnly, findEmployeeById, getEmployeeById);
 // get application by status: pending | rejected | approved
-Router.get("/applications/:status", getApplicationsByStatus);
+Router.get(
+  "/applications/:status",
+  authorization,
+  HROnly,
+  getApplicationsByStatus
+);
 // get visaEmplyees, if status===all, return all visa-employees,
 // if status === inprogress, return inprogress F1 employees
-Router.get("/visaEmployees/:status", getVisaEmployees);
-
-Router.put("/:id/applicationStatus", findEmployeeById, updateApplicationStatus);
+Router.get("/visaEmployees/:status", authorization, HROnly, getVisaEmployees);
 
 Router.put(
-  "/visaEmployees/workAuthStatus",
+  "/:id/applicationStatus",
+  authorization,
+  HROnly,
+  findEmployeeById,
+  updateApplicationStatus
+);
+
+Router.put(
+  "/visaEmployees/:id/workAuthStatus",
+  authorization,
+  HROnly,
   findEmployeeById,
   updateVisaAuthStatus
 );
