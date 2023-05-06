@@ -7,7 +7,7 @@ import {
   MetaReducer
 } from '@ngrx/store';
 
-import * as fromLogin from './login/login.reducer';
+import * as fromLogin from './auth/users.reducer';
 
 
 export interface AppState {

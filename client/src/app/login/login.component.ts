@@ -1,11 +1,8 @@
-import { AuthService } from './../services/AuthService/auth-service.service';
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import {select, Store} from "@ngrx/store";
 import { AppState } from 'src/app/store';
-import * as LoginAction from '../store/login/login.actions';
+import * as LoginAction from '../store/auth/login.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -19,7 +16,7 @@ export class LoginComponent {
   state:Observable<any>
 
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router, private store: Store<AppState>) {
+  constructor( private snackBar: MatSnackBar,  private store: Store<AppState>) {
     this.state = this.store.pipe(select("user"))
     this.state.subscribe((data) => {
       // console.log(data)
@@ -30,21 +27,7 @@ export class LoginComponent {
   }
 
   login() {
-    // this.http.post('/api/auth/user/login', { username: this.username, password: this.password })
-    // .subscribe(
-    //   (response: any) => {
-    //     localStorage.setItem('token', response.token);
-    //     console.log(response.token);
-    //     // Redirect 
-    //   },
-    //   (error: any) => {
-    //     console.error(error);
-    //     this.snackBar.open('Invalid username or password', 'Close', { duration: 3000 });
-    //   }
-    // );
     this.store.dispatch(LoginAction.LoginsStart({ payload:{username: this.username, password: this.password }}))
   }
-  ngOnChange() {
-    console.log("state", this.state)
-  }
+  
 }

@@ -13,4 +13,16 @@ export const LoginsFailure = createAction(
   '[Login] Load Logins Failure',
   props<{ error: any }>()
 );
+export const GetUserStart = createAction(
+  '[Login] Load Get User start'
+);
 
+export const GetUserSuccess = createAction(
+  '[Login] Load Get User Success',
+  props<{ data: any }>()
+);
+
+export const GetUserFailure = createAction(
+  '[Login] Load Get User Failure',
+  props<{ error: any }>()
+);
