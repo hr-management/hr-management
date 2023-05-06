@@ -1,0 +1,2 @@
+<app-hr *ngIf="(this.state|async).user.role==='HR'"> </app-hr>
+<app-employee *ngIf="(this.state|async).user.role==='employee'"> </app-employee>

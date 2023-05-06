@@ -18,12 +18,21 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component'; // Angular CLI environemnt
 import { AuthInterceptor } from './auth-interceptor';
 import { HousingComponent } from './housing/housing.component';
+import { EffectsModule } from '@ngrx/effects';
+import { LoginEffects } from './store/auth/login.effects';
+import { HomeComponent } from './home/home.component';
+import { EmployeeComponent } from './home/employee/employee.component';
+import { HrComponent } from './home/hr/hr.component';
+import { GetUserEffects } from './store/auth/get-user.effects';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AppComponent,
     LoginComponent,
-    HousingComponent
+    HousingComponent,
+    HomeComponent,
+    EmployeeComponent,
+    HrComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +48,8 @@ import { HousingComponent } from './housing/housing.component';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    EffectsModule.forRoot([LoginEffects, GetUserEffects])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
