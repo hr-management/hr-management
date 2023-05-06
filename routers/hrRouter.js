@@ -23,6 +23,7 @@ Router.get("/newApplicationInfo", getInfoForNewApplicaiton);
 
 // get all employees
 Router.get("/", authorization, HROnly, getAllEmployees);
+
 // get one emplyee by ID
 Router.get("/:id", authorization, HROnly, findEmployeeById, getEmployeeById);
 // get application by status: pending | rejected | approved
