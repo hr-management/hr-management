@@ -4,7 +4,7 @@ const hrRouter = require("./routers/hrRouter");
 const housingRouter = require('./routers/housingRouter');
 const authRouter = require('./routers/authRouter')
 const userRouter = require('./routers/userRouter')
-const upload = require('./utils/s3Handler').upload;
+const fileRouter = require('./routers/fileRouter')
 
 const cors = require("cors");
 server.use(cors());
@@ -15,9 +15,7 @@ server.get("/", (req, res) => {
 });
 
 // route for file uploads
-server.post('/upload', upload.single('file'), (req, res) => {
-  res.status(200).json({ message: 'File uploaded successfully', url: req.file.location });
-});
+server.use('/', fileRouter);
 
 server.use("/api/auth", authRouter);
 server.use("/api/employees", hrRouter);
