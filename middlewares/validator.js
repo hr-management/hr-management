@@ -58,12 +58,7 @@ exports.checkPassword = (req, res, next) => {
 };
 exports.HROnly = (req, res, next) => {
   const role = req.tokenUser.role;
-  if (!role) {
-    return res.status(400).json({
-      success: false,
-      message: "Please provide role.",
-    });
-  }
+
   if (role !== "HR") {
     return res.status(400).json({
       success: false,
