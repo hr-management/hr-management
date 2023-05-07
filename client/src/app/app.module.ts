@@ -26,6 +26,12 @@ import { HrComponent } from './home/hr/hr.component';
 import { GetUserEffects } from './store/auth/get-user.effects';
 import { SignupComponent } from './signup/signup.component';
 import { SignupEffects } from './store/auth/signup.effects';
+import { HeaderComponent } from './home/layout/header/header.component';
+import { SideBarComponent } from './home/layout/side-bar/side-bar.component';
+import { EmployeeProfilesComponent } from './home/hr/employee-profiles/employee-profiles.component';
+import { VisaStatusManagementComponent } from './home/hr/visa-status-management/visa-status-management.component';
+import { HousingManagementComponent } from './home/hr/housing-management/housing-management.component';
+import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
 
 @NgModule({ 
   declarations: [
@@ -36,6 +42,12 @@ import { SignupEffects } from './store/auth/signup.effects';
     EmployeeComponent,
     HrComponent,
     SignupComponent,
+    HeaderComponent,
+    SideBarComponent,
+    EmployeeProfilesComponent,
+    VisaStatusManagementComponent,
+    HousingManagementComponent,
+    HiringManagementComponent,
   ],
   imports: [
     BrowserModule,
