@@ -1,10 +1,7 @@
 <div class="home">
   <app-header></app-header>
 
-  <app-hr class="content" *ngIf="(this.state|async).user.role==='HR'"> </app-hr>
-  <app-employee
-    class="content"
-    *ngIf="(this.state|async).user.role==='employee'"
-  >
+  <app-hr *ngIf="(this.state|async).user.role==='HR'"> </app-hr>
+  <app-employee *ngIf="(this.state|async).user.role==='employee'">
   </app-employee>
 </div>
