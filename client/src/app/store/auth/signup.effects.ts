@@ -20,7 +20,8 @@ export class SignupEffects {
     switchMap((action) => {    
       const { username, password,email } = action.payload; 
       return this.http.post<any>('/api/auth/user/signup',{ username, password ,email}).pipe(
-        map(() => {
+        map((userData) => {
+          localStorage.setItem('token', userData.token);
           return SignupActions.SignupsSuccess()
         }),
         catchError((err: HttpErrorResponse) => of(SignupActions.SignupsFailure(err)))
@@ -31,7 +32,7 @@ export class SignupEffects {
     signupSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SignupActions.SignupsSuccess),
     tap(() => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     })
   ), { dispatch: false });
 }
