@@ -11,9 +11,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+   state:Observable<any>
   username: string = '';
   password: string = '';
-  state:Observable<any>
+ 
 
 
   constructor( private snackBar: MatSnackBar,  private store: Store<AppState>) {
@@ -27,7 +28,10 @@ export class LoginComponent {
   }
 
   login() {
-    this.store.dispatch(LoginAction.LoginsStart({ payload:{username: this.username, password: this.password }}))
+    if (this.username && this.password) {
+          this.store.dispatch(LoginAction.LoginsStart({ payload:{username: this.username, password: this.password }}))
+
+    }
   }
   
 }
