@@ -11,6 +11,9 @@ export class HrComponent {
     constructor(private router: Router) { }
 
   ngOnInit() {
-  this.router.navigate(['/employee-profiles']);
+    if (window.location.pathname === "/") {
+      this.router.navigate(['/employee-profiles']);
+    }
+  
 }
 }
