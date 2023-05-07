@@ -23,6 +23,7 @@ const userSignup = async (req, res) => {
       success: false,
       message: "Username is already in use",
     });
+
   }
 
   const user = new userModel({
@@ -30,9 +31,11 @@ const userSignup = async (req, res) => {
     email,
     password,
   });
-  await userModel.register(user);
-  const token = jwt.sign({ user: user }, salt);
-  res.status(200).json({ success: true, data: user, token: token });
+ 
+    await userModel.register(user);
+    const token = jwt.sign({ userId: user._id }, salt);
+    res.status(200).json({ success: true, data: user, token: token });
+
 };
 
 // User login
