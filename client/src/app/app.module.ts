@@ -24,6 +24,7 @@ import { HomeComponent } from './home/home.component';
 import { EmployeeComponent } from './home/employee/employee.component';
 import { HrComponent } from './home/hr/hr.component';
 import { GetUserEffects } from './store/auth/get-user.effects';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({ 
   declarations: [
@@ -32,7 +33,8 @@ import { GetUserEffects } from './store/auth/get-user.effects';
     HousingComponent,
     HomeComponent,
     EmployeeComponent,
-    HrComponent
+    HrComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
