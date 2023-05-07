@@ -5,7 +5,9 @@ import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import {map,catchError,of} from "rxjs"
+import { map, catchError, of } from "rxjs"
+import * as SignupActions from '../store/auth/signup.actions';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -48,12 +50,10 @@ export class SignupComponent {
    });
     
   }
-  signup() {
-      
-     
-    // if (this.username && this.password) {
-    //       this.store.dispatch(LoginAction.LoginsStart({ payload:{username: this.username, password: this.password }}))
+  signup() {    
+    if (this.username && this.password && this.email) {
+          this.store.dispatch(SignupActions.SignupsStart({ payload:{username: this.username, password: this.password,email: this.email,}}))
 
-    // }
+    }
   }
 }

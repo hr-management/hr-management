@@ -25,6 +25,7 @@ import { EmployeeComponent } from './home/employee/employee.component';
 import { HrComponent } from './home/hr/hr.component';
 import { GetUserEffects } from './store/auth/get-user.effects';
 import { SignupComponent } from './signup/signup.component';
+import { SignupEffects } from './store/auth/signup.effects';
 
 @NgModule({ 
   declarations: [
@@ -51,7 +52,7 @@ import { SignupComponent } from './signup/signup.component';
     MatButtonModule,
     MatSnackBarModule,
     MatCardModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects])
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
