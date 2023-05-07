@@ -32,6 +32,7 @@ import { EmployeeProfilesComponent } from './home/hr/employee-profiles/employee-
 import { VisaStatusManagementComponent } from './home/hr/visa-status-management/visa-status-management.component';
 import { HousingManagementComponent } from './home/hr/housing-management/housing-management.component';
 import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
+import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 
 @NgModule({ 
   declarations: [
@@ -48,6 +49,7 @@ import { HiringManagementComponent } from './home/hr/hiring-management/hiring-ma
     VisaStatusManagementComponent,
     HousingManagementComponent,
     HiringManagementComponent,
+    OnboardingApplicationComponent,
   ],
   imports: [
     BrowserModule,

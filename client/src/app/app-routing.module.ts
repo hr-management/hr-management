@@ -8,6 +8,8 @@ import { EmployeeProfilesComponent } from './home/hr/employee-profiles/employee-
 import { VisaStatusManagementComponent } from './home/hr/visa-status-management/visa-status-management.component';
 import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
 import { HousingManagementComponent } from './home/hr/housing-management/housing-management.component';
+import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
+
 const routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
@@ -15,6 +17,7 @@ const routes: Routes = [
       { path: 'visa-status-management', component: VisaStatusManagementComponent },
       { path: 'hiring-management', component: HiringManagementComponent },
       { path: 'housing-management', component: HousingManagementComponent },
+      { path: 'onboarding-application', component: OnboardingApplicationComponent },
     ]
   },
   { path: 'login', component: LoginComponent },
