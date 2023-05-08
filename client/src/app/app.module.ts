@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -66,7 +67,7 @@ import { OnboardingApplicationComponent } from './home/employee/onboarding-appli
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatCardModule,
+    MatCardModule,MatListModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

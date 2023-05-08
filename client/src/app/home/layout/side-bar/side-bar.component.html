@@ -1,11 +1,10 @@
-<ul>
-  <li *ngFor="let link of links">
-    <a
-      [routerLink]="link"
-      routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{exact:
+<mat-nav-list>
+  <mat-list-item
+    *ngFor="let link of links"
+    [routerLink]="link"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{exact:
 true}"
-      >{{link}}</a
-    >
-  </li>
-</ul>
+    >{{link}}
+  </mat-list-item>
+</mat-nav-list>
