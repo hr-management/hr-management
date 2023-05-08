@@ -6,5 +6,5 @@ import { Component ,Input} from '@angular/core';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent {
-@Input() links:any[] =[]
+  @Input() links: any[] =[]
 }
