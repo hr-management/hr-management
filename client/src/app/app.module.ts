@@ -34,6 +34,7 @@ import { HousingManagementComponent } from './home/hr/housing-management/housing
 import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 
+
 @NgModule({ 
   declarations: [
     AppComponent,

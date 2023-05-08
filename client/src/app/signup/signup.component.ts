@@ -33,7 +33,7 @@ export class SignupComponent {
    this.route.queryParams.subscribe(params => {
     const token = params['token']; // Get the value of the 'token' query parameter
      
-     if (token) {
+     if (!token) { this.loading = false}
     this.http.get<any>('/api/employees/newApplicationInfo',{headers: new HttpHeaders({
     'Content-Type':  'application/json',
    'Authorization': `Bearer ${token}`
@@ -45,7 +45,7 @@ export class SignupComponent {
     ).subscribe(() => {
       this.loading = false
     });
-  }
+  
    
    });
     

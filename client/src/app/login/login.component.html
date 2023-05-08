@@ -1,14 +1,38 @@
 <mat-card class="login-card">
-    <mat-card-title class="login-title">Login</mat-card-title>
-    <mat-card-content>
-      <form (submit)="login()">
-        <mat-form-field>
-          <input matInput type="text" placeholder="Username" [(ngModel)]="username" name="username" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Login</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+  <mat-card-title class="login-title">Login</mat-card-title>
+  <mat-card-content>
+    <form #myForm="ngForm" (submit)="login()">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Username"
+          [(ngModel)]="username"
+          name="username"
+          required
+        />
+        <mat-error
+          *ngIf="myForm.controls['username']?.hasOwnProperty('touched') && myForm.controls['username'].errors?.['required']"
+        >
+          Username is required!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+        <mat-error
+          *ngIf="myForm.controls['password']?.hasOwnProperty('touched') && myForm.controls['password'].errors?.['required']"
+        >
+          Password is required!
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </form>
+  </mat-card-content>
+</mat-card>
