@@ -3,8 +3,6 @@
     *ngFor="let link of links"
     [routerLink]="link"
     routerLinkActive="active-link"
-    [routerLinkActiveOptions]="{exact:
-true}"
-    >{{link}}
+    >{{link.split("-").join(" ") | titlecase}}
   </mat-list-item>
 </mat-nav-list>

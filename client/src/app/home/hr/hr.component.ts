@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HrComponent {
   sideBarLinks:any[] =['employee-profiles','visa-status-management','hiring-management','housing-management']
-    constructor(private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     
@@ -16,5 +16,6 @@ export class HrComponent {
       this.router.navigate(['/employee-profiles']);
     }
   
-}
+  }
+
 }
