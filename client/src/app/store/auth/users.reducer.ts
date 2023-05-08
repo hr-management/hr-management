@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as SignupActions from './signup.actions';
 import * as LoginActions from './login.actions';
 import * as GetUserAction from './get-user.actions';
-
+import {Logout} from "./logout.actions"
 export const loginFeatureKey = 'user';
 
 export interface State {
@@ -45,6 +45,9 @@ export const reducer = createReducer(
   }),
   on(GetUserAction.GetUsersFailure, (state, payload) => {
     return { ...state, loading: false,error:payload.error.message }
+  }),
+  on(Logout, (state, payload) => {
+    return { ...state }
   }),
 );
 

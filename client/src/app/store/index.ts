@@ -6,17 +6,19 @@ import {
   createSelector,
   MetaReducer
 } from '@ngrx/store';
+import { clearStateMetaReducer } from './auth/clearStateMetaReducer';
 
-import * as fromLogin from './auth/users.reducer';
+import * as fromUser from './auth/users.reducer';
 
 
 export interface AppState {
-  [fromLogin.loginFeatureKey]: fromLogin.State;
+  [fromUser.loginFeatureKey]: fromUser.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  [fromLogin.loginFeatureKey]: fromLogin.reducer,
+  [fromUser.loginFeatureKey]: fromUser.reducer,
 };
 
 
-export const metaReducers: MetaReducer<AppState>[] = isDevMode() ? [] : [];
+// export const metaReducers: MetaReducer<AppState>[] = isDevMode() ? [] : [];
+export const metaReducers: MetaReducer<any>[] = [clearStateMetaReducer];
