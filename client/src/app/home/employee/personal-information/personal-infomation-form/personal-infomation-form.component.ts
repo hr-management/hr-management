@@ -16,7 +16,7 @@ export class PersonalInfomationFormComponent {
   @Input() user: any
   @Input() isEdit: boolean=false
   @Input() handleAvatarUpload: any
-  @Input() hideUnplodProfile:boolean=false
+  @Input() hideUplodProfile:boolean=false
   title = 'Personal Information';
   form!: UntypedFormGroup;
 
@@ -30,10 +30,13 @@ export class PersonalInfomationFormComponent {
     this.form = generateFormGroup(this.fb);
 
   }
-  ngOnInit() {
-    console.log(this.user)
+
+  ngOnChanges() {
+    if (this.user) {
+      console.log(this.user)
     this.form.setValue(getInitialValue(this.user));
     this.form.disable()
-  }
-
+    }
+    
+}
 }
