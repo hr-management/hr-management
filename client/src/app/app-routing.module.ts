@@ -10,7 +10,7 @@ import { HiringManagementComponent } from './home/hr/hiring-management/hiring-ma
 import { HousingManagementComponent } from './home/hr/housing-management/housing-management.component';
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
-
+import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
 
 const routes: Routes = [
   {
@@ -25,6 +25,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'employee-profiles/:id', component: EmployeePersonalInfoComponent },
   { path: 'housing', component: HousingComponent },
   { path: '**', component: HomeComponent },
 ];
