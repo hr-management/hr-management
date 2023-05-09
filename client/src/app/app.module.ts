@@ -8,6 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+<<<<<<< Updated upstream
+=======
+import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+>>>>>>> Stashed changes
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,12 +24,55 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component'; // Angular CLI environemnt
 import { AuthInterceptor } from './auth-interceptor';
 import { HousingComponent } from './housing/housing.component';
+<<<<<<< Updated upstream
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HousingComponent
+=======
+import { EffectsModule } from '@ngrx/effects';
+import { LoginEffects } from './store/auth/login.effects';
+import { HomeComponent } from './home/home.component';
+import { EmployeeComponent } from './home/employee/employee.component';
+import { HrComponent } from './home/hr/hr.component';
+import { GetUserEffects } from './store/auth/get-user.effects';
+import { SignupComponent } from './signup/signup.component';
+import { SignupEffects } from './store/auth/signup.effects';
+import { HeaderComponent } from './home/layout/header/header.component';
+import { SideBarComponent } from './home/layout/side-bar/side-bar.component';
+import { EmployeeProfilesComponent } from './home/hr/employee-profiles/employee-profiles.component';
+import { VisaStatusManagementComponent } from './home/hr/visa-status-management/visa-status-management.component';
+import { HousingManagementComponent } from './home/hr/housing-management/housing-management.component';
+import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
+import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
+import { EmployeesEffects } from './store/employees/employees.effects';
+import { PhoneFormatPipe } from './pipe/phone-format.pipe';
+import { SsnFormatPipe } from './pipe/ssn-format.pipe';
+import { PersonalInfomationComponent } from './home/employee/personal-infomation/personal-infomation.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({ 
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HousingComponent,
+    HomeComponent,
+    EmployeeComponent,
+    HrComponent,
+    SignupComponent,
+    HeaderComponent,
+    SideBarComponent,
+    EmployeeProfilesComponent,
+    VisaStatusManagementComponent,
+    HousingManagementComponent,
+    HiringManagementComponent,
+    OnboardingApplicationComponent,
+    PhoneFormatPipe,
+    SsnFormatPipe,
+    PersonalInfomationComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
@@ -39,7 +88,16 @@ import { HousingComponent } from './housing/housing.component';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+<<<<<<< Updated upstream
     MatCardModule
+=======
+    MatCardModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects]),
+    ReactiveFormsModule
+>>>>>>> Stashed changes
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
