@@ -9,14 +9,19 @@ import {
 import { clearStateMetaReducer } from './auth/clearStateMetaReducer';
 
 import * as fromUser from './auth/users.reducer';
+import * as fromEmployees from './employees/employees.reducer';
 
 
 export interface AppState {
-  [fromUser.loginFeatureKey]: fromUser.State;
+  [fromUser.loginFeatureKey]: fromUser.State;  [fromEmployees.employeesFeatureKey]: fromEmployees.State;
+
+
+
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   [fromUser.loginFeatureKey]: fromUser.reducer,
+  [fromEmployees.employeesFeatureKey]: fromEmployees.reducer,
 };
 
 

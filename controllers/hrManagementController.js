@@ -2,7 +2,7 @@ const userModel = require("../models/User");
 
 exports.getAllEmployees = async (req, res) => {
   try {
-    const employees = await userModel.find({ role: "employee" });
+    const employees = await userModel.find().sort({ lastName: 1 });
     return res
       .status(200)
       .json({ success: true, length: employees.length, employees });

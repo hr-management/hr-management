@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +36,9 @@ import { VisaStatusManagementComponent } from './home/hr/visa-status-management/
 import { HousingManagementComponent } from './home/hr/housing-management/housing-management.component';
 import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
+import { EmployeesEffects } from './store/employees/employees.effects';
+import { PhoneFormatPipe } from './pipe/phone-format.pipe';
+import { SsnFormatPipe } from './pipe/ssn-format.pipe';
 
 
 @NgModule({ 
@@ -52,6 +57,8 @@ import { OnboardingApplicationComponent } from './home/employee/onboarding-appli
     HousingManagementComponent,
     HiringManagementComponent,
     OnboardingApplicationComponent,
+    PhoneFormatPipe,
+    SsnFormatPipe,
   ],
   imports: [
     BrowserModule,
@@ -67,8 +74,11 @@ import { OnboardingApplicationComponent } from './home/employee/onboarding-appli
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatCardModule,MatListModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects])
+    MatCardModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects])
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
