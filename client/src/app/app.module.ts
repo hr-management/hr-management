@@ -8,12 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
-<<<<<<< Updated upstream
-=======
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
->>>>>>> Stashed changes
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,14 +21,7 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component'; // Angular CLI environemnt
 import { AuthInterceptor } from './auth-interceptor';
 import { HousingComponent } from './housing/housing.component';
-<<<<<<< Updated upstream
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    HousingComponent
-=======
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './store/auth/login.effects';
 import { HomeComponent } from './home/home.component';
@@ -72,7 +62,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     PhoneFormatPipe,
     SsnFormatPipe,
     PersonalInfomationComponent
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
@@ -88,16 +77,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-<<<<<<< Updated upstream
     MatCardModule
-=======
-    MatCardModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects]),
     ReactiveFormsModule
->>>>>>> Stashed changes
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

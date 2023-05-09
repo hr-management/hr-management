@@ -1,0 +1,78 @@
+<ng-container *ngIf="loading; else content">
+  <p>loading.....</p>
+</ng-container>
+
+<ng-template #content>
+  <mat-card class="signup-card" *ngIf="this.email;else CannotSignup">
+    <mat-card-title class="signup-title">Registration</mat-card-title>
+    <mat-card-content>
+      <form #myForm="ngForm" (submit)="signup()">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Username"
+            [(ngModel)]="username"
+            name="username"
+            required
+          />
+          <mat-error
+            *ngIf="myForm.controls['username']?.hasOwnProperty('touched') && myForm.controls['username'].errors?.['required']"
+          >
+            Username is required!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Email"
+            [(ngModel)]="email"
+            name="email"
+            [disabled]="true"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
+          <mat-error
+            *ngIf="myForm.controls['password']?.hasOwnProperty('touched') && myForm.controls['password'].errors?.['required']"
+          >
+            Password is required!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="password"
+            placeholder="Confirm Password"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+          <mat-error
+            *ngIf="myForm.controls['confirmPassword']?.hasOwnProperty('touched') 
+          && myForm.controls['confirmPassword'].errors?.['required']"
+          >
+            Confirm password is required!
+          </mat-error>
+          <!-- todo password and confirm password validation -->
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">
+          Signup
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <ng-template #CannotSignup
+    ><div class="cannot-signup-message">
+      <p>Sorry, you cannot sign up without invitation!</p>
+    </div></ng-template
+  >
+</ng-template>

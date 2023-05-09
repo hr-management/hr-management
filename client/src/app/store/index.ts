@@ -1,25 +1,3 @@
-<<<<<<< Updated upstream
-import { isDevMode } from '@angular/core';
-import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer
-} from '@ngrx/store';
-
-
-export interface AppState {
-
-}
-
-export const reducers: ActionReducerMap<AppState> = {
-
-};
-
-
-export const metaReducers: MetaReducer<AppState>[] = isDevMode() ? [] : [];
-=======
 import { isDevMode } from '@angular/core';
 import {
   ActionReducer,
@@ -35,8 +13,8 @@ import * as fromEmployees from './employees/employees.reducer';
 
 
 export interface AppState {
-  [fromUser.loginFeatureKey]: fromUser.State;  [fromEmployees.employeesFeatureKey]: fromEmployees.State;
-
+  [fromUser.loginFeatureKey]: fromUser.State;
+  [fromEmployees.employeesFeatureKey]: fromEmployees.State;
 
 
 }
@@ -49,4 +27,4 @@ export const reducers: ActionReducerMap<AppState> = {
 
 // export const metaReducers: MetaReducer<AppState>[] = isDevMode() ? [] : [];
 export const metaReducers: MetaReducer<any>[] = [clearStateMetaReducer];
->>>>>>> Stashed changes
+

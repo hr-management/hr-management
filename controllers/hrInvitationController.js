@@ -31,7 +31,7 @@ exports.invitation = async (req, res) => {
         pass: `${process.env.ETHEREAL_PASSWORD}`, //  ethereal password
       },
     });
-    const registrationLink = `${req.protocol}://${req.headers.host}/signup?token=${token}`;
+    const registrationLink = `${req.protocol}://localhost:4200/signup?token=${token}`;
 
     await transporter.sendMail({
       from: "hr@example.email", // sender address
