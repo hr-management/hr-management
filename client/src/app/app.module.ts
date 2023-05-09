@@ -37,6 +37,7 @@ import { HousingManagementComponent } from './home/hr/housing-management/housing
 import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 import { EmployeesEffects } from './store/employees/employees.effects';
+import { PhoneFormatPipe } from './pipe/phone-format.pipe';
 
 
 @NgModule({ 
@@ -55,6 +56,7 @@ import { EmployeesEffects } from './store/employees/employees.effects';
     HousingManagementComponent,
     HiringManagementComponent,
     OnboardingApplicationComponent,
+    PhoneFormatPipe,
   ],
   imports: [
     BrowserModule,

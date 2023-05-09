@@ -33,7 +33,7 @@
   <ng-container matColumnDef="workPhoneNumber">
     <th mat-header-cell *matHeaderCellDef>Phone Number</th>
     <td mat-cell *matCellDef="let employee">
-      {{employee.workPhoneNumber}}
+      {{employee.workPhoneNumber | phoneFormat}}
     </td>
   </ng-container>
   <ng-container matColumnDef="email">
