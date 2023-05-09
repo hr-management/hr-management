@@ -77,7 +77,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
