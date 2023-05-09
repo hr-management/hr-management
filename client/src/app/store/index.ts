@@ -13,8 +13,8 @@ import * as fromEmployees from './employees/employees.reducer';
 
 
 export interface AppState {
-  [fromUser.loginFeatureKey]: fromUser.State;  [fromEmployees.employeesFeatureKey]: fromEmployees.State;
-
+  [fromUser.loginFeatureKey]: fromUser.State;
+  [fromEmployees.employeesFeatureKey]: fromEmployees.State;
 
 
 }
@@ -27,3 +27,4 @@ export const reducers: ActionReducerMap<AppState> = {
 
 // export const metaReducers: MetaReducer<AppState>[] = isDevMode() ? [] : [];
 export const metaReducers: MetaReducer<any>[] = [clearStateMetaReducer];
+

@@ -1,0 +1,100 @@
+<div class="personal-infomation">
+  <div class="header">
+    <h2>Personal Infomation</h2>
+    <div class="btns">
+      <button mat-raised-button *ngIf="isEdit" (click)="handleCancel()">
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="!isEdit"
+        (click)="handleEdit()"
+      >
+        Edit
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="isEdit"
+        (click)="handleSave()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <mat-card-title>Base Info</mat-card-title>
+      <form [formGroup]="form">
+        <p class="row">
+          <img
+            [src]="
+              (form.value['profilePhoto'] &&
+                form.value['profilePhoto'] !== 'defaultImage') ||
+              '../../../assets/profile.png'
+            "
+            alt="avatar"
+            class="avatar"
+            width="66px"
+            height="66px"
+          />
+          <input
+            #avatar
+            hidden="true"
+            type="file"
+            onclick="this.value=null"
+            (change)="handleUpload($event)"
+          />
+          <button mat-flat-button color="primary" (click)="avatar.click()">
+            Upload Profile Picture
+          </button>
+        </p>
+
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input
+            matInput
+            placeholder="First Name"
+            formControlName="firstName"
+            required
+          />
+          <mat-error *ngIf="form.controls['firstName'].errors?.['required']">
+            Required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input
+            matInput
+            placeholder="Last Name"
+            formControlName="lastName"
+            required
+          />
+          <mat-error *ngIf="form.controls['lastName'].errors?.['required']">
+            Required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Middle Name</mat-label>
+          <input
+            matInput
+            placeholder="Middle Name"
+            formControlName="middleName"
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Preferred Name</mat-label>
+          <input
+            matInput
+            placeholder="Preferred Name"
+            formControlName="preferredName"
+          />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

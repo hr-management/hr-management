@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component'; // Angular CLI environemnt
 import { AuthInterceptor } from './auth-interceptor';
 import { HousingComponent } from './housing/housing.component';
+
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './store/auth/login.effects';
 import { HomeComponent } from './home/home.component';
@@ -39,7 +40,8 @@ import { OnboardingApplicationComponent } from './home/employee/onboarding-appli
 import { EmployeesEffects } from './store/employees/employees.effects';
 import { PhoneFormatPipe } from './pipe/phone-format.pipe';
 import { SsnFormatPipe } from './pipe/ssn-format.pipe';
-
+import { PersonalInfomationComponent } from './home/employee/personal-infomation/personal-infomation.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({ 
   declarations: [
@@ -59,6 +61,7 @@ import { SsnFormatPipe } from './pipe/ssn-format.pipe';
     OnboardingApplicationComponent,
     PhoneFormatPipe,
     SsnFormatPipe,
+    PersonalInfomationComponent
   ],
   imports: [
     BrowserModule,
@@ -74,11 +77,12 @@ import { SsnFormatPipe } from './pipe/ssn-format.pipe';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatCardModule,
+    MatCardModule
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects])
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects]),
+    ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
