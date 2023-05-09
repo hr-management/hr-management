@@ -15,7 +15,7 @@ server.get("/", (req, res) => {
 });
 
 // route for file uploads
-server.use('/', fileRouter);
+server.use('/api', fileRouter);
 
 server.use("/api/auth", authRouter);
 server.use("/api/employees", hrRouter);

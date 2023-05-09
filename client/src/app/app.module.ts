@@ -11,6 +11,9 @@ import { MatCardModule } from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,8 +43,8 @@ import { OnboardingApplicationComponent } from './home/employee/onboarding-appli
 import { EmployeesEffects } from './store/employees/employees.effects';
 import { PhoneFormatPipe } from './pipe/phone-format.pipe';
 import { SsnFormatPipe } from './pipe/ssn-format.pipe';
-import { PersonalInfomationComponent } from './home/employee/personal-infomation/personal-infomation.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 
 @NgModule({ 
   declarations: [
@@ -61,7 +64,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     OnboardingApplicationComponent,
     PhoneFormatPipe,
     SsnFormatPipe,
-    PersonalInfomationComponent
+    PersonalInformationComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects]),
     ReactiveFormsModule
   ],

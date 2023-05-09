@@ -9,7 +9,7 @@ import { VisaStatusManagementComponent } from './home/hr/visa-status-management/
 import { HiringManagementComponent } from './home/hr/hiring-management/hiring-management.component';
 import { HousingManagementComponent } from './home/hr/housing-management/housing-management.component';
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
-import { PersonalInfomationComponent } from './home/employee/personal-infomation/personal-infomation.component';
+import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 
 
 const routes: Routes = [
@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: 'hiring-management', component: HiringManagementComponent },
       { path: 'housing-management', component: HousingManagementComponent },
       { path: 'onboarding-application', component: OnboardingApplicationComponent },
-      { path: 'personal-information', component: PersonalInfomationComponent },
+      { path: 'personal-information', component: PersonalInformationComponent },
     ]
   },
   { path: 'login', component: LoginComponent },
