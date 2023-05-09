@@ -2,3 +2,7 @@
     flex-grow: 1;
     padding:20px;
 }
+
+tr[mat-row]:hover {
+    background-color: rgb(233, 233, 233);
+}
