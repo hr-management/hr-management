@@ -11,7 +11,6 @@ export class SsnFormatPipe implements PipeTransform {
 
     // Match the cleaned value against the ssn number pattern
     const match = cleaned.match(/^(\d{3})(\d{2})(\d{4})$/);
-    console.log(match);
     // If there is a match, format the ssn number
     if (match) {
       return  match[1] + '-' + match[2] + '-' + match[3];
