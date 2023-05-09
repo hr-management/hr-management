@@ -1,3 +1,4 @@
+<p>{{(this.state | async).employees.length}} records found.</p>
 <table
   mat-table
   [dataSource]="(this.state | async).employees"
@@ -6,7 +7,6 @@
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let employee">
