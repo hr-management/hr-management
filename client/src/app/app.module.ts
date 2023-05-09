@@ -45,6 +45,7 @@ import { PhoneFormatPipe } from './pipe/phone-format.pipe';
 import { SsnFormatPipe } from './pipe/ssn-format.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
+import { PersonalInfomationFormComponent } from './home/employee/personal-information/personal-infomation-form/personal-infomation-form.component';
 
 @NgModule({ 
   declarations: [
@@ -64,7 +65,8 @@ import { PersonalInformationComponent } from './home/employee/personal-informati
     OnboardingApplicationComponent,
     PhoneFormatPipe,
     SsnFormatPipe,
-    PersonalInformationComponent
+    PersonalInformationComponent,
+    PersonalInfomationFormComponent
   ],
   imports: [
     BrowserModule,

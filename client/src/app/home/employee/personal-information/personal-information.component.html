@@ -17,14 +17,19 @@
         mat-raised-button
         color="primary"
         *ngIf="isEdit"
-        style="margin-left: 12px"
+        style="margin-left: 12px;"
         (click)="handleSave()"
       >
         Save
       </button>
     </div>
   </div>
-  <form [formGroup]="form">
+  <app-personal-infomation-form
+    [user]="user"
+    [isEdit]="isEdit"
+    #personForm
+  ></app-personal-infomation-form>
+  <!-- <form [formGroup]="form">
     <mat-card>
       <mat-card-content>
         <mat-card-title>Base Info</mat-card-title>
@@ -343,7 +348,7 @@
             <mat-label>workAuthDoc</mat-label>
           </mat-form-field>
         </p> -->
-      </mat-card-content>
+  <!-- </mat-card-content>
     </mat-card>
-  </form>
+  </form> -->
 </div>
