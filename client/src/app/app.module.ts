@@ -38,6 +38,7 @@ import { HiringManagementComponent } from './home/hr/hiring-management/hiring-ma
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 import { EmployeesEffects } from './store/employees/employees.effects';
 import { PhoneFormatPipe } from './pipe/phone-format.pipe';
+import { SsnFormatPipe } from './pipe/ssn-format.pipe';
 
 
 @NgModule({ 
@@ -57,6 +58,7 @@ import { PhoneFormatPipe } from './pipe/phone-format.pipe';
     HiringManagementComponent,
     OnboardingApplicationComponent,
     PhoneFormatPipe,
+    SsnFormatPipe,
   ],
   imports: [
     BrowserModule,
