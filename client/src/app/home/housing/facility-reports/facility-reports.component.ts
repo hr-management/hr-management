@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-facility-reports',
   templateUrl: './facility-reports.component.html',
-  styleUrls: ['./facility-reports.component.css']
+  // styleUrls: ['./facility-reports.component.css']
 })
 export class FacilityReportsComponent implements OnInit {
   reports!: Array<{ _id: string, title: string, status: string, createdBy: string, timestamp: Date }>;
@@ -14,9 +14,9 @@ export class FacilityReportsComponent implements OnInit {
 
   ngOnInit(): void {
     // Make an HTTP GET request to the /api/housing/facility-reports endpoint
-    this.http.get<Array<{ _id: string, title: string, status: string, createdBy: string, timestamp: Date }>>('/api/housing/facility-reports').subscribe((data) => {
-      this.reports = data;
-    });
+    // this.http.get<Array<{ _id: string, title: string, status: string, createdBy: string, timestamp: Date }>>('/api/housing/facility-reports').subscribe((data) => {
+    //   this.reports = data;
+    // });
   }
 
   viewReport(reportId: string): void {

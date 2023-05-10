@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-housing-details',
   templateUrl: './housing-details.component.html',
-  styleUrls: ['./housing-details.component.css']
+  // styleUrls: ['./housing-details.component.css']
 })
 export class HousingDetailsComponent implements OnInit {
   address!: string;
@@ -14,9 +14,9 @@ export class HousingDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // Make an HTTP GET request to the /api/housing/house-details endpoint
-    this.http.get<{ address: string, roommates: Array<{ name: string, phone: string }> }>('/api/housing/house-details').subscribe((data) => {
-      this.address = data.address;
-      this.roommates = data.roommates;
-    });
+    // this.http.get<{ address: string, roommates: Array<{ name: string, phone: string }> }>('/api/housing/house-details').subscribe((data) => {
+    //   this.address = data.address;
+    //   this.roommates = data.roommates;
+    // });
   }
 }
