@@ -31,7 +31,7 @@
 </form>
 <mat-divider></mat-divider>
 <h2>Applications</h2>
-<mat-button-toggle-group name="applications">
+<mat-button-toggle-group name="applications" (change)="onToggleChange($event)">
   <mat-button-toggle value="pending" checked>Pending</mat-button-toggle>
   <mat-button-toggle value="rejected">Rejected</mat-button-toggle>
   <mat-button-toggle value="approved">Approved</mat-button-toggle>

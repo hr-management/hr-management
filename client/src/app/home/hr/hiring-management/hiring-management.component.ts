@@ -21,4 +21,7 @@ export class HiringManagementComponent {
   sendEmail() {
     console.log(this.form.value)
   }
+  onToggleChange(event:any) {
+    console.log(event.value);
+  }
 }

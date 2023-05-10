@@ -50,6 +50,7 @@ import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/emplo
 import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
 import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
 import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
+import { GetApplicationsEffects } from './store/applications/get-applications.effects';
 
 @NgModule({ 
   declarations: [
@@ -97,7 +98,7 @@ import { FacilityReportDetailsComponent } from './home/housing/facility-report-d
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects]),
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects]),
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
