@@ -15,6 +15,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,6 +52,8 @@ import { HousingDetailsComponent } from './home/housing/housing-details/housing-
 import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
 import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
 import { GetApplicationsEffects } from './store/applications/get-applications.effects';
+import { ApplicationComponent } from './home/hr/hiring-management/application/application.component';
+import { ConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
 
 @NgModule({ 
   declarations: [
@@ -74,7 +77,9 @@ import { GetApplicationsEffects } from './store/applications/get-applications.ef
     EmployeePersonalInfoComponent,
     HousingDetailsComponent,
     FacilityReportsComponent,
-    FacilityReportDetailsComponent
+    FacilityReportDetailsComponent,
+    ApplicationComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +103,7 @@ import { GetApplicationsEffects } from './store/applications/get-applications.ef
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
+    MatDialogModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects]),
     ReactiveFormsModule
   ],

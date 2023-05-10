@@ -1,0 +1,7 @@
+<mat-dialog-content>{{this.data.message}}</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close>Close</button>
+  <button mat-raised-button [mat-dialog-close]="'approve'" color="warn">
+    Yes, Approve
+  </button>
+</mat-dialog-actions>

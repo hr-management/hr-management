@@ -62,8 +62,10 @@
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef>Action</th>
 
-    <td mat-cell *matCellDef="let employee">
-      <button mat-raised-button>View Application</button>
+    <td mat-cell *matCellDef="let application">
+      <button mat-raised-button (click)="openDialog(application)">
+        View Application
+      </button>
     </td>
   </ng-container>
 
