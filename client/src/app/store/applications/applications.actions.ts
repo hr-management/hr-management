@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
 export const getApplicationsStart = createAction(
-  '[Applications] Get Applications Start'
+  '[Applications] Get Applications Start',
+  props<{ status: string }>()
 );
 
 export const getApplicationsSuccess = createAction(
