@@ -2,7 +2,21 @@
     flex-grow: 1;
     padding:20px;
 }
-
+.search{
+    display: flex;
+    align-items:center;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    input{
+        font-size:16px;
+        padding:8px;
+        width:320px;
+    }
+    button{
+        margin-left:24px;
+    }
+}
 tr[mat-row]:hover {
     background-color: rgb(233, 233, 233);
 }
+
