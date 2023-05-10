@@ -1,1 +1,38 @@
-<p>hiring-management works!</p>
+<form [formGroup]="form" (submit)="sendEmail()">
+  <div class="form-input">
+    <mat-form-field name="email">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="email"
+        formControlName="email"
+        name="email"
+        required
+      />
+      <mat-error *ngIf="form.controls['email'].errors?.['required']">
+        Required
+      </mat-error>
+      <mat-error *ngIf="form.controls['email'].errors?.['email']">
+        Email is invalid.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="name" formControlName="name" required />
+      <mat-error *ngIf="form.controls['name'].errors?.['required']">
+        Required
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit">
+    Generate token and send email
+  </button>
+</form>
+<mat-divider></mat-divider>
+<h2>Applications</h2>
+<mat-button-toggle-group name="applications">
+  <mat-button-toggle value="pending" checked>Pending</mat-button-toggle>
+  <mat-button-toggle value="rejected">Rejected</mat-button-toggle>
+  <mat-button-toggle value="approved">Approved</mat-button-toggle>
+</mat-button-toggle-group>

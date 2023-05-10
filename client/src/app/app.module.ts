@@ -14,6 +14,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -95,6 +96,7 @@ import { FacilityReportDetailsComponent } from './home/housing/facility-report-d
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatButtonToggleModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects]),
     ReactiveFormsModule
   ],

@@ -33,9 +33,14 @@ export class PersonalInfomationFormComponent {
 
   ngOnChanges() {
     if (this.user) {
-      console.log(this.user)
+    console.log(this.user)
     this.form.setValue(getInitialValue(this.user));
-    this.form.disable()
+    
+    }
+    if (this.isEdit) {
+      this.form.enable()
+    } else {
+      this.form.disable()
     }
     
 }
