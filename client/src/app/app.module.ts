@@ -23,7 +23,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component'; // Angular CLI environemnt
 import { AuthInterceptor } from './auth-interceptor';
-import { HousingComponent } from './housing/housing.component';
 
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffects } from './store/auth/login.effects';
@@ -47,7 +46,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 import { PersonalInfomationFormComponent } from './home/employee/personal-information/personal-infomation-form/personal-infomation-form.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
-import { HousingDetailsComponent } from './housing-details/housing-details.component';
+import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
 import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
 import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
 
@@ -55,7 +54,6 @@ import { FacilityReportDetailsComponent } from './home/housing/facility-report-d
   declarations: [
     AppComponent,
     LoginComponent,
-    HousingComponent,
     HomeComponent,
     EmployeeComponent,
     HrComponent,
