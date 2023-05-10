@@ -18,4 +18,7 @@ export class HiringManagementComponent {
   ngOnInit() {
     
   }
+  sendEmail() {
+    console.log(this.form.value)
+  }
 }

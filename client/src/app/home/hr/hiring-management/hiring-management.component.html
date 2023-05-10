@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="sendEmail()">
   <div class="form-input">
     <mat-form-field name="email">
       <mat-label>Email</mat-label>

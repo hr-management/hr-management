@@ -9,8 +9,6 @@ import { PersonalInfomationFormComponent } from './personal-infomation-form/pers
 
 import {
   buildFinalValues,
-  generateFormGroup,
-  getInitialValue,
 } from './utils/helper';
 
 @Component({
@@ -32,7 +30,6 @@ export class PersonalInformationComponent {
 
   constructor(
     private snackBar: MatSnackBar,
-    private fb: UntypedFormBuilder,
     private store: Store<AppState>,
     private commonService: CommonService,
     private authService: AuthService
@@ -50,12 +47,10 @@ export class PersonalInformationComponent {
 
   handleCancel() {
     this.isEdit = false;
-    this.personForm?.form.disable();
   }
 
   handleEdit() {
     this.isEdit = true;
-    this.personForm?.form.enable();
   }
 
   handleSave() {
@@ -67,7 +62,6 @@ export class PersonalInformationComponent {
           this.snackBar.open('Success', 'Close', {
             duration: 1000,
           });
-          this.personForm?.form.disable();
           this.isEdit = false
         } else {
           this.snackBar.open(res.body.message || 'Error', 'Close', {
