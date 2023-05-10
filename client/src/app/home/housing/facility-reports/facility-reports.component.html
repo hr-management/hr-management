@@ -1,0 +1,21 @@
+<h2>Facility Reports</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Created By</th>
+      <th>Timestamp</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let report of reports">
+      <td>{{ report.title }}</td>
+      <td>{{ report.createdBy }}</td>
+      <td>{{ report.timestamp | date }}</td>
+      <td>{{ report.status }}</td>
+      <td><button type="button" (click)="viewReport(report._id)">View Details</button></td>
+    </tr>
+  </tbody>
+</table>

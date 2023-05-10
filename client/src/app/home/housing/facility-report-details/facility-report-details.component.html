@@ -1,0 +1,26 @@
+<h2>Facility Report Details</h2>
+<ul>
+  <li>
+    <p>Title: {{ report.title }}</p>
+    <p>Description: {{ report.description }}</p>
+    <p>Created by: {{ report.createdBy }} - {{ report.timestamp | date }}</p>
+    <p>Status: {{ report.status }}</p>
+  </li>
+</ul>
+<h3>Comments</h3>
+<ul>
+  <li *ngFor="let comment of report.comments">
+    <p>{{ comment.description }}</p>
+    <p>Created by: {{ comment.createdBy }} - {{ comment.timestamp | date }}</p>
+  </li>
+</ul>
+<form>
+  <h3>Add comment</h3>
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="description" [(ngModel)]="newCommentDescription" required>
+  <br>
+  <label for="createdBy">Created by:</label>
+  <input type="text" id="createdBy" name="createdBy" [(ngModel)]="newCommentCreatedBy" required>
+  <br>
+  <button type="button" (click)="addComment()">Submit</button>
+</form>

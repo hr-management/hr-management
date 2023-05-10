@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HousingComponent } from './housing/housing.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
@@ -11,6 +10,9 @@ import { HousingManagementComponent } from './home/hr/housing-management/housing
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
+import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
+import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
+import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
 
 const routes: Routes = [
   {
@@ -21,12 +23,14 @@ const routes: Routes = [
       { path: 'housing-management', component: HousingManagementComponent },
       { path: 'onboarding-application', component: OnboardingApplicationComponent },
       { path: 'personal-information', component: PersonalInformationComponent },
+      { path: 'housing-details', component: HousingDetailsComponent },
+      { path: 'facility-reports', component: FacilityReportsComponent },
+      { path: 'facility-reports/:reportId', component: FacilityReportDetailsComponent }
     ]
   },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'employee-profiles/:id', component: EmployeePersonalInfoComponent },
-  { path: 'housing', component: HousingComponent },
   { path: '**', component: HomeComponent },
 ];
 

@@ -47,6 +47,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 import { PersonalInfomationFormComponent } from './home/employee/personal-information/personal-infomation-form/personal-infomation-form.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
+import { HousingDetailsComponent } from './housing-details/housing-details.component';
+import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
+import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
 
 @NgModule({ 
   declarations: [
@@ -68,7 +71,10 @@ import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/emplo
     SsnFormatPipe,
     PersonalInformationComponent,
     PersonalInfomationFormComponent,
-    EmployeePersonalInfoComponent
+    EmployeePersonalInfoComponent,
+    HousingDetailsComponent,
+    FacilityReportsComponent,
+    FacilityReportDetailsComponent
   ],
   imports: [
     BrowserModule,
