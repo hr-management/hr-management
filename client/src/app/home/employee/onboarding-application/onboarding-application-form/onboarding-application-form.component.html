@@ -202,7 +202,7 @@
     <mat-card-content>
         <mat-form-field>
             <mat-label>Citizenship</mat-label>
-            <mat-select formControlName="citizenship" (change)="onCitizenshipChange($event.target.value)">
+            <mat-select formControlName="citizenship" (change)="onCitizenshipChange($event)">
               <mat-option value="yes">Yes</mat-option>
               <mat-option value="no">No</mat-option>
             </mat-select>
@@ -210,7 +210,7 @@
 
           <mat-form-field *ngIf="showWorkAuthorization">
             <mat-label>What is your work authorization?</mat-label>
-            <mat-select formControlName="authorization" (change)="onAuthorizationChange($event.target.value)">
+            <mat-select formControlName="authorization" (change)="onAuthorizationChange($event)">
               <mat-option value="h1-b">H1-B</mat-option>
               <mat-option value="l2">L2</mat-option>
               <mat-option value="f1">F1</mat-option>

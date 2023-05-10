@@ -23,12 +23,21 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     startDate: [''],
     endDate: [''],
 
+    // emergencyContact
     efirstName: [''],
     elastName: [''],
     emiddleName: [''],
     ephone: [''],
     eemail: ['', [email]],
     erelationship: [''],
+
+    // workAuthDoc
+    workAuthDoc: [[]],
+
+    // driverLicense
+    dlicenseNumber: [''],
+    dexpirationDate: [''],
+    dphoto: [''],
   });
 }
 
@@ -65,6 +74,12 @@ export function getInitialValue(user: any) {
     ephone: user.emergencyContact?.phone || '',
     eemail: user.emergencyContact?.email || '',
     erelationship: user.emergencyContact?.relationship || '',
+
+    workAuthDoc: user.workAuthDoc || [],
+
+    dlicenseNumber: user.driverLicense.licenseNumber || '',
+    dexpirationDate: user.driverLicense.expirationDate || '',
+    dphoto: user.driverLicense.photo || '',
   };
 }
 
@@ -82,6 +97,12 @@ export function buildFinalValues(value: any) {
     ephone,
     eemail,
     erelationship,
+
+    workAuthDoc,
+
+    dlicenseNumber,
+    dexpirationDate,
+    dphoto,
     ...rest
   } = value;
   return {
@@ -100,6 +121,13 @@ export function buildFinalValues(value: any) {
       phone: ephone,
       email: eemail,
       relationship: erelationship,
+    },
+    workAuthDoc,
+
+    driverLicense: {
+      licenseNumber: dlicenseNumber,
+      expirationDate: dexpirationDate,
+      photo: dphoto,
     },
   };
 }
