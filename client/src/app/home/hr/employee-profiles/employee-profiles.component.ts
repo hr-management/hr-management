@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EmployeeProfilesComponent   {
    state:Observable<any>
   displayedColumns: string[] = ['name', 'ssn', 'workAuthTitle', 'workPhoneNumber','email', ];
-  
+  search:string=""
   constructor(private snackBar: MatSnackBar, private store: Store<AppState>) {
     this.state = this.store.pipe(select("employees"))
     this.state.subscribe((data) => {
@@ -27,9 +27,11 @@ export class EmployeeProfilesComponent   {
 
   }
   ngOnInit() {
-  this.store.dispatch(EmployeesActions.getEmployeesStart())
+  this.store.dispatch(EmployeesActions.getEmployeesStart({search:this.search}))
   }
-   
+  handleSearch() {
+    this.store.dispatch(EmployeesActions.getEmployeesStart({search:this.search}))
+  }
 }
 export interface PeriodicElement {
   name: string;

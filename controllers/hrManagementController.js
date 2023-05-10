@@ -1,8 +1,17 @@
 const userModel = require("../models/User");
 
 exports.getAllEmployees = async (req, res) => {
+  const search = req.query.search;
   try {
-    const employees = await userModel.find().sort({ lastName: 1 });
+    const employees = await userModel
+      .find({
+        $or: [
+          { firstName: { $regex: search, $options: "i" } },
+          { lastName: { $regex: search, $options: "i" } },
+          { preferredName: { $regex: search, $options: "i" } },
+        ],
+      })
+      .sort({ lastName: 1 });
     return res
       .status(200)
       .json({ success: true, length: employees.length, employees });
