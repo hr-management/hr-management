@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HiringManagementComponent {
   state:Observable<any>
   form!: UntypedFormGroup;
-    
+  displayedColumns: string[] = ['fullName', 'email', 'action', ];  
   constructor(private fb: UntypedFormBuilder, private store: Store<AppState>, private snackBar: MatSnackBar,) {
     this.form =this.fb.group({email:['', [Validators.required, Validators.email]],name:['', [Validators.required]]});
     this.state = this.store.pipe(select("applications"))
@@ -34,5 +34,6 @@ export class HiringManagementComponent {
   }
   onToggleChange(event:any) {
     console.log(event.value);
+    this.store.dispatch(ApplicationsActions.getApplicationsStart({status:event.value}))
   }
 }
