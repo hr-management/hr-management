@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-facility-reports',
   templateUrl: './facility-reports.component.html',
-  styleUrls: ['./facility-reports.component.css']
+  styleUrls: ['./facility-reports.component.scss']
 })
 export class FacilityReportsComponent implements OnInit {
   reports!: Array<{ _id: string, title: string, status: string, createdBy: string, timestamp: Date }>;

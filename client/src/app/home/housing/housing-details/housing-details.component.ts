@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-housing-details',
   templateUrl: './housing-details.component.html',
-  styleUrls: ['./housing-details.component.css']
+  styleUrls: ['./housing-details.component.scss']
 })
 export class HousingDetailsComponent implements OnInit {
   address!: string;

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-facility-report-details',
   templateUrl: './facility-report-details.component.html',
-  styleUrls: ['./facility-report-details.component.css']
+  styleUrls: ['./facility-report-details.component.scss']
 })
 export class FacilityReportDetailsComponent implements OnInit {
   report!: {
