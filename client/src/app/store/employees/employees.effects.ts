@@ -15,8 +15,9 @@ export class EmployeesEffects {
   getUser$ = createEffect(() => {
   return this.actions$.pipe(
     ofType(EmployeesAction.getEmployeesStart),
-    switchMap(() => {    
-      return this.http.get<any>('/api/employees/',).pipe(
+    switchMap((action) => {    
+      const search = action.search;
+      return this.http.get<any>(`/api/employees/?search=${search}`,).pipe(
         map((data:any) => {
           return EmployeesAction.getEmployeesSuccess(data)
         }),

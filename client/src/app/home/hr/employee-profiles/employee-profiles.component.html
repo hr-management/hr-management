@@ -1,3 +1,22 @@
+<div class="search">
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="search"
+    placeholder="Last Name, First Name, or Preferred Name"
+    name="search"
+  />
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="handleSearch()"
+  >
+    Search
+  </button>
+</div>
+
 <p>{{(this.state | async).employees.length}} records found.</p>
 <table
   mat-table
