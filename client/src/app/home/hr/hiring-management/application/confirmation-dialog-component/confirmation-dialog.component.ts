@@ -15,7 +15,7 @@ export class ConfirmationDialogComponent {
   feedback:string =""
     state:Observable<any>
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { data: any, message: string, action: string, feedback: string },
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { data: any, message: string, action: string },
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     private store: Store<AppState>,
     private snackBar: MatSnackBar
