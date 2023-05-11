@@ -158,10 +158,7 @@ export class PersonalInfomationFormComponent {
   doHandleDriverLicenseUpload(event: any) {
     this.handleUpload(event.target.files[0], (url) => {
       this.form.patchValue({
-        driverLicense: {
-          ...this.form.value.driverLicense,
-          photo: url,
-        },
+        dphoto: url,
       });
     });
   }
