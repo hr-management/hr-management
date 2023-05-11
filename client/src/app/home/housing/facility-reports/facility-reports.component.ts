@@ -14,9 +14,9 @@ export class FacilityReportsComponent implements OnInit {
 
   ngOnInit(): void {
     // Make an HTTP GET request to the /api/housing/facility-reports endpoint
-    this.http.get<Array<{ _id: string, title: string, status: string, createdBy: string, timestamp: Date }>>('/api/housing/facility-reports').subscribe((data) => {
-      this.reports = data;
-    });
+    // this.http.get<Array<{ _id: string, title: string, status: string, createdBy: string, timestamp: Date }>>('/api/housing/facility-reports').subscribe((data) => {
+    //   this.reports = data;
+    // });
   }
 
   viewReport(reportId: string): void {

@@ -22,3 +22,9 @@ form{
 mat-divider{
     margin:20px 0;
 }
+mat-button-toggle-group{
+    margin-bottom: 16px;
+}
+tr[mat-row]:hover {
+    background-color: rgb(233, 233, 233);
+}
