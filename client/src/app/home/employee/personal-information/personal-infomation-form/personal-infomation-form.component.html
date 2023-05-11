@@ -508,12 +508,24 @@
               </button>
               <button
                 mat-flat-button
+                style="margin-left: 12px;"
                 color="warn"
                 (click)="handleDeleteAuthDoc(i)"
                 [disabled]="!isEdit"
                 [hidden]="hideUplodProfile"
               >
                 DELETE
+              </button>
+
+              <button
+                mat-flat-button
+                style="margin-left: 12px;"
+                color="primary"
+                (click)="handleWorkAuthDocDownload(i)"
+                [disabled]="!isEdit"
+                [hidden]="hideUplodProfile || !element.value.file"
+              >
+                Download
               </button>
             </td>
           </tr>

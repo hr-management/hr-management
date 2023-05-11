@@ -128,6 +128,13 @@ export class PersonalInfomationFormComponent {
     }
   }
 
+  handleWorkAuthDocDownload(index: number) {
+    const url = this.form.value['workAuthDoc'][index]?.file;
+    if (url) {
+      downloadURL(url);
+    }
+  }
+
   handleUpload(file: File, callback: (url: string) => void) {
     this.snackBar.open('Uploading', 'Close');
     this.commonService.upload(file).subscribe((data) => {
