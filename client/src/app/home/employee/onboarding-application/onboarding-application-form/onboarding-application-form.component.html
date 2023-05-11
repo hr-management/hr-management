@@ -132,11 +132,31 @@
               </mat-form-field>
             </mat-card-content>
           </mat-card>
-
-          <!-- car info -->
         
-          <!-- with prefilled email -->
-        <div>car info</div>
+          <mat-card style="margin-top: 32px;">
+            <mat-card-content>
+
+            <mat-card-title>Car Info</mat-card-title>
+            <p class="row">
+            <mat-form-field>
+                <mat-label>Make</mat-label>
+                <input matInput placeholder="make" formControlName="make" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Model</mat-label>
+                <input matInput placeholder="model" formControlName="model" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Color</mat-label>
+                <input matInput placeholder="color" formControlName="color" />
+            </mat-form-field>
+
+            </mat-card-content>
+          </mat-card>
+
+
         <mat-card style="margin-top: 32px;">
             <mat-card-content>
                 <mat-card-title>Email</mat-card-title>
@@ -160,12 +180,13 @@
   
           <mat-card style="margin-top: 32px;">
             <mat-card-content>
+
             <mat-card-title>Related Info</mat-card-title>
             <p class="row">
             <mat-form-field>
                 <mat-label>SSN</mat-label>
                 <input matInput placeholder="ssn" formControlName="ssn" />
-              </mat-form-field>
+            </mat-form-field>
 
             <mat-form-field>
             <mat-label>BirthDate</mat-label>
@@ -200,6 +221,7 @@
   
    <mat-card>
     <mat-card-content>
+        <mat-card-title>Citizenship</mat-card-title>
         <mat-form-field>
             <mat-label>Citizenship</mat-label>
             <mat-select formControlName="citizenship" (change)="onCitizenshipChange($event)">
@@ -249,14 +271,111 @@
               [max]="maxDate"
             />
           </mat-form-field>
-          
     </mat-card-content>
    </mat-card>
 
-    <mat-card style="margin-top: 32px;">
-      <mat-card-content>
-        <mat-card-title>Documents</mat-card-title>
-      </mat-card-content>
+   <mat-card>
+    <mat-card-content>
+        <mat-card-title>DriverLicense</mat-card-title>
+        <mat-form-field>
+            <mat-select formControlName="driverLicense">
+              <mat-option value="yes">Yes</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>DriverLicenseNumber</mat-label>
+            <input matInput placeholder="driverLicenseNumber" formControlName="driverLicenseNumber" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>expirationDate</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="expirationDate"
+              [max]="maxDate"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        <!-- uploaded copy of license -->
+        </mat-card-content>
     </mat-card>
+
+    <mat-card style="margin-top: 32px;">
+        <mat-card-content>
+            <mat-card-title>Reference</mat-card-title>
+            <mat-form-field>
+                <mat-label>ReferFirstName</mat-label>
+                <input matInput placeholder="" formControlName="referFirstName" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferLastName</mat-label>
+                <input matInput placeholder="" formControlName="referLastName" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferMiddleName</mat-label>
+                <input matInput placeholder="" formControlName="referMiddleName" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferPhone</mat-label>
+                <input matInput placeholder="" formControlName="referPhone" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferEmail</mat-label>
+                <input matInput placeholder="" formControlName="referEmail" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Relationship</mat-label>
+                <input matInput placeholder="" formControlName="relationship" />
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card style="margin-top: 32px;">
+        <mat-card-content>
+            <mat-card-title>EmergencyContact</mat-card-title>
+            <mat-form-field>
+                <mat-label>ReferFirstName</mat-label>
+                <input matInput placeholder="" formControlName="referFirstName" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferLastName</mat-label>
+                <input matInput placeholder="" formControlName="referLastName" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferMiddleName</mat-label>
+                <input matInput placeholder="" formControlName="referMiddleName" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferPhone</mat-label>
+                <input matInput placeholder="" formControlName="referPhone" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>ReferEmail</mat-label>
+                <input matInput placeholder="" formControlName="referEmail" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Relationship</mat-label>
+                <input matInput placeholder="" formControlName="relationship" />
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
   </form>
   
