@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject,Output,EventEmitter} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './confirmation-dialog-component/confirmation-dialog.component';
 import { MatDialog,MatDialogConfig  } from '@angular/material/dialog';
@@ -9,36 +9,28 @@ import { MatDialog,MatDialogConfig  } from '@angular/material/dialog';
   styleUrls: ['./application.component.scss']
 })
 export class ApplicationComponent {
-  hideUplodProfile:boolean=true
+  hideUplodProfile: boolean = true
+  feedback: string = ''
+  @Output() closeParentDialog = new EventEmitter();
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog) { 
   }
-  ngOnInit() {
-    console.log(this.data)
-  }
-  
+ 
+  openConfirmationDialog(result:string) {
 
-
-  openApproveConfirmationDialog(): void {
-
-        const dialogConfig = new MatDialogConfig();
-
-// set configuration options
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true; // prevent user from closing the dialog by clicking outside of it
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {data:this.data,message:'Are you sure you want to approve this application?'} 
-  const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
-    
-  dialogRef.beforeClosed().subscribe(result => {
-    if (result) {
-      console.log(result)
-      // The user clicked the "Yes" button in the confirmation dialog
-      // Update the store to reflect the approval
+    if (result === "approve") {
+      dialogConfig.data = {data:this.data,message:'Are you sure you want to approve this application?',action:"approve"} 
     } else {
-      // The user clicked the "No" button in the confirmation dialog
-      // Do nothing
+       dialogConfig.data = {data:this.data,message:'Are you sure you want to reject this application?',action:"reject",feedback:this.feedback} 
     }
-  });
-}
+    
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
 
+    dialogRef.afterClosed().subscribe(() => {
+      this.closeParentDialog.emit();
+    })
+}
 
 }

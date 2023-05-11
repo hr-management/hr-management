@@ -27,6 +27,18 @@ export const reducer = createReducer(
   }),
   on(ApplicationsActions.getApplicationsFailure, (state, payload) => {
     return { ...state, loading: false,error:payload.error.message }
+  }),
+  on(ApplicationsActions.updateApplicationsStart, (state, payload) => {
+    return { ...state, loading: true,error:"" }
+  }),
+  on(ApplicationsActions.updateApplicationsSuccess, (state, payload) => {
+    console.log("update",payload)
+    return {
+      ...state, loading: false, applications: state.applications.filter((a) => 
+    a._id !== payload.id)  }
+  }),
+  on(ApplicationsActions.updateApplicationsFailure, (state, payload) => {
+    return { ...state, loading: false,error:payload.error.message }
   })
 );
 

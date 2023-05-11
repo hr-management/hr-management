@@ -104,36 +104,39 @@ exports.updateApplicationStatus = async (req, res) => {
     const status = req.body.status;
     let feedback = req.body.feedback;
 
-    if (status !== "pending") {
-      return res.status(400).json({
-        success: false,
-        message: "You can't update this application status.",
-      });
-    }
-    if (!["rejected", "approved"].includes(status)) {
+    if (!["reject", "approve"].includes(status)) {
       return res.status(400).json({
         success: false,
         message: "Invaild status, only rejected or approved.",
       });
     }
     const employee = req.employee; // from findEmplyeeById middleware
-    if (status === "approved") {
+    if (employee.applicationStatus !== "pending") {
+      return res.status(400).json({
+        success: false,
+        message: "You can't update this application status.",
+      });
+    }
+
+    if (status === "approve") {
       await userModel.updateOne(
         { _id: employee._id },
-        { applicationStatus: status }
+        { applicationStatus: "approved" }
       );
-      return res.status(200).json({ success: true, applicationStatus: status });
+      return res
+        .status(200)
+        .json({ success: true, applicationStatus: "approved" });
     } else {
       if (!feedback) {
         feedback = "";
       }
       await userModel.updateOne(
         { _id: employee._id },
-        { applicationStatus: status, applicationRejectedFeedback: feedback }
+        { applicationStatus: "rejected", applicationRejectedFeedback: feedback }
       );
       return res
         .status(200)
-        .json({ success: true, applicationStatus: status, feedback });
+        .json({ success: true, applicationStatus: "rejected", feedback });
     }
   } catch (err) {
     return res

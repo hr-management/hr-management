@@ -6,23 +6,24 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 
+
 @Injectable()
-export class GetApplicationsEffects {
+export class UpdateApplicationEffects {
 
 
   constructor(private actions$: Actions, private http: HttpClient) { }
-
-  getApplications$ = createEffect(() => {
+  updateApplication$ = createEffect(() => {
   return this.actions$.pipe(
-    ofType(ApplicationsActions.getApplicationsStart),
+    ofType(ApplicationsActions.updateApplicationsStart),
     switchMap((action) => {    
-      const status = action.status;
-      return this.http.get<any>(`/api/employees/applications/${status}`,).pipe(
+      console.log("acton",action)
+      const {id,status,feedback} = action;
+      return this.http.put<any>(`/api/employees/${id}/applicationStatus`,{status,feedback}).pipe(
         map((data) => {
           console.log(data)
-          return ApplicationsActions.getApplicationsSuccess({data})
+          return ApplicationsActions.updateApplicationsSuccess({id,status:data.applicationStatus})
         }),
-        catchError((err: HttpErrorResponse) => of(ApplicationsActions.getApplicationsFailure(err)))
+        catchError((err: HttpErrorResponse) => of(ApplicationsActions.updateApplicationsFailure(err)))
       );
     })
   );
