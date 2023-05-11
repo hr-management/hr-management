@@ -56,7 +56,7 @@ import { ApplicationComponent } from './home/hr/hiring-management/application/ap
 import { ConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
 import { UpdateApplicationEffects } from './store/applications/update-application.effects';
 import { SendInvitationEmailEffects } from './store/applications/send-invitation-email.effects';
-
+import { OnboardingApplicationFormComponent } from './home/employee/onboarding-application/onboarding-application-form/onboarding-application-form.component';
 @NgModule({ 
   declarations: [
     AppComponent,
@@ -81,7 +81,8 @@ import { SendInvitationEmailEffects } from './store/applications/send-invitation
     FacilityReportsComponent,
     FacilityReportDetailsComponent,
     ApplicationComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    OnboardingApplicationFormComponent
   ],
   imports: [
     BrowserModule,
