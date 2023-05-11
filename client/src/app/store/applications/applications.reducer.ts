@@ -8,7 +8,8 @@ export interface State {
   loading: boolean,
   applicationType:string,
   error: string,
-  message:string
+  message: string,
+  sendEmailLoading:boolean
 }
 
 export const initialState: State = {
@@ -16,8 +17,8 @@ export const initialState: State = {
   applicationType:"",
   loading: false,
   error: "",
-  message:""
-
+  message:"",
+  sendEmailLoading:false
 };
 
 export const reducer = createReducer(
@@ -43,14 +44,14 @@ export const reducer = createReducer(
     return { ...state, loading: false,error:payload.error.message }
   }),
    on(ApplicationsActions.sendInvitationEmailStart, (state, payload) => {
-    return { ...state, loading: true,error:"" ,message:""}
+    return { ...state, sendEmailLoading: true,error:"" ,message:""}
   }),
   on(ApplicationsActions.sendInvitationEmailSuccess, (state, payload) => {
     return {
-      ...state, loading: false,message:payload.message  }
+      ...state, sendEmailLoading: false,message:payload.message  }
   }),
   on(ApplicationsActions.sendInvitationEmailFailure, (state, payload) => {
-    return { ...state, loading: false,error:payload.error.message }
+    return { ...state, sendEmailLoading: false,error:payload.error.message }
   })
 );
 
