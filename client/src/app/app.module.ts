@@ -51,14 +51,11 @@ import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/emplo
 import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
 import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
 import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
-<<<<<<< HEAD
-import { OnboardingApplicationFormComponent } from './home/employee/onboarding-application/onboarding-application-form/onboarding-application-form.component';
-=======
 import { GetApplicationsEffects } from './store/applications/get-applications.effects';
 import { ApplicationComponent } from './home/hr/hiring-management/application/application.component';
 import { ConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
 import { UpdateApplicationEffects } from './store/applications/update-application.effects';
->>>>>>> a84d772a5da9bece6dab71af9ea098a1d26f03ca
+import { SendInvitationEmailEffects } from './store/applications/send-invitation-email.effects';
 
 @NgModule({ 
   declarations: [
@@ -83,12 +80,8 @@ import { UpdateApplicationEffects } from './store/applications/update-applicatio
     HousingDetailsComponent,
     FacilityReportsComponent,
     FacilityReportDetailsComponent,
-<<<<<<< HEAD
-    OnboardingApplicationFormComponent
-=======
     ApplicationComponent,
     ConfirmationDialogComponent
->>>>>>> a84d772a5da9bece6dab71af9ea098a1d26f03ca
   ],
   imports: [
     BrowserModule,
@@ -113,7 +106,7 @@ import { UpdateApplicationEffects } from './store/applications/update-applicatio
     MatNativeDateModule,
     MatButtonToggleModule,
     MatDialogModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects]),
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, SendInvitationEmailEffects]),
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

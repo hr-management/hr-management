@@ -7,20 +7,23 @@ export interface State {
   applications: any[],
   loading: boolean,
   applicationType:string,
-  error:string
+  error: string,
+  message:string
 }
 
 export const initialState: State = {
   applications: [],
   applicationType:"",
   loading: false,
-  error:""
+  error: "",
+  message:""
+
 };
 
 export const reducer = createReducer(
   initialState,
   on(ApplicationsActions.getApplicationsStart, (state, payload) => {
-    return { ...state, loading: true,error:"" }
+    return { ...state, loading: true,error:"",message:"" }
   }),
   on(ApplicationsActions.getApplicationsSuccess, (state, payload) => {
     return { ...state, loading: false, applicationType:payload.data.applicationType,applications:payload.data.applications }
@@ -29,15 +32,24 @@ export const reducer = createReducer(
     return { ...state, loading: false,error:payload.error.message }
   }),
   on(ApplicationsActions.updateApplicationsStart, (state, payload) => {
-    return { ...state, loading: true,error:"" }
+    return { ...state, loading: true,error:"",message:"" }
   }),
   on(ApplicationsActions.updateApplicationsSuccess, (state, payload) => {
-    console.log("update",payload)
     return {
       ...state, loading: false, applications: state.applications.filter((a) => 
     a._id !== payload.id)  }
   }),
   on(ApplicationsActions.updateApplicationsFailure, (state, payload) => {
+    return { ...state, loading: false,error:payload.error.message }
+  }),
+   on(ApplicationsActions.sendInvitationEmailStart, (state, payload) => {
+    return { ...state, loading: true,error:"" ,message:""}
+  }),
+  on(ApplicationsActions.sendInvitationEmailSuccess, (state, payload) => {
+    return {
+      ...state, loading: false,message:payload.message  }
+  }),
+  on(ApplicationsActions.sendInvitationEmailFailure, (state, payload) => {
     return { ...state, loading: false,error:payload.error.message }
   })
 );

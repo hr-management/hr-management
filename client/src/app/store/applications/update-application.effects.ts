@@ -16,7 +16,6 @@ export class UpdateApplicationEffects {
   return this.actions$.pipe(
     ofType(ApplicationsActions.updateApplicationsStart),
     switchMap((action) => {    
-      console.log("acton",action)
       const {id,status,feedback} = action;
       return this.http.put<any>(`/api/employees/${id}/applicationStatus`,{status,feedback}).pipe(
         map((data) => {
