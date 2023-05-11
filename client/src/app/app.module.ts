@@ -55,7 +55,6 @@ import { GetApplicationsEffects } from './store/applications/get-applications.ef
 import { ApplicationComponent } from './home/hr/hiring-management/application/application.component';
 import { ConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
 import { UpdateApplicationEffects } from './store/applications/update-application.effects';
-import { SendInvitationEmailEffects } from './store/applications/send-invitation-email.effects';
 import { OnboardingApplicationFormComponent } from './home/employee/onboarding-application/onboarding-application-form/onboarding-application-form.component';
 @NgModule({ 
   declarations: [
@@ -107,7 +106,7 @@ import { OnboardingApplicationFormComponent } from './home/employee/onboarding-a
     MatNativeDateModule,
     MatButtonToggleModule,
     MatDialogModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, SendInvitationEmailEffects]),
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects]),
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
