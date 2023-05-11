@@ -15,7 +15,7 @@
           hidden="true"
           type="file"
           onclick="this.value=null"
-          (change)="handleAvatarUpload($event)"
+          (change)="doHandleAvatarUpload($event)"
         />
         <button
           mat-flat-button
@@ -120,7 +120,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card style="margin-top: 32px;">
+  <mat-card style="margin-top: 32px">
     <mat-card-content>
       <mat-card-title>Address</mat-card-title>
 
@@ -164,7 +164,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card style="margin-top: 32px;">
+  <mat-card style="margin-top: 32px">
     <mat-card-content>
       <mat-card-title>Contact Phone</mat-card-title>
 
@@ -200,7 +200,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card style="margin-top: 32px;">
+  <mat-card style="margin-top: 32px">
     <mat-card-content>
       <mat-card-title>Employment</mat-card-title>
       <mat-form-field appearance="fill">
@@ -242,7 +242,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card style="margin-top: 32px;">
+  <mat-card style="margin-top: 32px">
     <mat-card-content>
       <mat-card-title>Emergency Contact</mat-card-title>
 
@@ -307,22 +307,120 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card style="margin-top: 32px;">
+  <mat-card style="margin-top: 32px">
     <mat-card-content>
       <mat-card-title>Documents</mat-card-title>
 
-      <!-- <p class="row">
-          <mat-form-field>
-            <mat-label>DriverLicense</mat-label>
-            
-          </mat-form-field>
-        </p>
+      <div class="row">
+        <h3>DriverLicense</h3>
 
-        <p class="row">
-          <mat-form-field>
-            <mat-label>workAuthDoc</mat-label>
-          </mat-form-field>
-        </p> -->
+        <mat-form-field>
+          <mat-label>LicenseNumber</mat-label>
+          <input
+            matInput
+            placeholder="LicenseNumber"
+            formControlName="dlicenseNumber"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Expiration Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dexpirationDate"
+            formControlName="dexpirationDate"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="dexpirationDate"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #dexpirationDate></mat-datepicker>
+        </mat-form-field>
+
+        <div style="margin: 0 24px">
+          <a
+            *ngIf="form.value['dphoto']"
+            target="__blank"
+            [href]="form.value['dphoto']"
+            >Open File</a
+          >
+          <div *ngIf="!form.value['dphoto']">No File</div>
+        </div>
+
+        <input
+          #driverLicense
+          hidden="true"
+          type="file"
+          onclick="this.value=null"
+          (change)="doHandleDriverLicenseUpload($event)"
+        />
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="driverLicense.click()"
+          [disabled]="!isEdit"
+          [hidden]="hideUplodProfile"
+          style="margin-right: 12px"
+        >
+          Upload File
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="handleDownload('dphoto')"
+          [disabled]="!isEdit || !form.value['dphoto']"
+        >
+          Download
+        </button>
+      </div>
+
+      <div class="row">
+        <h3>WorkAuthDoc</h3>
+
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Work authorization</mat-label>
+          <mat-select formControlName="wtype">
+            <mat-option *ngFor="let item of visaTypes" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="wstatus">
+            <mat-option *ngFor="let item of workAuthStatus" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>FeedBack</mat-label>
+          <input matInput placeholder="FeedBack" formControlName="wfeedback" />
+        </mat-form-field>
+        <div style="margin: 0 24px">
+          <a *ngIf="form.value['wfile']"> Open File</a>
+          <div *ngIf="!form.value['wfile']">No File</div>
+        </div>
+        <input
+          #workAuthDoc
+          hidden="true"
+          type="file"
+          onclick="this.value=null"
+          (change)="handleAuthDocUpload($event)"
+        />
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="workAuthDoc.click()"
+          [disabled]="!isEdit"
+          [hidden]="hideUplodProfile"
+        >
+          Upload File
+        </button>
+       -->
+      </div>
     </mat-card-content>
   </mat-card>
 </form>
