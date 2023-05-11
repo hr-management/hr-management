@@ -200,6 +200,27 @@
     </mat-card-content>
   </mat-card>
 
+  <mat-card style="margin-top: 32px" *ngIf="displayCarInfo">
+    <mat-card-content>
+      <mat-card-title>Car Info</mat-card-title>
+      <p class="row">
+        <mat-form-field>
+          <mat-label>Make</mat-label>
+          <input matInput placeholder="make" formControlName="make" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Model</mat-label>
+          <input matInput placeholder="model" formControlName="model" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Color</mat-label>
+          <input matInput placeholder="color" formControlName="color" />
+        </mat-form-field></p
+    ></mat-card-content>
+  </mat-card>
+
   <mat-card style="margin-top: 32px">
     <mat-card-content>
       <mat-card-title>Employment</mat-card-title>
@@ -311,9 +332,16 @@
     <mat-card-content>
       <mat-card-title>Documents</mat-card-title>
 
-      <div class="row">
-        <h3>DriverLicense</h3>
+      <h3>DriverLicense</h3>
 
+      <mat-form-field>
+        <mat-select formControlName="driverLicense">
+          <mat-option value="Yes">Yes</mat-option>
+          <mat-option value="No">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="row" *ngIf="form.value['driverLicense'] === 'Yes'">
         <mat-form-field>
           <mat-label>LicenseNumber</mat-label>
           <input
@@ -375,51 +403,121 @@
       </div>
 
       <div class="row">
-        <h3>WorkAuthDoc</h3>
+        <h3 style="margin: 0">WorkAuthDoc</h3>
 
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>Work authorization</mat-label>
-          <mat-select formControlName="wtype">
-            <mat-option *ngFor="let item of visaTypes" [value]="item">
-              {{ item }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Status</mat-label>
-          <mat-select formControlName="wstatus">
-            <mat-option *ngFor="let item of workAuthStatus" [value]="item">
-              {{ item }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>FeedBack</mat-label>
-          <input matInput placeholder="FeedBack" formControlName="wfeedback" />
-        </mat-form-field>
-        <div style="margin: 0 24px">
-          <a *ngIf="form.value['wfile']"> Open File</a>
-          <div *ngIf="!form.value['wfile']">No File</div>
-        </div>
-        <input
-          #workAuthDoc
-          hidden="true"
-          type="file"
-          onclick="this.value=null"
-          (change)="handleAuthDocUpload($event)"
-        />
         <button
           mat-flat-button
           color="primary"
-          (click)="workAuthDoc.click()"
+          (click)="handleAddAuthDoc()"
           [disabled]="!isEdit"
           [hidden]="hideUplodProfile"
         >
-          Upload File
+          Add
         </button>
-       -->
+      </div>
+
+      <mat-form-field>
+        <mat-label>Citizenship</mat-label>
+        <mat-select
+          formControlName="citizenship"
+          (change)="onCitizenshipChange($event)"
+        >
+          <mat-option value="yes">Yes</mat-option>
+          <mat-option value="no">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="showWorkAuthorization">
+        <mat-label>What is your work authorization?</mat-label>
+        <mat-select
+          formControlName="authorization"
+          (change)="onAuthorizationChange($event)"
+        >
+          <mat-option value="h1-b">H1-B</mat-option>
+          <mat-option value="l2">L2</mat-option>
+          <mat-option value="f1">F1</mat-option>
+          <mat-option value="h4">H4</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="row" style="width: 1000px">
+        <table formArrayName="workAuthDoc">
+          <tr>
+            <th>Work authorization</th>
+            <th>Status</th>
+            <th>Feedback</th>
+            <th>File</th>
+            <th>Option</th>
+          </tr>
+          <tr
+            *ngFor="let element of workAuthDocArray; let i = index"
+            [formGroupName]="i"
+          >
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-select formControlName="type">
+                  <mat-option *ngFor="let item of visaTypes" [value]="item">
+                    {{ item }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill">
+                <mat-select formControlName="status">
+                  <mat-option
+                    *ngFor="let item of workAuthStatus"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+            <td>
+              {{ element.value.feedback || "-" }}
+            </td>
+
+            <td>
+              <a
+                *ngIf="element.value['file']"
+                target="__blank"
+                [href]="element.value['file']"
+                >Open File</a
+              >
+              <div *ngIf="!element.value['file']">No File</div>
+            </td>
+
+            <td>
+              <input
+                #workAuthDoc
+                hidden="true"
+                type="file"
+                onclick="this.value=null"
+                (change)="doHandleAuthDocUpload($event, i)"
+              />
+              <button
+                mat-flat-button
+                color="primary"
+                (click)="workAuthDoc.click()"
+                [disabled]="!isEdit"
+                [hidden]="hideUplodProfile"
+              >
+                Upload File
+              </button>
+              <button
+                mat-flat-button
+                color="warn"
+                (click)="handleDeleteAuthDoc(i)"
+                [disabled]="!isEdit"
+                [hidden]="hideUplodProfile"
+              >
+                DELETE
+              </button>
+            </td>
+          </tr>
+        </table>
       </div>
     </mat-card-content>
   </mat-card>

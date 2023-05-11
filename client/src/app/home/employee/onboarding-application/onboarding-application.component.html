@@ -1,11 +1,60 @@
-<div class="personal-infomation">
+<div class="onboarding-application">
   <div class="header">
     <h2>Onboarding Application</h2>
-    <app-onboarding-application-form
-      [user]="user"
-      [isEdit]="isEdit"
-      [status]="status"
-      #personForm
-    ></app-onboarding-application-form>
+    <mat-card>
+      <mat-card-content>
+        <p>
+          Status: <b>{{ user.applicationStatus }}</b>
+        </p>
+        <p>
+          ApplicationRejectedFeedback:<b>{{
+            user.applicationRejectedFeedback || "No Data"
+          }}</b>
+        </p>
+        <ng-container
+          *ngIf="
+            user.applicationStatus === 'notStarted' ||
+            user.applicationStatus === 'pending' ||
+            user.applicationStatus === 'rejected'
+          "
+        >
+          <button
+            mat-raised-button
+            color="primary"
+            *ngIf="isEdit"
+            style="margin-left: 12px"
+            (click)="handleSave()"
+          >
+            Submit
+          </button>
+        </ng-container>
+      </mat-card-content>
+    </mat-card>
+
+    <ng-container *ngIf="user.applicationStatus === 'approved'">
+      <p>Approved!!</p>
+    </ng-container>
+
+    <ng-container
+      *ngIf="
+        user.applicationStatus === 'notStarted' ||
+        user.applicationStatus === 'pending' ||
+        user.applicationStatus === 'rejected'
+      "
+    >
+      <div class="form-container">
+        <!-- <app-onboarding-application-form
+          [user]="user"
+          [isEdit]="isEdit"
+          #onboardingForm
+        ></app-onboarding-application-form> -->
+        <app-personal-infomation-form
+          [user]="user"
+          [isEdit]="isEdit"
+          [displayCarInfo]="true"
+          #onboardingForm
+        ></app-personal-infomation-form>
+      </div>
+    </ng-container>
   </div>
 </div>

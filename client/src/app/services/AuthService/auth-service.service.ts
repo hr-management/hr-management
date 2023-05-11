@@ -15,6 +15,12 @@ export class AuthService {
     });
   }
 
+  updateStatus(params: Record<string, unknown>): Observable<HttpResponse<any>> {
+    return this.http.put<any>('/api/user/onboarding/status', params, {
+      observe: 'response',
+    });
+  }
+  
   updateUserInfo(
     params: Record<string, unknown>
   ): Observable<HttpResponse<any>> {
