@@ -1,0 +1,262 @@
+<div>{{status}}</div>
+<form [formGroup]="form" *ngIf="user">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Base Info</mat-card-title>
+  
+        <p class="row">
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input
+              matInput
+              placeholder="First Name"
+              formControlName="firstName"
+              required
+            />
+            <mat-error *ngIf="form.controls['firstName'].errors?.['required']">
+              Required
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input
+              matInput
+              placeholder="Last Name"
+              formControlName="lastName"
+              required
+            />
+            <mat-error *ngIf="form.controls['lastName'].errors?.['required']">
+              Required
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Middle Name</mat-label>
+            <input
+              matInput
+              placeholder="Middle Name"
+              formControlName="middleName"
+            />
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Preferred Name</mat-label>
+            <input
+              matInput
+              placeholder="Preferred Name"
+              formControlName="preferredName"
+            />
+          </mat-form-field>
+        </p>
+
+        <p>profile picture</p>
+
+        <mat-card style="margin-top: 32px;">
+            <mat-card-content>
+              <mat-card-title>Address</mat-card-title>
+        
+              <p class="row">
+                <mat-form-field>
+                  <mat-label>Building</mat-label>
+                  <input matInput placeholder="Building" formControlName="building" />
+                </mat-form-field>
+        
+                <mat-form-field>
+                  <mat-label>Street</mat-label>
+                  <input matInput placeholder="Street" formControlName="street" />
+                </mat-form-field>
+        
+                <mat-form-field>
+                  <mat-label>City</mat-label>
+                  <input matInput placeholder="City" formControlName="city" />
+                </mat-form-field>
+        
+                <mat-form-field>
+                  <mat-label>State</mat-label>
+                  <input matInput placeholder="State" formControlName="state" />
+                </mat-form-field>
+              </p>
+
+              <p class="row">
+                <mat-form-field>
+                  <mat-label>Zip</mat-label>
+                  <input
+                    matInput
+                    placeholder="Zip"
+                    formControlName="zip"
+                    type="number"
+                  />
+                  <mat-error
+                    *ngIf="form.controls['zip'].errors?.['minlength'] || form.controls['zip'].errors?.['maxlength']"
+                  >
+                    Zip length must be 6
+                  </mat-error>
+                </mat-form-field>
+              </p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card style="margin-top: 32px;">
+            <mat-card-content>
+              <mat-card-title>Contact Phone</mat-card-title>
+        
+              <mat-form-field>
+                <mat-label>CellPhoneNumber</mat-label>
+                <input
+                  matInput
+                  placeholder="CellPhoneNumber"
+                  type="text"
+                  formControlName="cellPhoneNumber"
+                />
+                <mat-error
+                  *ngIf="form.controls['cellPhoneNumber'].errors?.['minlength']"
+                >
+                  min length is 5
+                </mat-error>
+              </mat-form-field>
+        
+              <mat-form-field>
+                <mat-label>WorkPhoneNumber</mat-label>
+                <input
+                  matInput
+                  placeholder="WorkPhoneNumber"
+                  type="text"
+                  formControlName="workPhoneNumber"
+                />
+                <mat-error
+                  *ngIf="form.controls['workPhoneNumber'].errors?.['minlength']"
+                >
+                  min length is 5
+                </mat-error>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- car info -->
+        
+          <!-- with prefilled email -->
+        <div>car info</div>
+        <mat-card style="margin-top: 32px;">
+            <mat-card-content>
+                <mat-card-title>Email</mat-card-title>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      placeholder="Email"
+                      formControlName="email"
+                      type="email"
+                    />
+                    <mat-error *ngIf="form.controls['email'].errors?.['required']">
+                      Required
+                    </mat-error>
+                    <mat-error *ngIf="form.controls['lastName'].errors?.['email']">
+                      Please provide valid email
+                    </mat-error>
+                  </mat-form-field>
+        </mat-card-content>
+        </mat-card>
+  
+          <mat-card style="margin-top: 32px;">
+            <mat-card-content>
+            <mat-card-title>Related Info</mat-card-title>
+            <p class="row">
+            <mat-form-field>
+                <mat-label>SSN</mat-label>
+                <input matInput placeholder="ssn" formControlName="ssn" />
+              </mat-form-field>
+
+            <mat-form-field>
+            <mat-label>BirthDate</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="birthDate"
+              [max]="maxDate"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            
+          <mat-form-field>
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="male">male</mat-option>
+              <mat-option value="female">female</mat-option>
+              <mat-option value="I do not wish to answer">
+                I do not wish to answer
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        </mat-card-content>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  
+   <mat-card>
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label>Citizenship</mat-label>
+            <mat-select formControlName="citizenship" (change)="onCitizenshipChange($event)">
+              <mat-option value="yes">Yes</mat-option>
+              <mat-option value="no">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="showWorkAuthorization">
+            <mat-label>What is your work authorization?</mat-label>
+            <mat-select formControlName="authorization" (change)="onAuthorizationChange($event)">
+              <mat-option value="h1-b">H1-B</mat-option>
+              <mat-option value="l2">L2</mat-option>
+              <mat-option value="f1">F1</mat-option>
+              <mat-option value="h4">H4</mat-option>
+              <mat-option value="other">Other</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- OPT file -->
+          <mat-form-field *ngIf="showF1Receipt">
+            <mat-label>Please upload your OPT receipt:</mat-label>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="showOtherVisa">
+            <mat-label>Please specify the visa title:</mat-label>
+            <input
+              matInput
+              placeholder="VisaTitle"
+              formControlName="visaTitle"
+            />
+          </mat-form-field>
+
+          <mat-form-field *ngIf="showStartEndDate">
+            <mat-label>StartDate</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="startdate"
+              [max]="maxDate"
+            />
+            <mat-label>EndDate</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="endDate"
+              [max]="maxDate"
+            />
+          </mat-form-field>
+          
+    </mat-card-content>
+   </mat-card>
+
+    <mat-card style="margin-top: 32px;">
+      <mat-card-content>
+        <mat-card-title>Documents</mat-card-title>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  
