@@ -28,17 +28,3 @@ export const updateApplicationsFailure = createAction(
   '[Applications] Update Applications Failure',
   props<{ error: any }>()
 );
-export const sendInvitationEmailStart = createAction(
-  '[Applications] send Invitation Email Start',
-  props<{ email: string,name:string }>()
-);
-
-export const sendInvitationEmailSuccess = createAction(
-  '[Applications] send Invitation Email Success',
-  props<{ message:string }>()
-);
-
-export const sendInvitationEmailFailure = createAction(
-  '[Applications] send Invitation Email Failure',
-  props<{ error: any }>()
-);

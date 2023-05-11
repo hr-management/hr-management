@@ -29,26 +29,18 @@ export class HiringManagementComponent {
     this.form =this.fb.group({email:['', [Validators.required, Validators.email]],name:['', [Validators.required]]});
     this.state = this.store.pipe(select("applications"))
     this.state.subscribe((data) => {
-      if (data.message) {
-        this.snackBar.open(data.message, 'Close', { duration: 3000 });
-        this.form.reset()
-        Object.keys(this.form.controls).forEach(key => {
-          this.form.controls[key].setErrors(null);
-          this.form.controls[key].markAsUntouched();
-          this.form.controls[key].markAsPristine();
-});
-      }
       if (data.error) {
-        this.snackBar.open(data.error, 'Close', { duration: 3000 });
+        this.snackBar.open("Something went wrong. Please try again.", 'Close', { duration: 3000 });
       }
       
     });
   }
   ngOnInit() {
     this.store.dispatch(ApplicationsActions.getApplicationsStart({ status: "pending" }))
+   
   }
   sendEmail() {
-      this.store.dispatch(ApplicationsActions.sendInvitationEmailStart(this.form.value))
+    console.log(this.form.value)
   }
   onToggleChange(event:any) {
     this.store.dispatch(ApplicationsActions.getApplicationsStart({status:event.value}))

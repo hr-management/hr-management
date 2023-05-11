@@ -19,6 +19,7 @@ export class GetApplicationsEffects {
       const status = action.status;
       return this.http.get<any>(`/api/employees/applications/${status}`,).pipe(
         map((data) => {
+          console.log(data)
           return ApplicationsActions.getApplicationsSuccess({data})
         }),
         catchError((err: HttpErrorResponse) => of(ApplicationsActions.getApplicationsFailure(err)))

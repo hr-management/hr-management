@@ -9,9 +9,7 @@
         name="email"
         required
       />
-      <mat-error
-        *ngIf="form.controls['name'].touched && form.controls['email'].errors?.['required']"
-      >
+      <mat-error *ngIf="form.controls['email'].errors?.['required']">
         Required
       </mat-error>
       <mat-error *ngIf="form.controls['email'].errors?.['email']">
@@ -21,20 +19,13 @@
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput placeholder="name" formControlName="name" required />
-      <mat-error
-        *ngIf="form.controls['name'].touched && form.controls['name'].errors?.['required']"
-      >
+      <mat-error *ngIf="form.controls['name'].errors?.['required']">
         Required
       </mat-error>
     </mat-form-field>
   </div>
 
-  <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="(this.state|async).loading"
-  >
+  <button mat-raised-button color="primary" type="submit">
     Generate token and send email
   </button>
 </form>
