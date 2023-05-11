@@ -22,7 +22,6 @@ const userOnboarding = async (req, res) => {
         // approved
         res.status(200).json({ success: true })
     }
-
 };
 
 module.exports = {
