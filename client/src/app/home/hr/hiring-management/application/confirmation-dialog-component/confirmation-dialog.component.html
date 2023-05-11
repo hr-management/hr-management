@@ -1,0 +1,22 @@
+<mat-dialog-content>
+  <p>{{data.message}}</p>
+  <mat-form-field *ngIf="data.action==='reject'">
+    <mat-label>You can provide feedback here:</mat-label>
+    <textarea
+      matInput
+      type="text"
+      [(ngModel)]="feedback"
+      name="feedback"
+    ></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button mat-dialog-close>Close</button>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="updateApplication(data.action)"
+  >
+    Yes, {{data.action | titlecase}}
+  </button>
+</mat-dialog-actions>

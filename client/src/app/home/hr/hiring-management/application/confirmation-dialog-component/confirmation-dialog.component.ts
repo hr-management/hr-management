@@ -1,0 +1,42 @@
+import {Component, Inject, } from '@angular/core';
+import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
+import * as ApplicationsActions from "../../../../../store/applications/applications.actions"
+import {select, Store} from "@ngrx/store";
+import { AppState } from 'src/app/store';
+import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+@Component({
+  selector: 'app-confirmation-dialog',
+  templateUrl: './confirmation-dialog.component.html',
+  styleUrls: ['./confirmation-dialog.component.scss'],
+})
+export class ConfirmationDialogComponent {
+  feedback:string =""
+    state:Observable<any>
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { data: any, message: string, action: string, feedback: string },
+    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar
+
+  ) { 
+    this.state = this.store.pipe(select("applications"))
+    this.state.subscribe((data) => {
+      const cur = data.applications.find((a: any) => a._id === this.data.data._id)
+      if (cur?.applicationStatus !== this.data.data.applicationStatus) {
+        this.dialogRef.close()
+      }
+      if (data.error) {
+        this.snackBar.open("Something went wrong. Please try again.", 'Close', { duration: 3000 });
+      }
+      
+    });
+  }
+
+  updateApplication(status:string) {
+        this.store.dispatch(ApplicationsActions.updateApplicationsStart({id:this.data.data._id,status,feedback:this.feedback}))
+
+  }
+
+}
