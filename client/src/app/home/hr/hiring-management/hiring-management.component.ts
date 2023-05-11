@@ -5,7 +5,7 @@ import {select, Store } from "@ngrx/store";
 import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef,MatDialogConfig } from '@angular/material/dialog' ;
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog' ;
 import { ApplicationComponent } from "./application/application.component"
 
 @Component({
