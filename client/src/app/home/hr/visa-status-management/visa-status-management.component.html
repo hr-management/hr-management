@@ -1,1 +1,109 @@
-<p>visa-status-management works!</p>
+<h2>Visa Employees</h2>
+<mat-button-toggle-group name="applications" (change)="onToggleChange($event)">
+  <mat-button-toggle value="inprogress" checked>In Progress</mat-button-toggle>
+  <mat-button-toggle value="all">All</mat-button-toggle>
+</mat-button-toggle-group>
+<div class="search" *ngIf="(this.curStatus$|async)==='all'">
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="search"
+    placeholder="Last Name, First Name, or Preferred Name"
+    name="search"
+  />
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="handleSearch()"
+  >
+    Search
+  </button>
+</div>
+<p *ngIf="(this.state|async).loading;else table">
+  Loading....
+</p>
+<ng-template #table
+  ><p>{{(this.dataSource$ | async)?.length}} records found.</p>
+
+  <table
+    mat-table
+    [dataSource]="(this.dataSource$ | async)"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef>Full Name</th>
+      <td mat-cell *matCellDef="let data">
+        {{data.name}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="workAuth">
+      <th mat-header-cell *matHeaderCellDef>Work Authorization</th>
+      <td mat-cell *matCellDef="let data">
+        <div class="workAuthCell">
+          <h3>{{data.workAuthTitle}}</h3>
+          <p>Start Date: {{data.startDate}}</p>
+          <p>End Date: {{data.endDate}}</p>
+          <p>Remaining days: {{data.remainingDate}}</p>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="nextStep">
+      <th mat-header-cell *matHeaderCellDef>Next Step</th>
+      <td mat-cell *matCellDef="let data">
+        {{data.nextStep}}
+        <div>
+          <a *ngIf="data.file" target="__blank" [href]="data.file"
+            >{{data.curDoc.type}}</a
+          >
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let data">
+        <div [ngSwitch]="data.nextAction">
+          <button
+            id="sendNotificationButton"
+            mat-raised-button
+            *ngSwitchCase="'submit'"
+            (click)="sendNotification$.next(data)"
+          >
+            Send Notification
+          </button>
+          <div *ngSwitchCase="'HR approval'">
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="openDialog(data,'reject')"
+            >
+              Reject
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="openDialog(data,'approve')"
+            >
+              Approve
+            </button>
+          </div>
+          <button mat-raised-button *ngSwitchCase="'rejected'" disabled>
+            Rejected
+          </button>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="documents">
+      <th mat-header-cell *matHeaderCellDef>Documents</th>
+      <td mat-cell *matCellDef="let data">
+        <div *ngFor="let document of data.approvedFiles">
+          <a target="__blank" [href]="document.file">{{document.fileName}}</a>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</ng-template>

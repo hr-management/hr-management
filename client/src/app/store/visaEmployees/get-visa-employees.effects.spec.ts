@@ -2,21 +2,21 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
-import { SendInvitationEmailEffects } from './send-invitation-email.effects';
+import { GetVisaEmployeesEffects } from './get-visa-employees.effects';
 
-describe('SendInvitationEmailEffects', () => {
+describe('GetVisaEmployeesEffects', () => {
   let actions$: Observable<any>;
-  let effects: SendInvitationEmailEffects;
+  let effects: GetVisaEmployeesEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        SendInvitationEmailEffects,
+        GetVisaEmployeesEffects,
         provideMockActions(() => actions$)
       ]
     });
 
-    effects = TestBed.inject(SendInvitationEmailEffects);
+    effects = TestBed.inject(GetVisaEmployeesEffects);
   });
 
   it('should be created', () => {

@@ -11,12 +11,14 @@ import { clearStateMetaReducer } from './auth/clearStateMetaReducer';
 import * as fromUser from './auth/users.reducer';
 import * as fromEmployees from './employees/employees.reducer';
 import * as fromApplications from './applications/applications.reducer';
+import * as fromVisaEmployees from './visaEmployees/visa-employees.reducer';
 
 
 export interface AppState {
   [fromUser.loginFeatureKey]: fromUser.State;
   [fromEmployees.employeesFeatureKey]: fromEmployees.State;  [fromApplications.applicationsFeatureKey]: fromApplications.State;
 
+[fromVisaEmployees.visaEmployeesFeatureKey]: fromVisaEmployees.State;
 
 
 }
@@ -25,6 +27,7 @@ export const reducers: ActionReducerMap<AppState> = {
   [fromUser.loginFeatureKey]: fromUser.reducer,
   [fromEmployees.employeesFeatureKey]: fromEmployees.reducer,
   [fromApplications.applicationsFeatureKey]: fromApplications.reducer,
+  [fromVisaEmployees.visaEmployeesFeatureKey]: fromVisaEmployees.reducer,
 };
 
 

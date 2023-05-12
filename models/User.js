@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema({
       feedback: { type: String, default: "" },
     },
   ],
+  OPTCompleted: { type: Boolean, default: false },
   driverLicense: {
     licenseNumber: { type: String, default: "" },
     expirationDate: { type: String, default: "" },

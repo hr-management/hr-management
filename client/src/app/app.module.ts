@@ -54,10 +54,12 @@ import { FacilityReportsComponent } from './home/housing/facility-reports/facili
 import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
 import { GetApplicationsEffects } from './store/applications/get-applications.effects';
 import { ApplicationComponent } from './home/hr/hiring-management/application/application.component';
-import { ConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
+import { ConfirmationDialogComponent as ApplicationConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
 import { UpdateApplicationEffects } from './store/applications/update-application.effects';
-import { SendInvitationEmailEffects } from './store/applications/send-invitation-email.effects';
 import { OnboardingApplicationFormComponent } from './home/employee/onboarding-application/onboarding-application-form/onboarding-application-form.component';
+import { GetVisaEmployeesEffects } from './store/visaEmployees/get-visa-employees.effects';
+import { ConfirmationDialogComponent as VisaConfirmationDialogComponent } from './home/hr/visa-status-management/confirmation-dialog/confirmation-dialog.component';
+import { UpdateVisaAuthDocEffects } from './store/visaEmployees/update-visa-auth-doc.effects';
 import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
 @NgModule({ 
   declarations: [
@@ -83,7 +85,8 @@ import { HouseDetailsComponent } from './home/hr/housing-management/house-detail
     FacilityReportsComponent,
     FacilityReportDetailsComponent,
     ApplicationComponent,
-    ConfirmationDialogComponent,
+    ApplicationConfirmationDialogComponent,
+    VisaConfirmationDialogComponent,
     OnboardingApplicationFormComponent,
     HouseDetailsComponent
   ],
@@ -113,7 +116,7 @@ import { HouseDetailsComponent } from './home/hr/housing-management/house-detail
     MatNativeDateModule,
     MatButtonToggleModule,
     MatDialogModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, SendInvitationEmailEffects]),
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, GetVisaEmployeesEffects, UpdateVisaAuthDocEffects]),
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
