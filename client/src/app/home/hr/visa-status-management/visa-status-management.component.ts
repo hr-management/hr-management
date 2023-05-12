@@ -56,7 +56,7 @@ export class VisaStatusManagementComponent {
             dialogConfig.data = {data,message:'Are you sure you want to reject this document?',action:"reject"} 
           }
         dialogConfig.autoFocus=false;
-        const dialogRef = this.dialog.open(ConfirmationDialogComponent,dialogConfig);
+        this.dialog.open(ConfirmationDialogComponent,dialogConfig);
        
   }
 

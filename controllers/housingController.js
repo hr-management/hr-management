@@ -1,5 +1,51 @@
 const Housing = require("../models/housing");
 
+// Create a new house
+exports.createHouse = async (req, res) => {
+  try {
+    const newHouse = await Housing.create(req.body);
+    res.status(201).json(newHouse);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// View existing houses
+exports.getHouses = async (req, res) => {
+  try {
+    const houses = await Housing.find();
+    res.status(200).json(houses);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// View house details
+exports.getHouseDetails = async (req, res) => {
+  try {
+    const house = await Housing.findById(req.params.houseId);
+    if (!house) {
+      return res.status(404).json({ error: "House not found" });
+    }
+    res.status(200).json(house);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Delete a house
+exports.deleteHouse = async (req, res) => {
+  try {
+    const house = await Housing.findByIdAndDelete(req.params.houseId);
+    if (!house) {
+      return res.status(404).json({ error: "House not found" });
+    }
+    res.status(200).json({ message: "House deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // getting housing details
 exports.getHousingDetails = async (req, res) => {
   try {
@@ -114,24 +160,19 @@ exports.addReportComment = async (req, res) => {
 // updating a comment on a specific facility report
 exports.updateReportComment = async (req, res) => {
   try {
-    const housing = await Housing.findOne(
+    const result = await Housing.updateOne(
       { "reports._id": req.params.reportId },
-      { "reports.$": 1 }
+      { $set: { "reports.$.comments.$[comment].description": req.body.description } },
+      { arrayFilters: [{ "comment._id": req.params.commentId }] }
     );
-    if (!housing) {
-      return res.status(404).json({ error: "Report not found" });
+
+    if (result.n === 0) {
+      return res.status(404).json({ error: "Report or comment not found" });
     }
 
-    const report = housing.reports.id(req.params.reportId);
-    const comment = report.comments.id(req.params.commentId);
-    if (!comment) {
-      return res.status(404).json({ error: "Comment not found" });
-    }
-
-    comment.description = req.body.description || comment.description;
-    await housing.save();
-    res.status(200).json(comment);
+    res.status(200).json({ message: "Comment updated successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+

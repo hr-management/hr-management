@@ -1,7 +1,6 @@
 //hardcoded info for HR
 const userModel = require("./models/User");
 const housingModel = require('./models/housing');
-
 const mongoose = require("mongoose");
 const uuid = require("uuid");
 require("dotenv").config();
@@ -20,6 +19,126 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", async function () {
   console.log("MongoDB connection successful");
 });
+
+(async function () {
+  try {
+    const newHousings = [
+      {
+        address: '123 Main St',
+        landlord: {
+          legalFullName: 'John Landlord',
+          phoneNumber: '1234567890',
+          email: 'john@example.com',
+        },
+        roommates: [
+          {
+            preferredName: 'John',
+            legalFullName: 'John Doe',
+            phoneNumber: '1234567890',
+            email: 'john@example.com',
+            carInformation: 'Toyota Camry',
+          },
+          {
+            preferredName: 'Alice',
+            legalFullName: 'Alice Smith',
+            phoneNumber: '9876543210',
+            email: 'alice@example.com',
+            carInformation: 'Honda Civic',
+          },
+        ],
+        facility: {
+          beds: 3,
+          mattresses: 3,
+          tables: 1,
+          chairs: 4,
+        },
+        reports: [
+          {
+            title: 'Leaky Faucet',
+            description: 'The faucet in the kitchen is leaking.',
+            createdBy: new mongoose.Types.ObjectId(),
+            timestamp: '2022-10-05T09:30:00.000Z',
+            status: 'Open',
+            comments: [],
+          },
+        ],
+      },
+      {
+        address: '456 Elm St',
+        landlord: {
+          legalFullName: 'Sarah Landlord',
+          phoneNumber: '1112223333',
+          email: 'sarah@example.com',
+        },
+        roommates: [
+          {
+            preferredName: 'Mike',
+            legalFullName: 'Michael Johnson',
+            phoneNumber: '1112223333',
+            email: 'mike@example.com',
+            carInformation: 'Ford Mustang',
+          },
+          {
+            preferredName: 'Sarah',
+            legalFullName: 'Sarah Davis',
+            phoneNumber: '4445556666',
+            email: 'sarah@example.com',
+            carInformation: 'Chevrolet Malibu',
+          },
+          {
+            preferredName: 'Emily',
+            legalFullName: 'Emily Thompson',
+            phoneNumber: '7778889999',
+            email: 'emily@example.com',
+            carInformation: 'N/A',
+          },
+        ],
+        facility: {
+          beds: 4,
+          mattresses: 4,
+          tables: 2,
+          chairs: 6,
+        },
+        reports: [
+          {
+            title: 'Broken Window',
+            description: 'There is a broken window in the living room.',
+            createdBy: new mongoose.Types.ObjectId(),
+            timestamp: '2022-11-15T14:45:00.000Z',
+            status: 'Closed',
+            comments: [
+              {
+                description: 'Window has been fixed.',
+                createdBy: new mongoose.Types.ObjectId(),
+                timestamp: '2022-11-15T15:00:00.000Z',
+              },
+            ],
+          },
+          {
+            title: 'Clogged Sink',
+            description: 'The sink in the bathroom is clogged.',
+            createdBy: new mongoose.Types.ObjectId(),
+            timestamp: '2022-12-01T11:20:00.000Z',
+            status: 'In Progress',
+            comments: [],
+          },
+        ],
+      },
+    ];
+
+    for (const housingData of newHousings) {
+      const newHousing = new housingModel(housingData);
+      await newHousing.save();
+      console.log('New housing created:', newHousing);
+    }
+
+    console.log('Data import completed successfully.');
+    db.close();
+  } catch (error) {
+    console.error('Error importing data:', error);
+  }
+})();
+
 
 (async function () {
   await userModel.deleteMany();
@@ -81,42 +200,3 @@ db.once("open", async function () {
       console.error("Error registering user:", err);
     });
 })();
-
-// 
-// (async function () {
-//   await housingModel.deleteMany();
-
-//   const newHousing = new housingModel({
-//     address: '123 Elm St',
-//     roommates: [
-//       {
-//         preferredName: 'Jane',
-//         legalFullName: 'Jane Smith',
-//         phoneNumber: '555-555-5555'
-//       },
-//       {
-//         preferredName: 'Bob',
-//         legalFullName: 'Bob Johnson',
-//         phoneNumber: '444-444-4444'
-//       }
-//     ],
-//     reports: [
-//       {
-//         title: 'Leaky roof',
-//         description: 'The roof is leaking in the living room.',
-//         createdBy: new mongoose.Types.ObjectId(),
-//         timestamp: new Date(),
-//         status: 'Open',
-//         comments: [
-//           {
-//             description: 'I will have a contractor look at it.',
-//             createdBy: new mongoose.Types.ObjectId(),
-//             timestamp: new Date()
-//           }
-//         ]
-//       }
-//     ]
-//   });
-
-//   await newHousing.save();
-// })();

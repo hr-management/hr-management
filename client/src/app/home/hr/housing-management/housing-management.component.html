@@ -1,1 +1,51 @@
-<p>housing-management works!</p>
+<!-- housing-management.component.html -->
+
+<h1>Housing Management Page</h1>
+
+<!-- Display existing houses -->
+<div *ngIf="houses.length > 0">
+  <h2>Existing Houses</h2>
+  <ul>
+    <li *ngFor="let house of houses">
+      <div>
+        <strong>Address: </strong>{{ house.address }}
+      </div>
+      <div>
+        <strong>Landlord: </strong>{{ house.landlord.legalFullName }}
+      </div>
+      <div>
+        <strong>Phone: </strong>{{ house.landlord.phoneNumber }}
+      </div>
+      <div>
+        <strong>Email: </strong>{{ house.landlord.email }}
+      </div>
+      <div>
+        <strong>Number of Residents: </strong>{{ house.roommates.length }}
+      </div>
+      <button (click)="viewHouseDetails(house._id)">View Details</button>
+      <button (click)="deleteHouse(house._id)">Delete House</button>
+    </li>
+  </ul>
+</div>
+
+<!-- Add new house form -->
+<h2>Add New House</h2>
+<form (submit)="addHouse()">
+  <div>
+    <label>Address:</label>
+    <input type="text" name="address" [(ngModel)]="newHouse.address" required>
+  </div>
+  <div>
+    <label>Landlord Legal Full Name:</label>
+    <input type="text" name="landlordFullName" [(ngModel)]="newHouse.landlord.legalFullName" required>
+  </div>
+  <div>
+    <label>Landlord Phone Number:</label>
+    <input type="text" name="landlordPhoneNumber" [(ngModel)]="newHouse.landlord.phoneNumber" required>
+  </div>
+  <div>
+    <label>Landlord Email:</label>
+    <input type="email" name="landlordEmail" [(ngModel)]="newHouse.landlord.email" required>
+  </div>
+  <button type="submit">Add House</button>
+</form>

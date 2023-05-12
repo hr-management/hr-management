@@ -23,7 +23,7 @@ export class ConfirmationDialogComponent {
   ) { 
     this.state = this.store.pipe(select("visaEmployees"))
     this.state.subscribe((data) => {
-      
+      // close dialog if update is successful
       if(data.visaEmployees.length){
         const cur = data.visaEmployees.find((a: any) => a._id === this.data.data.id)
         if (this.data.action === "reject") {
@@ -31,8 +31,7 @@ export class ConfirmationDialogComponent {
             this.dialogRef.close()
           }
         } else {
-          //TODO bug
-          if (cur?.workAuthDoc.at(-2).status === "approved"  ) {
+          if ((cur?.workAuthDoc.length===4 && cur?.workAuthDoc.at(-1).status === "approved") || (cur?.workAuthDoc.at(-1).status === "notSubmitted") ) {
             this.dialogRef.close()
           }
         }      

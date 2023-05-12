@@ -1,9 +1,23 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const housingSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true,
+  },
+  landlord: {
+    legalFullName: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
   },
   roommates: [
     {
@@ -16,8 +30,31 @@ const housingSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      email: {
+        type: String,
+        required: true,
+      },
+      carInformation: String,
     },
   ],
+  facility: {
+    beds: {
+      type: Number,
+      default: 0,
+    },
+    mattresses: {
+      type: Number,
+      default: 0,
+    },
+    tables: {
+      type: Number,
+      default: 0,
+    },
+    chairs: {
+      type: Number,
+      default: 0,
+    },
+  },
   reports: [
     {
       title: {
@@ -64,3 +101,4 @@ const housingSchema = new mongoose.Schema({
 const Housing = mongoose.model("Housing", housingSchema);
 
 module.exports = Housing;
+
