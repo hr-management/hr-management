@@ -1,3 +1,22 @@
 :host {
     flex-grow: 1;
+    padding:20px;
+}
+mat-button-toggle{
+    min-width: 90px;
+}
+
+.workAuthCell{
+    margin:16px 0;
+    h3{
+        font-weight: bold;
+        margin-bottom:5px;
+    }
+    p{
+        margin:0;
+        
+    }
+}
+button{
+    margin: 5px;
 }

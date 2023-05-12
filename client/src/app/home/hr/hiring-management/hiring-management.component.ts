@@ -33,8 +33,7 @@ export class HiringManagementComponent {
       if (data.error) {
         this.snackBar.open(data.error, 'Close', { duration: 3000 });
       }
-      
-    });
+    })
   }
   ngOnInit() {
     this.store.dispatch(ApplicationsActions.getApplicationsStart({ status: "pending" }))

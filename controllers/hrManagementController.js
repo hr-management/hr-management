@@ -81,8 +81,8 @@ exports.getVisaEmployees = async (req, res) => {
     } else {
       //visa===F1(CPT/OPT) && applicationStatus===pending
       visaEmployees = await userModel.find({
-        visa: { type: "F1(CPT/OPT)" },
-        applicationStatus: "pending",
+        "visa.type": "F1(CPT/OPT)",
+        OPTCompleted: false,
       });
       employeeType = "Inprogress visa employees";
     }
@@ -93,6 +93,7 @@ exports.getVisaEmployees = async (req, res) => {
       visaEmployees,
     });
   } catch (err) {
+    console.log(err);
     return res
       .status(500)
       .json({ success: false, message: "Something went wrong.", err });
@@ -107,7 +108,7 @@ exports.updateApplicationStatus = async (req, res) => {
     if (!["reject", "approve"].includes(status)) {
       return res.status(400).json({
         success: false,
-        message: "Invaild status, only rejected or approved.",
+        message: "Invaild status, only reject or approve.",
       });
     }
     const employee = req.employee; // from findEmplyeeById middleware
@@ -148,10 +149,10 @@ exports.updateApplicationStatus = async (req, res) => {
 exports.updateVisaAuthStatus = async (req, res) => {
   try {
     const { status, feedback } = req.body;
-    if (!["rejected", "approved"].includes(status)) {
+    if (!["reject", "approve"].includes(status)) {
       return res.status(400).json({
         success: false,
-        message: "Invaild status, only rejected or approved.",
+        message: "Invaild status, only reject or approve.",
       });
     }
     const employee = req.employee; // from findEmplyeeById middleware
@@ -165,20 +166,29 @@ exports.updateVisaAuthStatus = async (req, res) => {
           message: "You can't update this visa auth status.",
         });
       }
-      if (status === "approved") {
+      let OPTCompleted = false;
+      if (status === "approve") {
         workAuthDocs[curStep].status = "approved";
+
         if (curStep < 3) {
           workAuthDocs.push({
             type: docTypes[curStep + 1],
             status: "notSubmitted",
           });
+        } else {
+          OPTCompleted = true;
         }
-        await userModel.updateOne({ _id: employee._id }, { workAuthDoc });
+        await userModel.updateOne(
+          { _id: employee._id },
+          { workAuthDoc: workAuthDocs, OPTCompleted }
+        );
         return res.status(200).json({
           success: true,
           nextStep: docTypes[curStep + 1]
             ? docTypes[curStep + 1]
             : "Approved all documentations.",
+          workAuthDoc: workAuthDocs,
+          OPTCompleted,
         });
       } else {
         workAuthDocs[curStep].status = "rejected";
@@ -186,16 +196,24 @@ exports.updateVisaAuthStatus = async (req, res) => {
           feedback = "";
         }
         workAuthDocs[curStep].feedback = feedback;
-        await userModel.updateOne({ _id: employee._id }, { workAuthDoc });
-        return res
-          .status(200)
-          .json({ success: true, rejected: docTypes[curStep], feedback });
+        await userModel.updateOne(
+          { _id: employee._id },
+          { workAuthDoc: workAuthDocs }
+        );
+        return res.status(200).json({
+          success: true,
+          rejected: docTypes[curStep],
+          workAuthDoc: workAuthDocs,
+          OPTCompleted,
+          feedback,
+        });
       }
     }
     return res
       .status(400)
       .json({ success: false, message: "This is not a F1(CPT/OPT) employee." });
   } catch (err) {
+    console.log(err);
     return res
       .status(500)
       .json({ success: false, message: "Something went wrong", err });
