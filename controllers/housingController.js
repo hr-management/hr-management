@@ -1,5 +1,51 @@
 const Housing = require("../models/housing");
 
+// Create a new house
+exports.createHouse = async (req, res) => {
+  try {
+    const newHouse = await Housing.create(req.body);
+    res.status(201).json(newHouse);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// View existing houses
+exports.getHouses = async (req, res) => {
+  try {
+    const houses = await Housing.find();
+    res.status(200).json(houses);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// View house details
+exports.getHouseDetails = async (req, res) => {
+  try {
+    const house = await Housing.findById(req.params.houseId);
+    if (!house) {
+      return res.status(404).json({ error: "House not found" });
+    }
+    res.status(200).json(house);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Delete a house
+exports.deleteHouse = async (req, res) => {
+  try {
+    const house = await Housing.findByIdAndDelete(req.params.houseId);
+    if (!house) {
+      return res.status(404).json({ error: "House not found" });
+    }
+    res.status(200).json({ message: "House deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // getting housing details
 exports.getHousingDetails = async (req, res) => {
   try {
@@ -129,3 +175,4 @@ exports.updateReportComment = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
