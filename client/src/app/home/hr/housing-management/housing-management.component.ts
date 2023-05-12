@@ -44,7 +44,7 @@ export class HousingManagementComponent implements OnInit {
 
   addHouse() {
     const apiUrl = 'http://localhost:3001/api/housing/';
-  
+
     this.http.post<any>(apiUrl, this.newHouse).subscribe(
       house => {
         this.houses.push(house);
@@ -62,7 +62,7 @@ export class HousingManagementComponent implements OnInit {
       }
     );
   }
-  
+
 
   deleteHouse(houseId: string) {
     this.http.delete(`http://localhost:3001/api/housing/${houseId}`).subscribe(

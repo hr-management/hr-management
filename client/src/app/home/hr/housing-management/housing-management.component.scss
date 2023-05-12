@@ -1,27 +1,30 @@
-.mat-list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .list-item-content {
-    flex: 1;
-    min-width: 0; /* this helps with overflow and text-ellipsis */
-  }
-  
-  .list-item-actions {
-    display: flex;
-    gap: 10px; /* space between buttons */
-  }
-  
-  /* Optional: Truncate long text */
-  .list-item-content h3,
-  .list-item-content p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
+.form-container {
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.list-item-content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 16px;
+}
+
+.list-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.house-container {
+  padding-left: 20px; /* Adjust the value as needed */
+}
+
   // :host {
 //     flex-grow: 1;
 //     padding: 20px;
