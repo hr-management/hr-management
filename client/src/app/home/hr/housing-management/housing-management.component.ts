@@ -44,17 +44,25 @@ export class HousingManagementComponent implements OnInit {
 
   addHouse() {
     const apiUrl = 'http://localhost:3001/api/housing/';
-
+  
     this.http.post<any>(apiUrl, this.newHouse).subscribe(
       house => {
         this.houses.push(house);
-        this.newHouse = {};
+        this.newHouse = {
+          address: "",
+          landlord: {
+            legalFullName: "",
+            phoneNumber: "",
+            email: "",
+          },
+        };
       },
       error => {
         console.log('Error adding house:', error);
       }
     );
   }
+  
 
   deleteHouse(houseId: string) {
     this.http.delete(`http://localhost:3001/api/housing/${houseId}`).subscribe(
