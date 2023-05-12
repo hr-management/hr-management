@@ -48,7 +48,10 @@ export class HiringManagementComponent {
     this.store.dispatch(ApplicationsActions.getApplicationsStart({ status: "pending" }))
   }
   sendEmail() {
-      this.store.dispatch(ApplicationsActions.sendInvitationEmailStart(this.form.value))
+    if (this.form.valid) {
+            this.store.dispatch(ApplicationsActions.sendInvitationEmailStart(this.form.value))
+
+    }
   }
   onToggleChange(event:any) {
     this.store.dispatch(ApplicationsActions.getApplicationsStart({status:event.value}))

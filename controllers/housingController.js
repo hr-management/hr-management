@@ -114,23 +114,17 @@ exports.addReportComment = async (req, res) => {
 // updating a comment on a specific facility report
 exports.updateReportComment = async (req, res) => {
   try {
-    const housing = await Housing.findOne(
+    const result = await Housing.updateOne(
       { "reports._id": req.params.reportId },
-      { "reports.$": 1 }
+      { $set: { "reports.$.comments.$[comment].description": req.body.description } },
+      { arrayFilters: [{ "comment._id": req.params.commentId }] }
     );
-    if (!housing) {
-      return res.status(404).json({ error: "Report not found" });
+
+    if (result.n === 0) {
+      return res.status(404).json({ error: "Report or comment not found" });
     }
 
-    const report = housing.reports.id(req.params.reportId);
-    const comment = report.comments.id(req.params.commentId);
-    if (!comment) {
-      return res.status(404).json({ error: "Comment not found" });
-    }
-
-    comment.description = req.body.description || comment.description;
-    await housing.save();
-    res.status(200).json(comment);
+    res.status(200).json({ message: "Comment updated successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
