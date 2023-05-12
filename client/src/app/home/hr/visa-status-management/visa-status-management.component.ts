@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable,BehaviorSubject  } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog' ;
 import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-dialog.component"
+import { SendEmailService } from 'src/app/services/sendEmailService/send-email.service';
 
 @Component({
   selector: 'app-visa-status-management',
@@ -21,6 +22,8 @@ export class VisaStatusManagementComponent {
     private store: Store<AppState>,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
+    private sendEmailService: SendEmailService
+
   ) {
     this.state = this.store.pipe(select("visaEmployees"))
     this.state.subscribe((data) => {
@@ -59,7 +62,16 @@ export class VisaStatusManagementComponent {
         this.dialog.open(ConfirmationDialogComponent,dialogConfig);
        
   }
-
+  sendNotificationEmail(data:any) {
+    this.sendEmailService.sendDocumentNotificationEmail({id:data.id,documentName:data.curDoc.type}).subscribe({
+        next: (data) => {
+            this.snackBar.open(data.message, 'Close', { duration: 3000 });
+        },
+        error: (err) => {
+          this.snackBar.open(err.error.message, 'Close', { duration: 3000 })  
+        },
+      })
+  }
   processVisaEmployeesData(data:any[]):any[] {
     const processedData = []
     for (let employee of data) {

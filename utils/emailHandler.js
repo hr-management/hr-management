@@ -34,7 +34,7 @@ module.exports = async (data) => {
       await transporter.sendMail({
         from: sender.email,
         to: `${receiver.email}`,
-        subject: "Invitation to register with Company XXX",
+        subject: "Notification: Document Submission Required",
         html: `<p>Dear ${receiver.firstName},</p>
                     <p>We hope this email finds you well. This is a friendly reminder that we require you to submit the following document:</p>
                     <ul>

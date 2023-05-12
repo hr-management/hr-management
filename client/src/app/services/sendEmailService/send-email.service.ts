@@ -11,4 +11,8 @@ export class SendEmailService {
   sendInvitationEmail(data:any) {   
     return this.http.post<any>(`/api/employees/invitation`,data);
   }
+  sendDocumentNotificationEmail(data: any) {   
+    const {id,documentName} = data;
+    return this.http.post<any>(`/api/employees/visaEmployees/${id}/sendNotificationEmail`,{documentName});
+  }
 }

@@ -1,4 +1,3 @@
-const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const RegistrationHistoryModel = require("../models/registrationHistory");
