@@ -3,11 +3,12 @@ import * as VisaEmployeesActions from "../../../store/visaEmployees/visa-employe
 import {select, Store } from "@ngrx/store";
 import { AppState } from 'src/app/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable,BehaviorSubject  } from 'rxjs';
+import { Observable,BehaviorSubject } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog' ;
 import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-dialog.component"
 import { SendEmailService } from 'src/app/services/sendEmailService/send-email.service';
-
+import { Subject } from 'rxjs';
+import { throttleTime } from 'rxjs/operators';
 @Component({
   selector: 'app-visa-status-management',
   templateUrl: './visa-status-management.component.html',
@@ -17,7 +18,9 @@ export class VisaStatusManagementComponent {
   state: Observable<any>
   displayedColumns: string[] = ['fullName',"workAuth","nextStep","action",]; 
   dataSource$ = new BehaviorSubject<any>([]);
-  curStatus$= new BehaviorSubject<string>("inprogress");
+  curStatus$ = new BehaviorSubject<string>("inprogress");
+  sendNotification$ = new Subject();
+  search:string =""
   constructor(
     private store: Store<AppState>,
     private snackBar: MatSnackBar,
@@ -38,18 +41,36 @@ export class VisaStatusManagementComponent {
       }    
     })
   }
-    ngOnInit() {
-    this.store.dispatch(VisaEmployeesActions.getVisaEmployeesStart({ status: "inprogress" }))
-  }
-  onToggleChange(event:any) {
-    this.store.dispatch(VisaEmployeesActions.getVisaEmployeesStart({status:event.value}))
-    if (event.value === "inprogress") {
-      this.displayedColumns = ['fullName',"workAuth","nextStep","action"];
-    } else {
-      this.displayedColumns = ['fullName',"workAuth","nextStep","documents"];
-    }
+  ngOnInit() {
+    this.store.dispatch(VisaEmployeesActions.getVisaEmployeesStart({ status: "inprogress",search:"" }))
+    this.sendNotification$.pipe(throttleTime(5000)).subscribe((data:any) => {     
+      this.sendEmailService.sendDocumentNotificationEmail({id:data.id,documentName:data.curDoc.type}).subscribe({
+        next: (data) => {
+            this.snackBar.open(data.message, 'Close', { duration: 3000 });
+        },
+        error: (err) => {
+          this.snackBar.open(err.error.message, 'Close', { duration: 3000 })  
+        },
+      })
+  });
   }
 
+  onToggleChange(event: any) {
+    this.curStatus$.next(event.value)
+    if (event.value === "inprogress") {
+      this.displayedColumns = ['fullName', "workAuth", "nextStep", "action"];
+      this.store.dispatch(VisaEmployeesActions.getVisaEmployeesStart({status:event.value,search:""}))
+    } else {
+      this.displayedColumns = ['fullName', "workAuth", "nextStep", "documents"];
+      this.store.dispatch(VisaEmployeesActions.getVisaEmployeesStart({status:event.value,search:this.search}))
+    }
+    
+    
+  }
+  handleSearch() {
+      this.store.dispatch(VisaEmployeesActions.getVisaEmployeesStart({status:"all",search:this.search}))
+    
+}
     openDialog(data:any,action:string): void {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true; 
@@ -61,16 +82,6 @@ export class VisaStatusManagementComponent {
         dialogConfig.autoFocus=false;
         this.dialog.open(ConfirmationDialogComponent,dialogConfig);
        
-  }
-  sendNotificationEmail(data:any) {
-    this.sendEmailService.sendDocumentNotificationEmail({id:data.id,documentName:data.curDoc.type}).subscribe({
-        next: (data) => {
-            this.snackBar.open(data.message, 'Close', { duration: 3000 });
-        },
-        error: (err) => {
-          this.snackBar.open(err.error.message, 'Close', { duration: 3000 })  
-        },
-      })
   }
   processVisaEmployeesData(data:any[]):any[] {
     const processedData = []

@@ -2,6 +2,9 @@
     flex-grow: 1;
     padding:20px;
 }
+mat-button-toggle-group{
+    margin-bottom:8px;
+}
 mat-button-toggle{
     min-width: 90px;
 }
@@ -19,4 +22,20 @@ mat-button-toggle{
 }
 button{
     margin: 5px;
+}
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+
+    input {
+        font-size: 16px;
+        padding: 8px;
+        width: 320px;
+    }
+
+    button {
+        margin-left: 24px;
+    }
 }

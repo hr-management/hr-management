@@ -3,8 +3,27 @@
   <mat-button-toggle value="inprogress" checked>In Progress</mat-button-toggle>
   <mat-button-toggle value="all">All</mat-button-toggle>
 </mat-button-toggle-group>
+<div class="search" *ngIf="(this.curStatus$|async)==='all'">
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="search"
+    placeholder="Last Name, First Name, or Preferred Name"
+    name="search"
+  />
 
-<p *ngIf="(this.state|async).loading;else table">Loading....</p>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="handleSearch()"
+  >
+    Search
+  </button>
+</div>
+<p *ngIf="(this.state|async).loading;else table">
+  Loading....
+</p>
 <ng-template #table
   ><p>{{(this.dataSource$ | async)?.length}} records found.</p>
 
@@ -47,9 +66,10 @@
       <td mat-cell *matCellDef="let data">
         <div [ngSwitch]="data.nextAction">
           <button
+            id="sendNotificationButton"
             mat-raised-button
             *ngSwitchCase="'submit'"
-            (click)="sendNotificationEmail(data)"
+            (click)="sendNotification$.next(data)"
           >
             Send Notification
           </button>

@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const getVisaEmployeesStart = createAction(
   '[VisaEmployees] Get VisaEmployees Start',
-  props<{ status: string }>()
+  props<{ status: string,search:string }>()
 );
 
 export const getVisaEmployeesSuccess = createAction(

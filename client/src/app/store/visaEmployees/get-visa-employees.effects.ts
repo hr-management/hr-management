@@ -16,8 +16,8 @@ export class GetVisaEmployeesEffects {
   return this.actions$.pipe(
     ofType(VisaEmployeesActions.getVisaEmployeesStart),
     switchMap((action) => {    
-      const status = action.status;
-      return this.http.get<any>(`/api/employees/visaEmployees/${status}`,).pipe(
+      const {status,search} = action;
+      return this.http.get<any>(`/api/employees/visaEmployees/${status}?search=${search}`,).pipe(
         map((data) => {
           return VisaEmployeesActions.getVisaEmployeesSuccess({data})
         }),

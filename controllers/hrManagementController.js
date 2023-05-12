@@ -67,6 +67,7 @@ exports.getApplicationsByStatus = async (req, res) => {
 // if status === inprogress, return inprogress F1 employees
 exports.getVisaEmployees = async (req, res) => {
   try {
+    const search = req.query.search;
     const { status } = req.params;
     let visaEmployees, employeeType;
     if (!["all", "inprogress"].includes(status)) {
@@ -76,14 +77,33 @@ exports.getVisaEmployees = async (req, res) => {
       });
     }
     if (status === "all") {
-      visaEmployees = await userModel.find({ requireWorkAuthorization: true });
+      // .find({
+      //   $or: [
+      //     { firstName: { $regex: search, $options: "i" } },
+      //     { lastName: { $regex: search, $options: "i" } },
+      //     { preferredName: { $regex: search, $options: "i" } },
+      //   ],
+      // })
+      // .sort({ lastName: 1 });
+      visaEmployees = await userModel
+        .find({
+          requireWorkAuthorization: true,
+          $or: [
+            { firstName: { $regex: search, $options: "i" } },
+            { lastName: { $regex: search, $options: "i" } },
+            { preferredName: { $regex: search, $options: "i" } },
+          ],
+        })
+        .sort({ lastName: 1 });
       employeeType = "All visa employees";
     } else {
       //visa===F1(CPT/OPT) && applicationStatus===pending
-      visaEmployees = await userModel.find({
-        "visa.type": "F1(CPT/OPT)",
-        OPTCompleted: false,
-      });
+      visaEmployees = await userModel
+        .find({
+          "visa.type": "F1(CPT/OPT)",
+          OPTCompleted: false,
+        })
+        .sort({ lastName: 1 });
       employeeType = "Inprogress visa employees";
     }
     return res.status(200).json({
