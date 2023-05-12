@@ -20,7 +20,7 @@ export class HousingManagementComponent implements OnInit {
   }
 
   getHouses() {
-    this.http.get<any[]>('/api/houses').subscribe(
+    this.http.get<any[]>('/api/housing').subscribe(
       houses => {
         this.houses = houses;
       },
@@ -31,7 +31,7 @@ export class HousingManagementComponent implements OnInit {
   }
 
   addHouse() {
-    this.http.post<any>('/api/houses', this.newHouse).subscribe(
+    this.http.post<any>('/api/housing', this.newHouse).subscribe(
       house => {
         this.houses.push(house);
         this.newHouse = {};
@@ -43,7 +43,7 @@ export class HousingManagementComponent implements OnInit {
   }
 
   deleteHouse(houseId: string) {
-    this.http.delete(`/api/houses/${houseId}`).subscribe(
+    this.http.delete(`/api/housing/${houseId}`).subscribe(
       () => {
         this.houses = this.houses.filter(house => house._id !== houseId
         );
