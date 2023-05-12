@@ -2,11 +2,10 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const RegistrationHistoryModel = require("../models/registrationHistory");
-
+const sendEmail = require("../utils/emailHandler");
 // generate token and send email
 exports.invitation = async (req, res) => {
   try {
-    const hr = req.tokenUser.firstName + " " + req.tokenUser.lastName;
     const { email, name } = req.body;
     if (!name) {
       return res.status(400).json({ message: "Please provide name." });
@@ -19,35 +18,16 @@ exports.invitation = async (req, res) => {
         message: "Email address is already in use",
       });
     }
+    const hr = req.tokenUser;
     // create token - valid for 3 hours
     const salt = process.env.JWT_SALT;
     const token = jwt.sign({ email, name }, salt, { expiresIn: 60 * 60 * 3 });
-    // create email and send email
-    let transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      auth: {
-        user: `${process.env.ETHEREAL_USERNAME}`, //  ethereal user
-        pass: `${process.env.ETHEREAL_PASSWORD}`, //  ethereal password
-      },
-    });
     const registrationLink = `${req.protocol}://localhost:4200/signup?token=${token}`;
-
-    await transporter.sendMail({
-      from: "hr@example.email", // sender address
-      to: `${email}`, // list of receivers
-      subject: "Invitation to register with Company XXX",
-      html: `<p>Dear ${name},</p>
-                <p>We are delighted to invite you to join Company XXX. As one of our newest members, you'll have access to a wide range of resources and opportunities to advance your career.</p>
-                <p>To complete your registration, please follow the link below:</p>
-                <a href="${registrationLink}">Registration Link</a>
-                <p>This link is valid for the next 3 hours, so please complete your registration as soon as possible.</p>
-                <p>If you have any questions or concerns, please don't hesitate to reach out to our support team at [Email Address].</p>
-                <p>We look forward to welcoming you to the Company XXX community!</p>
-                <br>
-                <p>Best regards,</p>
-                <p>${hr ? hr : "HR Department"}</p>
-                <p>Company XXX</p>`,
+    await sendEmail({
+      registrationLink,
+      emailType: "signUpInvitation",
+      sender: hr,
+      receiver: { email, name },
     });
 
     //save to database for future checking
@@ -94,6 +74,34 @@ exports.getInfoForNewApplicaiton = async (req, res) => {
       return res.status(200).json({ success: true, user: email });
     });
   } catch (err) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong", err });
+  }
+};
+
+exports.sendDocumentNotification = async (req, res) => {
+  try {
+    const { documentName } = req.body;
+    if (!documentName) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please provide a document name" });
+    }
+
+    const hr = req.tokenUser;
+    const employee = req.employee; // from findEmplyeeById middleware
+    await sendEmail({
+      emailType: "sendDocumentNotification",
+      sender: hr,
+      receiver: employee,
+      documentName,
+    });
+    return res
+      .status(200)
+      .json({ success: true, message: "sent notification" });
+  } catch (err) {
+    console.log(err);
     return res
       .status(500)
       .json({ success: false, message: "Something went wrong", err });
