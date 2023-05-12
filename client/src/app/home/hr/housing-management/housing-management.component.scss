@@ -1,3 +1,69 @@
-:host {
-    flex-grow: 1;
-}
+.mat-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .list-item-content {
+    flex: 1;
+    min-width: 0; /* this helps with overflow and text-ellipsis */
+  }
+  
+  .list-item-actions {
+    display: flex;
+    gap: 10px; /* space between buttons */
+  }
+  
+  /* Optional: Truncate long text */
+  .list-item-content h3,
+  .list-item-content p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  // :host {
+//     flex-grow: 1;
+//     padding: 20px;
+// }
+
+// form {
+//     display: flex;
+//     flex-direction: column;
+//     max-width: 600px;
+
+//     .form-input {
+//         display: flex;
+//         justify-content: space-between;
+//     }
+
+//     mat-form-field {
+//         width: 280px;
+//     }
+
+//     mat-form-field[name="email"] {
+//         margin-right: 10px;
+//     }
+// }
+
+// mat-divider {
+//     margin: 20px 0;
+// }
+
+// mat-button-toggle-group {
+//     margin-bottom: 16px;
+// }
+
+// tr[mat-row]:hover {
+//     background-color: rgb(233, 233, 233);
+// }
+
+// .list-item-content {
+//     display: flex;
+//     flex-direction: column;
+//   }
+  
+//   .list-item-actions {
+//     margin-top: 8px;
+//   }
+  

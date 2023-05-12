@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { MatIconModule } from '@angular/material/icon'; 
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -99,12 +100,15 @@ import { HouseDetailsComponent } from './home/hr/housing-management/house-detail
     FormsModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     MatSnackBarModule,
     MatCardModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
+    MatButtonModule,
+    MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,

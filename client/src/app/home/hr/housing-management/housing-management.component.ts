@@ -11,27 +11,41 @@ import { Router } from '@angular/router';
 })
 export class HousingManagementComponent implements OnInit {
   houses: any[] = [];
-  newHouse: any = {};
+  newHouse: any = {
+    address: "",
+    landlord: {
+      legalFullName: "",
+      phoneNumber: "",
+      email: "",
+    },
+  };
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.getHouses();
+    this.fetchHouses();
   }
 
-  getHouses() {
-    this.http.get<any[]>('/api/housing').subscribe(
-      houses => {
+  // houses: any[] = []; // Define houses as an array of objects
+
+  fetchHouses() {
+    const apiUrl = 'http://localhost:3001/api/housing/';
+
+    this.http.get<any[]>(apiUrl).subscribe(
+      (houses: any[]) => {
         this.houses = houses;
       },
-      error => {
-        console.log('Error fetching houses:', error);
+      (error) => {
+        console.log('Error occurred while fetching houses:', error);
       }
     );
   }
 
+
   addHouse() {
-    this.http.post<any>('/api/housing', this.newHouse).subscribe(
+    const apiUrl = 'http://localhost:3001/api/housing/';
+
+    this.http.post<any>(apiUrl, this.newHouse).subscribe(
       house => {
         this.houses.push(house);
         this.newHouse = {};
@@ -43,7 +57,7 @@ export class HousingManagementComponent implements OnInit {
   }
 
   deleteHouse(houseId: string) {
-    this.http.delete(`/api/housing/${houseId}`).subscribe(
+    this.http.delete(`http://localhost:3001/api/housing/${houseId}`).subscribe(
       () => {
         this.houses = this.houses.filter(house => house._id !== houseId
         );
