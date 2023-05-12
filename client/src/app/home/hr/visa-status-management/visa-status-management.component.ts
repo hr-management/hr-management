@@ -30,12 +30,7 @@ export class VisaStatusManagementComponent {
   ) {
     this.state = this.store.pipe(select("visaEmployees"))
     this.state.subscribe((data) => {
-      if (data.visaEmployees.length) {
-        console.log(data.visaEmployees)
-        console.log(this.processVisaEmployeesData(data.visaEmployees))
-        this.dataSource$.next(this.processVisaEmployeesData(data.visaEmployees) );
-      }
-      
+      this.dataSource$.next(this.processVisaEmployeesData(data.visaEmployees) );
       if (data.error) {
         this.snackBar.open(data.error, 'Close', { duration: 3000 });
       }    

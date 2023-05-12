@@ -8,7 +8,7 @@ const uploadFile = async (req, res) => {
     const documentType = req.body.documentType;
     const fileId = req.body.fileId;
     if (!documentType) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message:
           "Please provide documentType: workAuthDoc, driverLicensePhoto, profilePhoto",
@@ -17,7 +17,7 @@ const uploadFile = async (req, res) => {
     let updatedUser;
     if (documentType === "workAuthDoc") {
       if (!fileId) {
-        res.status(400).json({
+        return res.status(400).json({
           success: false,
           message: "Please provide file Id to update the file",
         });
@@ -34,7 +34,7 @@ const uploadFile = async (req, res) => {
           { new: true } // Return the updated document instead of the original
         );
       } else {
-        res.status(400).json({
+        return res.status(400).json({
           success: false,
           message: "Can't update document",
         });
@@ -52,7 +52,7 @@ const uploadFile = async (req, res) => {
         { new: true }
       );
     }
-    res.status(200).json({
+    return res.status(200).json({
       message: "File uploaded successfully",
       url: req.file.location,
       documentType,
@@ -61,7 +61,7 @@ const uploadFile = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(400).json({ error: err });
+    return res.status(400).json({ error: err });
   }
 };
 
