@@ -77,14 +77,6 @@ exports.getVisaEmployees = async (req, res) => {
       });
     }
     if (status === "all") {
-      // .find({
-      //   $or: [
-      //     { firstName: { $regex: search, $options: "i" } },
-      //     { lastName: { $regex: search, $options: "i" } },
-      //     { preferredName: { $regex: search, $options: "i" } },
-      //   ],
-      // })
-      // .sort({ lastName: 1 });
       visaEmployees = await userModel
         .find({
           requireWorkAuthorization: true,
@@ -97,7 +89,6 @@ exports.getVisaEmployees = async (req, res) => {
         .sort({ lastName: 1 });
       employeeType = "All visa employees";
     } else {
-      //visa===F1(CPT/OPT) && applicationStatus===pending
       visaEmployees = await userModel
         .find({
           "visa.type": "F1(CPT/OPT)",
