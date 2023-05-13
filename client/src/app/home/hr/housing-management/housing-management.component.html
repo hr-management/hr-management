@@ -1,51 +1,46 @@
 <!-- housing-management.component.html -->
 
-<h1>Housing Management Page</h1>
-
-<!-- Display existing houses -->
-<div *ngIf="houses.length > 0">
-  <h2>Existing Houses</h2>
-  <ul>
-    <li *ngFor="let house of houses">
-      <div>
-        <strong>Address: </strong>{{ house.address }}
+<!-- Import Angular Material components -->
+<div class="house-container">
+  <form class="mat-elevation-z8 form-container" (submit)="addHouse()">
+    <h2 class="mat-h2">Add New House</h2>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" name="address" [(ngModel)]="newHouse.address" placeholder="Address" required>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" name="landlordFullName" [(ngModel)]="newHouse.landlord.legalFullName" placeholder="Landlord Legal Full Name" required>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" name="landlordPhoneNumber" [(ngModel)]="newHouse.landlord.phoneNumber" placeholder="Landlord Phone Number" required>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput type="email" name="landlordEmail" [(ngModel)]="newHouse.landlord.email" placeholder="Landlord Email" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Add House</button>
+  </form>
+  
+  <!-- Display existing houses -->
+  <div *ngIf="houses && houses.length > 0">
+    <h2 class="mat-h2">Existing Houses</h2>
+    <mat-list class="mat-list-spacing">
+      <div *ngFor="let house of houses">
+        <div class="list-item-content">
+          <h3 matLine>{{ house?.address }}</h3>
+          <p matLine><strong>Landlord: </strong>{{ house?.landlord?.legalFullName }}</p>
+          <p matLine><strong>Phone: </strong>{{ house?.landlord?.phoneNumber }}</p>
+          <p matLine><strong>Email: </strong>{{ house?.landlord?.email }}</p>
+          <p matLine><strong>Number of Residents: </strong>{{ house?.roommates?.length }}</p>
+        </div>
+        <div class="list-item-actions">
+          <button mat-icon-button color="primary" (click)="viewHouseDetails(house?._id)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteHouse(house?._id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
-      <div>
-        <strong>Landlord: </strong>{{ house.landlord.legalFullName }}
-      </div>
-      <div>
-        <strong>Phone: </strong>{{ house.landlord.phoneNumber }}
-      </div>
-      <div>
-        <strong>Email: </strong>{{ house.landlord.email }}
-      </div>
-      <div>
-        <strong>Number of Residents: </strong>{{ house.roommates.length }}
-      </div>
-      <button (click)="viewHouseDetails(house._id)">View Details</button>
-      <button (click)="deleteHouse(house._id)">Delete House</button>
-    </li>
-  </ul>
+    </mat-list>
+  </div>
+  
 </div>
-
-<!-- Add new house form -->
-<h2>Add New House</h2>
-<form (submit)="addHouse()">
-  <div>
-    <label>Address:</label>
-    <input type="text" name="address" [(ngModel)]="newHouse.address" required>
-  </div>
-  <div>
-    <label>Landlord Legal Full Name:</label>
-    <input type="text" name="landlordFullName" [(ngModel)]="newHouse.landlord.legalFullName" required>
-  </div>
-  <div>
-    <label>Landlord Phone Number:</label>
-    <input type="text" name="landlordPhoneNumber" [(ngModel)]="newHouse.landlord.phoneNumber" required>
-  </div>
-  <div>
-    <label>Landlord Email:</label>
-    <input type="email" name="landlordEmail" [(ngModel)]="newHouse.landlord.email" required>
-  </div>
-  <button type="submit">Add House</button>
-</form>

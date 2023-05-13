@@ -13,22 +13,24 @@ import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/emplo
 import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
 import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
 import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
+import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
 
 import { AuthGuard } from './services/routeGuard/authRuard';
 import { HRRoleGuard } from './services/routeGuard/HRRoleGuard';
 
 const routes: Routes = [
   {
+
     path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'employee-profiles',canActivate: [HRRoleGuard], component: EmployeeProfilesComponent },
       { path: 'visa-status-management', canActivate: [HRRoleGuard],component: VisaStatusManagementComponent },
       { path: 'hiring-management', canActivate: [HRRoleGuard],component: HiringManagementComponent },
       { path: 'housing-management',canActivate: [HRRoleGuard], component: HousingManagementComponent },
+      { path: 'house-details/:houseId', component: HouseDetailsComponent },
       { path: 'onboarding-application', component: OnboardingApplicationComponent },
       { path: 'personal-information', component: PersonalInformationComponent },
-      { path: 'housing-details', component: HousingDetailsComponent },
       { path: 'facility-reports', component: FacilityReportsComponent },
-      { path: 'facility-reports/:reportId', component: FacilityReportDetailsComponent }
+      { path: 'facility-reports/:reportId', component: FacilityReportDetailsComponent },
     ]
   },
   { path: 'login', component: LoginComponent },
@@ -41,4 +43,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,3 +1,72 @@
-:host {
-    flex-grow: 1;
+.form-container {
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  margin-bottom: 20px;
 }
+
+.list-item-content {
+  display: flex;
+  flex-direction: column;
+  margin-right: 16px;
+}
+
+.list-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.house-container {
+  padding-left: 20px; /* Adjust the value as needed */
+}
+
+  // :host {
+//     flex-grow: 1;
+//     padding: 20px;
+// }
+
+// form {
+//     display: flex;
+//     flex-direction: column;
+//     max-width: 600px;
+
+//     .form-input {
+//         display: flex;
+//         justify-content: space-between;
+//     }
+
+//     mat-form-field {
+//         width: 280px;
+//     }
+
+//     mat-form-field[name="email"] {
+//         margin-right: 10px;
+//     }
+// }
+
+// mat-divider {
+//     margin: 20px 0;
+// }
+
+// mat-button-toggle-group {
+//     margin-bottom: 16px;
+// }
+
+// tr[mat-row]:hover {
+//     background-color: rgb(233, 233, 233);
+// }
+
+// .list-item-content {
+//     display: flex;
+//     flex-direction: column;
+//   }
+  
+//   .list-item-actions {
+//     margin-top: 8px;
+//   }
+  

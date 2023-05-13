@@ -1,5 +1,7 @@
+// house-details.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-house-details',
@@ -8,12 +10,28 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HouseDetailsComponent implements OnInit {
   houseId!: string;
+  house: any;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.houseId = params['houseId'];
+      this.fetchHouseDetails();
     });
+  }
+
+  fetchHouseDetails() {
+    const apiUrl = `http://localhost:3001/api/housing/${this.houseId}`;
+
+    this.http.get<any>(apiUrl).subscribe(
+      (house: any) => {
+        console.log(house)
+        this.house = house;
+      },
+      (error) => {
+        console.log('Error occurred while fetching house details:', error);
+      }
+    );
   }
 }
