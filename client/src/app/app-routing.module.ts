@@ -14,15 +14,16 @@ import { FacilityReportDetailsComponent } from './home/housing/facility-report-d
 import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
 import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
 
-
 import { AuthGuard } from './services/routeGuard/authRuard';
+import { HRRoleGuard } from './services/routeGuard/HRRoleGuard';
+
 const routes: Routes = [
   {
     path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
-      { path: 'employee-profiles', component: EmployeeProfilesComponent },
-      { path: 'visa-status-management', component: VisaStatusManagementComponent },
-      { path: 'hiring-management', component: HiringManagementComponent },
-      { path: 'housing-management', component: HousingManagementComponent },
+      { path: 'employee-profiles',canActivate: [HRRoleGuard], component: EmployeeProfilesComponent },
+      { path: 'visa-status-management', canActivate: [HRRoleGuard],component: VisaStatusManagementComponent },
+      { path: 'hiring-management', canActivate: [HRRoleGuard],component: HiringManagementComponent },
+      { path: 'housing-management',canActivate: [HRRoleGuard], component: HousingManagementComponent },
       { path: 'onboarding-application', component: OnboardingApplicationComponent },
       { path: 'personal-information', component: PersonalInformationComponent },
       { path: 'housing-details', component: HousingDetailsComponent },
