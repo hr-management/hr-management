@@ -9,7 +9,8 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     middleName: [''],
     preferredName: [''],
     email: ['', [required, email]],
-    birthDate: [''],
+    ssn: ['', [required]],
+    birthDate: ['', [required]],
     gender: [''],
     building: ['', [required]],
     street: ['', [required]],
@@ -43,7 +44,7 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     workAuthDoc: fb.array([]),
 
     // driverLicense
-    driverLicense: ['No'],
+    hasDriverLicense: ['No'],
     dlicenseNumber: [''],
     dexpirationDate: [''],
     dphoto: [''],
@@ -61,6 +62,7 @@ export function getInitialValue(user: any, fb: UntypedFormBuilder) {
     middleName: user.middleName || '',
     preferredName: user.preferredName || '',
     email: user.email || '',
+    ssn: user.ssn || '',
     birthDate: user.birthDate || '',
     gender: user.gender || '',
 
@@ -90,7 +92,7 @@ export function getInitialValue(user: any, fb: UntypedFormBuilder) {
     eemail: user.emergencyContact?.email || '',
     erelationship: user.emergencyContact?.relationship || '',
 
-    driverLicense: !!user.driverLicense.licenseNumber ? 'Yes' : 'No',
+    hasDriverLicense: !!user.driverLicense.licenseNumber ? 'Yes' : 'No',
     dlicenseNumber: user.driverLicense.licenseNumber || '',
     dexpirationDate: user.driverLicense.expirationDate || '',
     dphoto: user.driverLicense.photo || '',
@@ -125,7 +127,6 @@ export function buildFinalValues(value: any) {
     dlicenseNumber,
     dexpirationDate,
     dphoto,
-
 
     make,
     model,

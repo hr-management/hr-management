@@ -91,6 +91,16 @@
           </mat-error>
         </mat-form-field>
 
+        <mat-form-field>
+          <mat-label>SSN</mat-label>
+          <input
+            matInput
+            placeholder="SSN"
+            formControlName="ssn"
+            required
+          />
+        </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>BirthDate</mat-label>
           <input
@@ -98,6 +108,7 @@
             [matDatepicker]="picker"
             formControlName="birthDate"
             [max]="maxDate"
+            required
           />
           <mat-datepicker-toggle
             matIconSuffix
@@ -333,15 +344,17 @@
       <mat-card-title>Documents</mat-card-title>
 
       <h3>DriverLicense</h3>
+      <p>
+        Do you have a driver’s license?
+        <mat-form-field>
+          <mat-select formControlName="hasDriverLicense">
+            <mat-option value="Yes">Yes</mat-option>
+            <mat-option value="No">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
 
-      <mat-form-field>
-        <mat-select formControlName="driverLicense">
-          <mat-option value="Yes">Yes</mat-option>
-          <mat-option value="No">No</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <div class="row" *ngIf="form.value['driverLicense'] === 'Yes'">
+      <div class="row" *ngIf="form.value['hasDriverLicense'] === 'Yes'">
         <mat-form-field>
           <mat-label>LicenseNumber</mat-label>
           <input
@@ -404,16 +417,6 @@
 
       <div class="row">
         <h3 style="margin: 0">WorkAuthDoc</h3>
-
-        <button
-          mat-flat-button
-          color="primary"
-          (click)="handleAddAuthDoc()"
-          [disabled]="!isEdit"
-          [hidden]="hideUplodProfile"
-        >
-          Add
-        </button>
       </div>
 
       <mat-form-field>
@@ -439,6 +442,18 @@
           <mat-option value="other">Other</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <p class="row">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="handleAddAuthDoc()"
+          [disabled]="!isEdit"
+          [hidden]="hideUplodProfile"
+        >
+          Add
+        </button>
+      </p>
 
       <div class="row" style="width: 1000px">
         <table formArrayName="workAuthDoc">
@@ -508,7 +523,7 @@
               </button>
               <button
                 mat-flat-button
-                style="margin-left: 12px;"
+                style="margin-left: 12px"
                 color="warn"
                 (click)="handleDeleteAuthDoc(i)"
                 [disabled]="!isEdit"
@@ -519,7 +534,7 @@
 
               <button
                 mat-flat-button
-                style="margin-left: 12px;"
+                style="margin-left: 12px"
                 color="primary"
                 (click)="handleWorkAuthDocDownload(i)"
                 [disabled]="!isEdit"

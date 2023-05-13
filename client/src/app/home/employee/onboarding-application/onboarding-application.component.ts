@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/AuthService/auth-service.service';
 import { AppState } from 'src/app/store';
+import * as GetUserAction from '../../../store/auth/get-user.actions';
 
 import { buildFinalValues } from './utils/helper';
 
@@ -30,7 +31,7 @@ export class OnboardingApplicationComponent {
         this.user = data.user;
         this.isEdit =
           data.user.applicationStatus === 'notStarted' ||
-          data.user.applicationStatus === 'pending';
+          data.user.applicationStatus === 'rejected';
       }
     });
   }
@@ -38,22 +39,25 @@ export class OnboardingApplicationComponent {
   handleSave() {
     if (this.onboardingForm?.form.valid) {
       const params = buildFinalValues(this.onboardingForm?.form.value);
-      this.authService.updateStatus({}).subscribe((res) => {
-        if (res.body.success) {
-          this.snackBar.open('Success', 'Close', {});
-        } else {
-          this.snackBar.open(res.body.message || 'Error', 'Close', {
-            duration: 3000,
-          });
-        }
-      });
-      this.authService.updateUserInfo(params).subscribe((res) => {
-        this.isEdit = false;
+      this.authService.updateStatus(params).subscribe({
+        next: (res) => {
+          if (res.body.success) {
+            this.snackBar.open('Success', 'Close');
+            // refresh userinfo
+            this.store.dispatch(GetUserAction.GetUsersStart());
+          } else {
+            this.snackBar.open(
+              res.body.message || res.body.errors.join(',') || 'Error',
+              'Close'
+            );
+          }
+        },
+        error: (err: any) => {
+          this.snackBar.open(err.error.message, 'Close');
+        },
       });
     } else {
-      this.snackBar.open('The form validation failed', 'Close', {
-        duration: 3000,
-      });
+      this.snackBar.open('The form validation failed', 'Close');
       this.onboardingForm?.form.markAllAsTouched();
     }
   }

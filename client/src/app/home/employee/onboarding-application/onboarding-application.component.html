@@ -7,7 +7,7 @@
           Status: <b>{{ user.applicationStatus }}</b>
         </p>
         <p>
-          ApplicationRejectedFeedback:<b>{{
+          Application Rejected Feedback:<b>{{
             user.applicationRejectedFeedback || "No Data"
           }}</b>
         </p>
@@ -52,6 +52,7 @@
           [user]="user"
           [isEdit]="isEdit"
           [displayCarInfo]="true"
+          [hideUplodProfile]="!isEdit"
           #onboardingForm
         ></app-personal-infomation-form>
       </div>
