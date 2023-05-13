@@ -5,8 +5,10 @@ import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse,HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { map, catchError, of } from "rxjs"
+import { map } from "rxjs/operators"
+import { Subject, of, catchError,combineLatest} from 'rxjs';
 import * as SignupActions from '../store/auth/signup.actions';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -15,11 +17,22 @@ import * as SignupActions from '../store/auth/signup.actions';
 })
 export class SignupComponent {
   state:Observable<any>
-  username: string = '';
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = ""
-  loading:boolean = true
+  sigupForm = new FormGroup({
+    username: new FormControl('', Validators.required),
+    email: new FormControl({value:"",disabled: true}, [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+    confirmPassword: new FormControl('', Validators.required),
+  });
+  loading: boolean = true
+  password$ = new Subject<any>();
+  confirmPassword$ = new Subject<any>();
+
+  passwordMismatch$: Observable<string> = combineLatest([this.password$, this.confirmPassword$]).pipe(
+    map(([password, confirmPassword]) => {      
+      return password.value === confirmPassword.value ? '' : 'Passwords do not match';
+    })
+  );
+
   constructor( private route: ActivatedRoute,private snackBar: MatSnackBar,  private store: Store<AppState>,private http: HttpClient) {
     this.state = this.store.pipe(select("user"))
     this.state.subscribe((data) => {
@@ -39,21 +52,30 @@ export class SignupComponent {
    'Authorization': `Bearer ${token}`
   })}).pipe(
     map((userData) => {
-          this.email = userData.user;
+     this.sigupForm.controls['email'].setValue(userData.user);
+          
         }),
         catchError((err: HttpErrorResponse) => of(err))
     ).subscribe(() => {
       this.loading = false
     });
-  
-   
    });
-    
+    this.passwordMismatch$.subscribe(errorMessage => {
+      const confirmPasswordControl = this.sigupForm.get('confirmPassword');
+      if (confirmPasswordControl) {if (errorMessage) {
+          confirmPasswordControl.setErrors({ passwordMismatch: true });
+        } else {
+          confirmPasswordControl.setErrors(null);
+      } }
+       
+    })
   }
   signup() {    
-    if (this.username && this.password && this.email) {
-          this.store.dispatch(SignupActions.SignupsStart({ payload:{username: this.username, password: this.password,email: this.email,}}))
-
+    if (this.sigupForm.valid) {
+      const username = this.sigupForm.value.username as string;
+      const password = this.sigupForm.value.password as string;
+      const email = this.sigupForm.get('email')?.value as string;
+      this.store.dispatch(SignupActions.SignupsStart({ payload:{username, password,email}}))
     }
   }
 }
