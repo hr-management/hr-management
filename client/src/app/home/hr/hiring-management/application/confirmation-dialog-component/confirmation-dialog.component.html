@@ -15,7 +15,7 @@
   <button
     mat-raised-button
     color="warn"
-    (click)="updateApplication(data.action)"
+    (click)="updateApplication$.next(data.action)"
   >
     Yes, {{data.action | titlecase}}
   </button>

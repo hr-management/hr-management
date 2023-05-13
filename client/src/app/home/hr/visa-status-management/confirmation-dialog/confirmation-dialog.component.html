@@ -15,7 +15,7 @@
   <button
     mat-raised-button
     color="warn"
-    (click)="updateVisaAuthDoc(data.action)"
+    (click)="updateVisaAuthDoc$.next(data.action)"
   >
     Yes, {{data.action | titlecase}}
   </button>
