@@ -33,13 +33,13 @@
     </div>
     <form (submit)="addComment(report._id, newComment[report._id])">
       <mat-form-field>
-        <textarea matInput [(ngModel)]="newComment[report._id]" placeholder="Add a comment"
-          name="newComment"></textarea>
+        <textarea matInput [(ngModel)]="newComment[report._id]" placeholder="Add a comment" name="newComment"></textarea>
       </mat-form-field>
       <button type="submit" mat-raised-button>Add Comment</button>
     </form>
   </mat-card-content>
   <mat-paginator [length]="house.reports.length" [pageSize]="pageSize" (page)="pageEvent = $event"></mat-paginator>
+  
 
   <h3 class="mat-card-title" *ngIf="house.roommates && house.roommates.length > 0">Roommates</h3>
   <mat-card-content *ngFor="let roommate of house.roommates" class="roommate-card">
@@ -53,3 +53,4 @@
     <mat-divider></mat-divider>
   </mat-card-content>
 </mat-card>
+
