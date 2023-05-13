@@ -14,7 +14,7 @@ export class HousingDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // Make an HTTP GET request to the /api/housing/house-details endpoint
-    this.http.get<{ address: string, roommates: Array<{ name: string, phone: string }> }>('/api/housing/house-details').subscribe((data) => {
+    this.http.get<{ address: string, roommates: Array<{ name: string, phone: string }> }>('http://localhost:3001/api/housing/house-details').subscribe((data) => {
       this.address = data.address;
       this.roommates = data.roommates;
     });
