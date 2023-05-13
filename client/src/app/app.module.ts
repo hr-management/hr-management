@@ -61,6 +61,7 @@ import { GetVisaEmployeesEffects } from './store/visaEmployees/get-visa-employee
 import { ConfirmationDialogComponent as VisaConfirmationDialogComponent } from './home/hr/visa-status-management/confirmation-dialog/confirmation-dialog.component';
 import { UpdateVisaAuthDocEffects } from './store/visaEmployees/update-visa-auth-doc.effects';
 import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
+
 @NgModule({ 
   declarations: [
     AppComponent,
@@ -85,10 +86,13 @@ import { HouseDetailsComponent } from './home/hr/housing-management/house-detail
     FacilityReportsComponent,
     FacilityReportDetailsComponent,
     ApplicationComponent,
+    ConfirmationDialogComponent,
+    ConfirmDailogComponent
     ApplicationConfirmationDialogComponent,
     VisaConfirmationDialogComponent,
     OnboardingApplicationFormComponent,
     HouseDetailsComponent
+
   ],
   imports: [
     BrowserModule,

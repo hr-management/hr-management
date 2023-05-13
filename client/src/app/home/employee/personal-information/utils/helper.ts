@@ -9,40 +9,50 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     middleName: [''],
     preferredName: [''],
     email: ['', [required, email]],
-    birthDate: [''],
+    ssn: ['', [required]],
+    birthDate: ['', [required]],
     gender: [''],
-    building: [''],
-    street: [''],
-    city: [''],
-    state: [''],
-    zip: ['', [minLength(6), maxLength(6)]],
-    cellPhoneNumber: ['', [minLength(5)]],
+    building: ['', [required]],
+    street: ['', [required]],
+    city: ['', [required]],
+    state: ['', [required]],
+    zip: ['', [required, minLength(6), maxLength(6)]],
+    cellPhoneNumber: ['', [required, minLength(5)]],
     workPhoneNumber: ['', [minLength(5)]],
 
     type: [''],
     startDate: [''],
     endDate: [''],
 
+    // TODO
+    citizenship: [''],
+
+    // carInfo
+    make: [''],
+    model: [''],
+    color: [''],
+
     // emergencyContact
-    efirstName: [''],
-    elastName: [''],
+    efirstName: ['', [required]],
+    elastName: ['', [required]],
     emiddleName: [''],
-    ephone: [''],
-    eemail: ['', [email]],
-    erelationship: [''],
+    ephone: ['', [required]],
+    eemail: ['', [required, email]],
+    erelationship: ['', [required]],
 
     // workAuthDoc
-    workAuthDoc: [[]],
+    workAuthDoc: fb.array([]),
 
     // driverLicense
+    hasDriverLicense: ['No'],
     dlicenseNumber: [''],
     dexpirationDate: [''],
     dphoto: [''],
   });
 }
 
-export function getInitialValue(user: any) {
-  return {
+export function getInitialValue(user: any, fb: UntypedFormBuilder) {
+  const initialValue = {
     profilePhoto:
       !user.profilePhoto || user.profilePhoto === 'defaultImage'
         ? '../../../assets/profile.png'
@@ -52,6 +62,7 @@ export function getInitialValue(user: any) {
     middleName: user.middleName || '',
     preferredName: user.preferredName || '',
     email: user.email || '',
+    ssn: user.ssn || '',
     birthDate: user.birthDate || '',
     gender: user.gender || '',
 
@@ -68,6 +79,12 @@ export function getInitialValue(user: any) {
     startDate: user.visa?.startDate || '',
     endDate: user.visa?.endDate || '',
 
+    make: user.carInfo.make,
+    model: user.carInfo.model,
+    color: user.carInfo.color,
+
+    citizenship: false,
+
     efirstName: user.emergencyContact?.firstName || '',
     elastName: user.emergencyContact?.lastName || '',
     emiddleName: user.emergencyContact?.middleName || '',
@@ -75,12 +92,19 @@ export function getInitialValue(user: any) {
     eemail: user.emergencyContact?.email || '',
     erelationship: user.emergencyContact?.relationship || '',
 
-    workAuthDoc: user.workAuthDoc || [],
-
+    hasDriverLicense: !!user.driverLicense.licenseNumber ? 'Yes' : 'No',
     dlicenseNumber: user.driverLicense.licenseNumber || '',
     dexpirationDate: user.driverLicense.expirationDate || '',
     dphoto: user.driverLicense.photo || '',
   };
+
+  const workAuthDoc = (user.workAuthDoc || []).map((workDoc: any) => ({
+    type: workDoc.type,
+    status: workDoc.status,
+    file: workDoc.file,
+    feedback: workDoc.feedback,
+  }));
+  return { initialValue, workAuthDoc };
 }
 
 export function buildFinalValues(value: any) {
@@ -103,6 +127,10 @@ export function buildFinalValues(value: any) {
     dlicenseNumber,
     dexpirationDate,
     dphoto,
+
+    make,
+    model,
+    color,
     ...rest
   } = value;
   return {
@@ -113,6 +141,11 @@ export function buildFinalValues(value: any) {
       city,
       state,
       zip,
+    },
+    carInfo: {
+      make,
+      model,
+      color,
     },
     emergencyContact: {
       firstName: efirstName,

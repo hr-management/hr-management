@@ -15,7 +15,6 @@ Router.put(
     'ssn',
     'birthDate',
     // visa | green card missing
-    'driverLicense',
     'emergencyContact',
   ]),
   userController.userOnboarding
