@@ -3,8 +3,9 @@ import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import * as VisaEmployeesActions from "../../../../store/visaEmployees/visa-employees.actions"
 import {select, Store} from "@ngrx/store";
 import { AppState } from 'src/app/store';
-import { Observable } from 'rxjs';
+import { Observable,Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -12,9 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./confirmation-dialog.component.scss'],
 })
 export class ConfirmationDialogComponent {
-  feedback:string =""
+    feedback:string =""
     state:Observable<any>
-
+    updateVisaAuthDoc$ = new Subject();
   constructor(@Inject(MAT_DIALOG_DATA) public data: { data: any, message: string, action: string },
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     private store: Store<AppState>,
@@ -42,8 +43,10 @@ export class ConfirmationDialogComponent {
       
     });
   }
-
-  updateVisaAuthDoc(status:string) {
+  ngOnInit() {
+    this.updateVisaAuthDoc$.pipe(throttleTime(2000)).subscribe((status: any) => {
         this.store.dispatch(VisaEmployeesActions.updateVisaAuthDocStart({id:this.data.data.id,status,feedback:this.feedback}))
-  }
+     })
+}
+  
 }

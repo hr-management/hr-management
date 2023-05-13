@@ -3,8 +3,9 @@ import {MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import * as ApplicationsActions from "../../../../../store/applications/applications.actions"
 import {select, Store} from "@ngrx/store";
 import { AppState } from 'src/app/store';
-import { Observable } from 'rxjs';
+import { Observable,Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -14,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ConfirmationDialogComponent {
   feedback:string =""
     state:Observable<any>
-
+  updateApplication$ = new Subject();
   constructor(@Inject(MAT_DIALOG_DATA) public data: { data: any, message: string, action: string },
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     private store: Store<AppState>,
@@ -33,10 +34,10 @@ export class ConfirmationDialogComponent {
       
     });
   }
-
-  updateApplication(status:string) {
-        this.store.dispatch(ApplicationsActions.updateApplicationsStart({id:this.data.data._id,status,feedback:this.feedback}))
-
-  }
-
+  ngOnInit() {
+    this.updateApplication$.pipe(throttleTime(2000)).subscribe((status: any) => {
+       this.store.dispatch(ApplicationsActions.updateApplicationsStart({id:this.data.data._id,status,feedback:this.feedback}))
+     })
+}
+ 
 }

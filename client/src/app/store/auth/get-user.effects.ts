@@ -4,13 +4,14 @@ import * as GetUserAction from './get-user.actions';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import {  Router } from '@angular/router';
 
 
 @Injectable()
 export class GetUserEffects {
 
 
-  constructor(private actions$: Actions, private http: HttpClient) { }
+  constructor(private actions$: Actions, private http: HttpClient,private router: Router,) { }
 
   getUser$ = createEffect(() => {
   return this.actions$.pipe(
@@ -20,7 +21,13 @@ export class GetUserEffects {
         map((userData) => {
           return GetUserAction.GetUsersSuccess(userData)
         }),
-        catchError((err: HttpErrorResponse) => of(GetUserAction.GetUsersFailure(err)))
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 403) {
+            this.router.navigate(['/login']);
+            localStorage.removeItem('token')
+          }
+          return of(GetUserAction.GetUsersFailure(err))
+        })
       );
     })
   );

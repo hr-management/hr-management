@@ -3,12 +3,12 @@ import * as VisaEmployeesActions from "../../../store/visaEmployees/visa-employe
 import {select, Store } from "@ngrx/store";
 import { AppState } from 'src/app/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable,BehaviorSubject } from 'rxjs';
+import { Observable,BehaviorSubject,Subject } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog' ;
 import { ConfirmationDialogComponent } from "./confirmation-dialog/confirmation-dialog.component"
 import { SendEmailService } from 'src/app/services/sendEmailService/send-email.service';
-import { Subject } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
+
 @Component({
   selector: 'app-visa-status-management',
   templateUrl: './visa-status-management.component.html',

@@ -1,7 +1,7 @@
 <mat-card class="login-card">
   <mat-card-title class="login-title">Login</mat-card-title>
   <mat-card-content>
-    <form #myForm="ngForm" (submit)="login()">
+    <form #loginForm="ngForm" (submit)="login()">
       <mat-form-field>
         <input
           matInput
@@ -12,7 +12,7 @@
           required
         />
         <mat-error
-          *ngIf="myForm.controls['username']?.hasOwnProperty('touched') && myForm.controls['username'].errors?.['required']"
+          *ngIf="loginForm.controls['username']?.hasOwnProperty('touched') && loginForm.controls['username'].errors?.['required']"
         >
           Username is required!
         </mat-error>
@@ -27,7 +27,7 @@
           required
         />
         <mat-error
-          *ngIf="myForm.controls['password']?.hasOwnProperty('touched') && myForm.controls['password'].errors?.['required']"
+          *ngIf="loginForm.controls['password']?.hasOwnProperty('touched') && loginForm.controls['password'].errors?.['required']"
         >
           Password is required!
         </mat-error>
