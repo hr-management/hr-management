@@ -3,21 +3,24 @@
 </ng-container>
 
 <ng-template #content>
-  <mat-card class="signup-card" *ngIf="this.email;else CannotSignup">
+  <mat-card
+    class="signup-card"
+    *ngIf="this.sigupForm.controls['email'].value;else CannotSignup"
+  >
     <mat-card-title class="signup-title">Registration</mat-card-title>
     <mat-card-content>
-      <form #myForm="ngForm" (submit)="signup()">
+      <form [formGroup]="sigupForm" (submit)="signup()">
         <mat-form-field>
           <input
             matInput
             type="text"
             placeholder="Username"
-            [(ngModel)]="username"
+            formControlName="username"
             name="username"
             required
           />
           <mat-error
-            *ngIf="myForm.controls['username']?.hasOwnProperty('touched') && myForm.controls['username'].errors?.['required']"
+            *ngIf="sigupForm.controls['username'].hasError('required')"
           >
             Username is required!
           </mat-error>
@@ -27,9 +30,8 @@
             matInput
             type="text"
             placeholder="Email"
-            [(ngModel)]="email"
+            formControlName="email"
             name="email"
-            [disabled]="true"
           />
         </mat-form-field>
         <mat-form-field>
@@ -37,12 +39,13 @@
             matInput
             type="password"
             placeholder="Password"
-            [(ngModel)]="password"
+            formControlName="password"
             name="password"
+            (input)="password$.next($event.target)"
             required
           />
           <mat-error
-            *ngIf="myForm.controls['password']?.hasOwnProperty('touched') && myForm.controls['password'].errors?.['required']"
+            *ngIf="sigupForm.controls['password'].hasError('required')"
           >
             Password is required!
           </mat-error>
@@ -52,19 +55,29 @@
             matInput
             type="password"
             placeholder="Confirm Password"
-            [(ngModel)]="confirmPassword"
+            formControlName="confirmPassword"
             name="confirmPassword"
+            (input)="confirmPassword$.next($event.target)"
             required
           />
+
           <mat-error
-            *ngIf="myForm.controls['confirmPassword']?.hasOwnProperty('touched') 
-          && myForm.controls['confirmPassword'].errors?.['required']"
+            *ngIf="sigupForm.controls['confirmPassword'].hasError('required')"
           >
             Confirm password is required!
           </mat-error>
-          <!-- todo password and confirm password validation -->
+          <mat-error
+            *ngIf="sigupForm.controls['confirmPassword'].hasError('passwordMismatch')"
+          >
+            Passwords do not match!
+          </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="sigupForm.invalid"
+        >
           Signup
         </button>
       </form>
