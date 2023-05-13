@@ -4,13 +4,13 @@ import * as VisaEmployeesActions from './visa-employees.actions';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-
+import {  Router } from '@angular/router';
 
 
 
 @Injectable()
 export class UpdateVisaAuthDocEffects {
-  constructor(private actions$: Actions, private http: HttpClient) { }
+  constructor(private actions$: Actions, private http: HttpClient,private router: Router) { }
   updateVisaAuthDoc$ = createEffect(() => {
   return this.actions$.pipe(
     ofType(VisaEmployeesActions.updateVisaAuthDocStart),
@@ -23,7 +23,10 @@ export class UpdateVisaAuthDocEffects {
           return VisaEmployeesActions.updateVisaAuthDocSuccess({id,workAuthDoc:data.workAuthDoc,OPTCompleted:data.OPTCompleted})
         }),
         catchError((err: HttpErrorResponse) => {
-          console.log(err)
+          if (err.status === 403) {
+            this.router.navigate(['/login']);
+            localStorage.removeItem('token')
+          }
           return of(VisaEmployeesActions.updateVisaAuthDocFailure(err))
         }
           )

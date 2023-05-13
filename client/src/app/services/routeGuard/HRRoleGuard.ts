@@ -3,7 +3,6 @@ import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {Store,select} from "@ngrx/store";
 import { AppState } from 'src/app/store';
-import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,18 +12,19 @@ export class HRRoleGuard implements CanActivate {
       this.state = this.store.pipe(select("user"))
   }
 
-  canActivate(): Observable<boolean> {
-    return this.state.pipe(
-      map((data:any) => {
-        if (data.role === 'hr') {
-          return true;
-        } else {
-          this.router.navigate(['/login']);
-          return false;
-        }
-      }),
-      
-    );
+  canActivate(): boolean {
+    const state = this.store.pipe(select("user"));
+
+    state.subscribe(data => {
+      if (!data.user._id || data.user.role === 'HR') {
+        return true;
+      } else {
+        this.router.navigate(['/login']);
+        return false;
+      }
+    });
+
+    return true;
   }
 }
 
