@@ -22,10 +22,10 @@ const routes: Routes = [
   {
 
     path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
-      { path: 'employee-profiles',canActivate: [HRRoleGuard], component: EmployeeProfilesComponent },
-      { path: 'visa-status-management', canActivate: [HRRoleGuard],component: VisaStatusManagementComponent },
-      { path: 'hiring-management', canActivate: [HRRoleGuard],component: HiringManagementComponent },
-      { path: 'housing-management',canActivate: [HRRoleGuard], component: HousingManagementComponent },
+      { path: 'employee-profiles', canActivate: [HRRoleGuard], component: EmployeeProfilesComponent },
+      { path: 'visa-status-management',canActivate: [HRRoleGuard],component: VisaStatusManagementComponent },
+      { path: 'hiring-management',canActivate: [HRRoleGuard],component: HiringManagementComponent },
+      { path: 'housing-management', canActivate: [HRRoleGuard],component: HousingManagementComponent },
       { path: 'house-details/:houseId', component: HouseDetailsComponent },
       { path: 'onboarding-application', component: OnboardingApplicationComponent },
       { path: 'personal-information', component: PersonalInformationComponent },
