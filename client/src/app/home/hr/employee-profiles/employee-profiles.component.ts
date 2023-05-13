@@ -18,7 +18,6 @@ export class EmployeeProfilesComponent   {
   constructor(private snackBar: MatSnackBar, private store: Store<AppState>) {
     this.state = this.store.pipe(select("employees"))
     this.state.subscribe((data) => {
-      console.log(data)
       if (data.error) {
         this.snackBar.open("Something went wrong. Please try again.", 'Close', { duration: 3000 });
       }

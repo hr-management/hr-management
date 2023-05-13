@@ -5,6 +5,7 @@ const {
   invitation,
   getInvitationHistory,
   getInfoForNewApplicaiton,
+  sendDocumentNotification,
 } = require("../controllers/hrInvitationController");
 const {
   getAllEmployees,
@@ -51,5 +52,12 @@ Router.put(
   HROnly,
   findEmployeeById,
   updateVisaAuthStatus
+);
+Router.post(
+  "/visaEmployees/:id/sendNotificationEmail",
+  authorization,
+  HROnly,
+  findEmployeeById,
+  sendDocumentNotification
 );
 module.exports = Router;

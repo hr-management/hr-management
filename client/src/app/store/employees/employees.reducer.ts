@@ -20,7 +20,6 @@ export const reducer = createReducer(
   on(EmployeesActions.getEmployeesStart, (state, payload) => {
     return {...state,loading: true,error:""}
   }),on(EmployeesActions.getEmployeesSuccess, (state, payload) => {
-    console.log(payload)
     return {...state,loading: false,error:"",employees: payload.employees}
   }),on(EmployeesActions.getEmployeesFailure, (state, payload) => {
     return {...state,loading: false,error:payload.error.message}

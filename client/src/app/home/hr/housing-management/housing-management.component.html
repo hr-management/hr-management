@@ -1,1 +1,52 @@
-<p>housing-management works!</p>
+<!-- housing-management.component.html -->
+<!-- Import Angular Material components -->
+<div class="house-container">
+  <form class="mat-elevation-z8 form-container" (submit)="addHouse()">
+    <h2 class="mat-h2">Add New House</h2>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" name="address" [(ngModel)]="newHouse.address" placeholder="Address" required>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" name="landlordFullName" [(ngModel)]="newHouse.landlord.legalFullName" placeholder="Landlord Legal Full Name" required>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput type="text" name="landlordPhoneNumber" [(ngModel)]="newHouse.landlord.phoneNumber" placeholder="Landlord Phone Number" required>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput type="email" name="landlordEmail" [(ngModel)]="newHouse.landlord.email" placeholder="Landlord Email" required>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Add House</button>
+  </form>
+  
+  <!-- Display existing houses -->
+  <!-- <div *ngIf="(houses$ | async) as houses"> -->
+  <div *ngIf="houses">
+    <h2 class="mat-h2">Existing Houses</h2>
+    <mat-list class="mat-list-spacing">
+      <div *ngFor="let house of houses">
+        <div class="list-item-content">
+          <h3 matLine>{{ house?.address }}</h3>
+          <p matLine><strong>Landlord: </strong>{{ house?.landlord?.legalFullName }}</p>
+          <p matLine><strong>Phone: </strong>{{ house?.landlord?.phoneNumber }}</p>
+          <p matLine><strong>Email: </strong>{{ house?.landlord?.email }}</p>
+          <p matLine><strong>Number of Residents: </strong>{{ house?.roommates?.length }}</p>
+        </div>
+        <div class="list-item-actions">
+          <button mat-icon-button color="primary" (click)="viewHouseDetails(house._id)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteHouse(house._id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-list>
+  </div>
+</div>
+
+
+
+
+
+
+

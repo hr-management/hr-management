@@ -1,0 +1,56 @@
+<mat-card *ngIf="house" class="house-card">
+  <mat-card-title>House Details</mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item><b>Address:</b> {{ house.address }}</mat-list-item>
+      <mat-list-item><b>Landlord:</b> {{ house.landlord.legalFullName }}</mat-list-item>
+      <mat-list-item><b>Email:</b> {{ house.landlord.email }}</mat-list-item>
+      <mat-list-item><b>Number of beds:</b> {{ house.facility.beds }}</mat-list-item>
+      <mat-list-item><b>Number of mattresses:</b> {{ house.facility.mattresses }}</mat-list-item>
+      <mat-list-item><b>Number of tables:</b> {{ house.facility.tables }}</mat-list-item>
+      <mat-list-item><b>Number of chairs:</b> {{ house.facility.chairs }}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+  <h3 class="mat-card-title" *ngIf="house.reports && house.reports.length > 0">Facility Reports</h3>
+  <mat-card-content *ngFor="let report of house.reports | slice:(page-1)*pageSize:page*pageSize" class="report-card">
+    <mat-list>
+      <mat-list-item><b>Title:</b> {{ report.title }}</mat-list-item>
+      <mat-list-item><b>Description:</b> {{ report.description }}</mat-list-item>
+      <mat-list-item><b>Created By:</b> {{ report.createdBy }}</mat-list-item>
+      <mat-list-item><b>Timestamp:</b> {{ report.timestamp }}</mat-list-item>
+      <mat-list-item><b>Status:</b> {{ report.status }}</mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <div *ngIf="report.comments.length > 0">
+      <h4>Comments:</h4>
+      <mat-list *ngFor="let comment of report.comments" class="comment-card">
+        <mat-list-item><b>Description:</b> {{ comment.description }}</mat-list-item>
+        <mat-list-item><b>Created By:</b> {{ comment.createdBy }}</mat-list-item>
+        <mat-list-item><b>Timestamp:</b> {{ comment.timestamp }}</mat-list-item>
+      </mat-list>
+      <mat-divider></mat-divider>
+    </div>
+    <form (submit)="addComment(report._id, newComment[report._id])">
+      <mat-form-field>
+        <textarea matInput [(ngModel)]="newComment[report._id]" placeholder="Add a comment" name="newComment"></textarea>
+      </mat-form-field>
+      <button type="submit" mat-raised-button>Add Comment</button>
+    </form>
+  </mat-card-content>
+  <mat-paginator [length]="house.reports.length" [pageSize]="pageSize" (page)="pageEvent = $event"></mat-paginator>
+  
+
+  <h3 class="mat-card-title" *ngIf="house.roommates && house.roommates.length > 0">Roommates</h3>
+  <mat-card-content *ngFor="let roommate of house.roommates" class="roommate-card">
+    <mat-list>
+      <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName ||
+            roommate.legalFullName }}</b></a></mat-list-item>
+      <mat-list-item><b>Phone Number:</b> {{ roommate.phoneNumber }}</mat-list-item>
+      <mat-list-item><b>Email:</b> {{ roommate.email }}</mat-list-item>
+      <mat-list-item><b>Car Information:</b> {{ roommate.carInformation }}</mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+  </mat-card-content>
+</mat-card>
+

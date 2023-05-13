@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { MatIconModule } from '@angular/material/icon'; 
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -48,16 +49,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 import { PersonalInfomationFormComponent } from './home/employee/personal-information/personal-infomation-form/personal-infomation-form.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
-import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
-import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
-import { FacilityReportDetailsComponent } from './home/housing/facility-report-details/facility-report-details.component';
+import { HousingDetailsComponent } from './home/employee/housing/housing-details/housing-details.component';
+import { FacilityReportsComponent } from './home/employee/housing/facility-reports/facility-reports.component';
+import { FacilityReportDetailsComponent } from './home/employee/housing/facility-report-details/facility-report-details.component';
 import { GetApplicationsEffects } from './store/applications/get-applications.effects';
 import { ApplicationComponent } from './home/hr/hiring-management/application/application.component';
-import { ConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
+import { ConfirmationDialogComponent as ApplicationConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
 import { UpdateApplicationEffects } from './store/applications/update-application.effects';
-import { SendInvitationEmailEffects } from './store/applications/send-invitation-email.effects';
 import { OnboardingApplicationFormComponent } from './home/employee/onboarding-application/onboarding-application-form/onboarding-application-form.component';
-import { ConfirmDailogComponent } from './home/employee/personal-information/confirm-dailog/confirm-dailog.component';
+import { GetVisaEmployeesEffects } from './store/visaEmployees/get-visa-employees.effects';
+import { ConfirmationDialogComponent as VisaConfirmationDialogComponent } from './home/hr/visa-status-management/confirmation-dialog/confirmation-dialog.component';
+import { UpdateVisaAuthDocEffects } from './store/visaEmployees/update-visa-auth-doc.effects';
+import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
+
 @NgModule({ 
   declarations: [
     AppComponent,
@@ -83,8 +87,12 @@ import { ConfirmDailogComponent } from './home/employee/personal-information/con
     FacilityReportDetailsComponent,
     ApplicationComponent,
     ConfirmationDialogComponent,
-    OnboardingApplicationFormComponent,
     ConfirmDailogComponent
+    ApplicationConfirmationDialogComponent,
+    VisaConfirmationDialogComponent,
+    OnboardingApplicationFormComponent,
+    HouseDetailsComponent
+
   ],
   imports: [
     BrowserModule,
@@ -99,17 +107,20 @@ import { ConfirmDailogComponent } from './home/employee/personal-information/con
     FormsModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     MatSnackBarModule,
     MatCardModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
+    MatButtonModule,
+    MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
     MatDialogModule,
-    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, SendInvitationEmailEffects]),
+    EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, GetVisaEmployeesEffects, UpdateVisaAuthDocEffects]),
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
