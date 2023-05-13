@@ -14,9 +14,11 @@ import { FacilityReportDetailsComponent } from './home/housing/facility-report-d
 import { FacilityReportsComponent } from './home/housing/facility-reports/facility-reports.component';
 import { HousingDetailsComponent } from './home/housing/housing-details/housing-details.component';
 
+
+import { AuthGuard } from './services/routeGuard/authRuard';
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, children: [
+    path: '', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: 'employee-profiles', component: EmployeeProfilesComponent },
       { path: 'visa-status-management', component: VisaStatusManagementComponent },
       { path: 'hiring-management', component: HiringManagementComponent },
