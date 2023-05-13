@@ -34,4 +34,21 @@ export class HouseDetailsComponent implements OnInit {
       }
     );
   }
+
+  newComment: { [reportId: string]: string } = {};
+
+  addComment(reportId: string, comment: string) {
+    // Make a POST request to add the comment
+    const apiUrl = `http://localhost:3001/api/reports/${reportId}/comments`;
+    this.http.post(apiUrl, { comment }).subscribe(
+      () => {
+        // Fetch the house details again to update the comments
+        this.fetchHouseDetails();
+      },
+      (error) => {
+        console.log('Error occurred while adding comment:', error);
+      }
+    );
+  }
+
 }

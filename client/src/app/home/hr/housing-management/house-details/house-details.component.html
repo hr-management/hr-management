@@ -1,4 +1,3 @@
-<!-- house-details.component.html -->
 <mat-card *ngIf="house" class="house-card">
   <mat-card-title>House Details</mat-card-title>
   <mat-card-content>
@@ -28,10 +27,18 @@
       <h4>Comments:</h4>
       <mat-list *ngFor="let comment of report.comments" class="comment-card">
         <mat-list-item><b>Description:</b> {{ comment.description }}</mat-list-item>
+        <mat-list-item><b>Created By:</b> {{ comment.createdBy }}</mat-list-item>
         <mat-list-item><b>Timestamp:</b> {{ comment.timestamp }}</mat-list-item>
       </mat-list>
       <mat-divider></mat-divider>
     </div>
+    <form (submit)="addComment(report._id, newComment[report._id])">
+      <mat-form-field>
+        <textarea matInput [(ngModel)]="newComment[report._id]" placeholder="Add a comment" name="newComment"></textarea>
+      </mat-form-field>
+      <button type="submit" mat-raised-button>Add Comment</button>
+    </form>
+    
   </mat-card-content>
 
   <h3 class="mat-card-title" *ngIf="house.roommates && house.roommates.length > 0">Roommates</h3>
@@ -46,3 +53,4 @@
     <mat-divider></mat-divider>
   </mat-card-content>
 </mat-card>
+
