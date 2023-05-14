@@ -52,7 +52,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 import { PersonalInfomationFormComponent } from './home/employee/personal-information/personal-infomation-form/personal-infomation-form.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
-import { HousingDetailsComponent } from './home/employee/housing/housing-details/housing-details.component';
+import { HousingDetailsComponent } from './home/employee/housing-details/housing-details.component';
 import { GetApplicationsEffects } from './store/applications/get-applications.effects';
 import { ApplicationComponent } from './home/hr/hiring-management/application/application.component';
 import { ConfirmationDialogComponent as ApplicationConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';

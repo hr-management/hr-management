@@ -11,7 +11,7 @@ import { HousingManagementComponent } from './home/hr/housing-management/housing
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
-import { HousingDetailsComponent } from './home/employee/housing/housing-details/housing-details.component';
+import { HousingDetailsComponent } from './home/employee/housing-details/housing-details.component';
 import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
 
 import { AuthGuard } from './services/routeGuard/authRuard';

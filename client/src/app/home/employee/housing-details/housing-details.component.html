@@ -1,39 +1,39 @@
 <mat-card class="housing-details">
-  <mat-card-title>Address: {{ address }}</mat-card-title>
+  <mat-card-title class="address">Address: {{ address }}</mat-card-title>
   <mat-card-content>
-    <h2>Roommates:</h2>
+    <h2 class="section-title">Roommates:</h2>
     <mat-list>
       <mat-list-item *ngFor="let roommate of roommates">
-        <h3 matLine>{{ roommate.preferredName }} ({{ roommate.legalFullName }}) - {{ roommate.phoneNumber }}</h3>
+        <h3 matLine class="roommate-info">{{ roommate.preferredName }} ({{ roommate.legalFullName }}) - {{ roommate.phoneNumber }}</h3>
       </mat-list-item>
     </mat-list>
-    <h2>Reports:</h2>
+    <h2 class="section-title">Reports:</h2>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let report of reports">
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title class="report-title">
             {{ report.title }} - {{ report.status }}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <p>{{ report.description }}</p>
-        <p>Created by: {{ report.createdBy | username | async }} at {{ report.timestamp | date:'yyyy-MM-dd'}}</p>
-        <h4>Comments:</h4>
+        <p class="report-description">{{ report.description }}</p>
+        <p class="report-info">Created by: {{ report.createdBy | username | async }} at {{ report.timestamp | date:'yyyy-MM-dd'}}</p>
+        <h4 class="section-title">Comments:</h4>
         <mat-list>
           <mat-list-item *ngFor="let comment of report.comments">
             {{ comment.description }} by {{ comment.createdBy | username | async }} at {{ comment.timestamp |
             date:'yyyy-MM-dd' }}
           </mat-list-item>
         </mat-list>
-        <h4>Add Comment:</h4>
-        <form (submit)="addComment(report._id, commentText.value)">
+        <h4 class="section-title">Add Comment:</h4>
+        <form (submit)="addComment(report._id, commentText.value)" class="add-comment-form">
           <mat-form-field appearance="fill">
             <textarea matInput rows="3" placeholder="Comment" #commentText></textarea>
           </mat-form-field>
-          <button mat-raised-button color="primary" type="submit">Add Comment</button>
+          <button mat-raised-button class="comment-btn" color="primary" type="submit">Add Comment</button>
         </form>
       </mat-expansion-panel>
     </mat-accordion>
-    <h2>Create Report:</h2>
+    <h2 class="section-title">Create Report:</h2>
     <form (submit)="createReport(reportTitle.value, reportDescription.value)" class="createReport">
       <mat-form-field appearance="fill">
         <input matInput placeholder="Title" #reportTitle>
@@ -41,7 +41,7 @@
       <mat-form-field appearance="fill">
         <textarea matInput rows="3" placeholder="Description" #reportDescription></textarea>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Create Report</button>
+      <button mat-raised-button class="create-report-btn" color="primary" type="submit">Create Report</button>
     </form>
   </mat-card-content>
 </mat-card>
