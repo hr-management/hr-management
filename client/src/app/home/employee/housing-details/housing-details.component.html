@@ -3,7 +3,7 @@
   <mat-card-content>
     <h2 class="section-title">Roommates:</h2>
     <mat-list>
-      <mat-list-item *ngFor="let roommate of roommates">
+      <mat-list-item class="roomate-list" *ngFor="let roommate of roommates">
         <h3 matLine class="roommate-info">{{ roommate.preferredName }} ({{ roommate.legalFullName }}) - {{ roommate.phoneNumber }}</h3>
       </mat-list-item>
     </mat-list>
@@ -19,7 +19,7 @@
         <p class="report-info">Created by: {{ report.createdBy | username | async }} at {{ report.timestamp | date:'yyyy-MM-dd'}}</p>
         <h4 class="section-title">Comments:</h4>
         <mat-list>
-          <mat-list-item *ngFor="let comment of report.comments">
+          <mat-list-item class="comment-list" *ngFor="let comment of report.comments">
             {{ comment.description }} by {{ comment.createdBy | username | async }} at {{ comment.timestamp |
             date:'yyyy-MM-dd' }}
           </mat-list-item>
