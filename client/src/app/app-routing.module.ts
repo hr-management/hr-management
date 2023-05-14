@@ -1,3 +1,4 @@
+import { VisaStatusComponent } from './home/employee/visa-status/visa-status.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'house-details/:houseId', canActivate: [HRRoleGuard], component: HouseDetailsComponent },
       { path: 'onboarding-application', component: OnboardingApplicationComponent },
       { path: 'personal-information', component: PersonalInformationComponent },
+      { path: 'visa-status', component: VisaStatusComponent },
       { path: 'assigned-house/:houseId', component: HousingDetailsComponent },
       { path: 'facility-reports', component: FacilityReportsComponent },
       { path: 'facility-reports/:reportId', component: FacilityReportDetailsComponent },

@@ -62,6 +62,8 @@ import { ConfirmationDialogComponent as VisaConfirmationDialogComponent } from '
 import { UpdateVisaAuthDocEffects } from './store/visaEmployees/update-visa-auth-doc.effects';
 import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
 import { ConfirmDailogComponent } from './home/employee/personal-information/confirm-dailog/confirm-dailog.component';
+import { VisaStatusComponent } from './home/employee/visa-status/visa-status.component';
+import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt-receipt.component';
 
 @NgModule({ 
   declarations: [
@@ -91,7 +93,9 @@ import { ConfirmDailogComponent } from './home/employee/personal-information/con
     ApplicationConfirmationDialogComponent,
     VisaConfirmationDialogComponent,
     OnboardingApplicationFormComponent,
-    HouseDetailsComponent
+    HouseDetailsComponent,
+    VisaStatusComponent,
+    OptReceiptComponent
 
   ],
   imports: [
