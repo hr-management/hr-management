@@ -3,7 +3,10 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 export function generateFormGroup(fb: UntypedFormBuilder) {
   const { required, email, minLength, maxLength } = Validators;
   return fb.group({
+    //profilePhoto
     profilePhoto: [''],
+
+    //name
     firstName: ['', [required]],
     lastName: ['', [required]],
     middleName: [''],
@@ -12,17 +15,30 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     ssn: ['', [required]],
     birthDate: ['', [required]],
     gender: [''],
+
+    //address
     building: ['', [required]],
     street: ['', [required]],
     city: ['', [required]],
     state: ['', [required]],
     zip: ['', [required, minLength(6), maxLength(6)]],
+
+    //contact info
     cellPhoneNumber: ['', [required, minLength(5)]],
     workPhoneNumber: ['', [minLength(5)]],
 
+    //employeement
     type: [''],
     startDate: [''],
     endDate: [''],
+
+     // emergencyContact
+     efirstName: ['', [required]],
+     elastName: ['', [required]],
+     emiddleName: [''],
+     ephone: ['', [required]],
+     eemail: ['', [required, email]],
+     erelationship: ['', [required]],
 
     // TODO
     citizenship: [''],
@@ -32,17 +48,9 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     model: [''],
     color: [''],
 
-    // emergencyContact
-    efirstName: ['', [required]],
-    elastName: ['', [required]],
-    emiddleName: [''],
-    ephone: ['', [required]],
-    eemail: ['', [required, email]],
-    erelationship: ['', [required]],
-
     // workAuthDoc
     workAuthDoc: fb.array([]),
-
+    
     // driverLicense
     hasDriverLicense: ['No'],
     dlicenseNumber: [''],
@@ -114,6 +122,10 @@ export function buildFinalValues(value: any) {
     city,
     state,
     zip,
+    
+    type,
+    startDate,
+    endDate,
 
     efirstName,
     elastName,
@@ -141,6 +153,11 @@ export function buildFinalValues(value: any) {
       city,
       state,
       zip,
+    },
+    visa: {
+      type,
+      startDate,
+      endDate
     },
     carInfo: {
       make,
