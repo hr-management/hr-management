@@ -42,4 +42,12 @@ export class OptReceiptComponent {
     });
   }
 
+  doHandleOPTEADUpload(event: any) {
+    this.handleUpload(event.target.files[0], (url) => {
+      
+      // this.form.patchValue({
+      //   dphoto: url,
+      // });
+    });
+  }
 }
