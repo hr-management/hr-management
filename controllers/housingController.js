@@ -49,10 +49,15 @@ exports.deleteHouse = async (req, res) => {
 // getting housing details
 exports.getHousingDetails = async (req, res) => {
   try {
-    const housingDetails = await Housing.find({}, { address: 1, roommates: 1 });
-    res.status(200).json(housingDetails);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const houseDetails = await Housing.findOne({}).select('address roommates');
+
+    if (!houseDetails) {
+      return res.status(404).json({ error: 'House details not found' });
+    }
+
+    res.json(houseDetails);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch house details' });
   }
 };
 
@@ -77,16 +82,6 @@ exports.createReport = async (req, res) => {
   }
 };
 
-// getting all facility reports
-exports.getReports = async (req, res) => {
-  try {
-    const housing = await Housing.find();
-    const reports = housing.map((h) => h.reports).flat();
-    res.status(200).json(reports);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
 // getting a specific facility report
 exports.getReportById = async (req, res) => {
@@ -99,6 +94,40 @@ exports.getReportById = async (req, res) => {
       return res.status(404).json({ error: "Report not found" });
     }
     res.status(200).json(housing.reports[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// creating a new facility report
+exports.createReport = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    console.log('user info', req.body);
+    const createdBy = req.user ? req.user._id : null;
+
+    if (!createdBy) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const newReport = {
+      title,
+      description,
+      createdBy,
+      comments: [],
+    };
+
+    const housing = await Housing.findOneAndUpdate(
+      { _id: req.user.assignedHouse },
+      { $push: { reports: newReport } },
+      { new: true }
+    );
+
+    if (!housing) {
+      return res.status(404).json({ error: "Housing not found" });
+    }
+
+    res.status(201).json(newReport);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -150,7 +179,7 @@ exports.addReportComment = async (req, res) => {
     await Housing.updateOne(
       { "reports._id": req.params.reportId },
       { $push: { "reports.$.comments": comment } }
-    );    
+    );
     res.status(201).json(comment);
   } catch (err) {
     res.status(500).json({ error: err.message });

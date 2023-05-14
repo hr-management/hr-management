@@ -20,4 +20,22 @@ Router.put(
   userController.userOnboarding
 );
 
+Router.post(
+  '/onboarding/status',
+  authorization,
+  requiredValidator('body', [
+    'firstName',
+    'lastName',
+    'currentAddress',
+    'cellPhoneNumber',
+    'ssn',
+    'birthDate',
+    // visa | green card missing
+    'emergencyContact',
+  ]),
+  userController.userOnboarding
+);
+
+Router.get('/:userId', userController.getUserInfoById);
+
 module.exports = Router;

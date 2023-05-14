@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -50,8 +51,6 @@ import { PersonalInformationComponent } from './home/employee/personal-informati
 import { PersonalInfomationFormComponent } from './home/employee/personal-information/personal-infomation-form/personal-infomation-form.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
 import { HousingDetailsComponent } from './home/employee/housing/housing-details/housing-details.component';
-import { FacilityReportsComponent } from './home/employee/housing/facility-reports/facility-reports.component';
-import { FacilityReportDetailsComponent } from './home/employee/housing/facility-report-details/facility-report-details.component';
 import { GetApplicationsEffects } from './store/applications/get-applications.effects';
 import { ApplicationComponent } from './home/hr/hiring-management/application/application.component';
 import { ConfirmationDialogComponent as ApplicationConfirmationDialogComponent } from './home/hr/hiring-management/application/confirmation-dialog-component/confirmation-dialog.component';
@@ -64,6 +63,7 @@ import { HouseDetailsComponent } from './home/hr/housing-management/house-detail
 import { ConfirmDailogComponent } from './home/employee/personal-information/confirm-dailog/confirm-dailog.component';
 import { VisaStatusComponent } from './home/employee/visa-status/visa-status.component';
 import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt-receipt.component';
+import { UsernamePipe } from './pipe/username.pipe';
 
 @NgModule({ 
   declarations: [
@@ -86,8 +86,7 @@ import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt
     PersonalInfomationFormComponent,
     EmployeePersonalInfoComponent,
     HousingDetailsComponent,
-    FacilityReportsComponent,
-    FacilityReportDetailsComponent,
+
     ApplicationComponent,
     ConfirmDailogComponent,
     ApplicationConfirmationDialogComponent,
@@ -95,7 +94,8 @@ import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt
     OnboardingApplicationFormComponent,
     HouseDetailsComponent,
     VisaStatusComponent,
-    OptReceiptComponent
+    OptReceiptComponent,
+    UsernamePipe
 
   ],
   imports: [
@@ -113,8 +113,6 @@ import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatCardModule,
-    MatListModule,
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
@@ -124,6 +122,9 @@ import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt
     MatNativeDateModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatCardModule,
+    MatListModule,
+    MatExpansionModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, GetVisaEmployeesEffects, UpdateVisaAuthDocEffects]),
     ReactiveFormsModule
   ],
