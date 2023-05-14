@@ -4,20 +4,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon'; 
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,7 +67,7 @@ import { VisaStatusComponent } from './home/employee/visa-status/visa-status.com
 import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt-receipt.component';
 import { UsernamePipe } from './pipe/username.pipe';
 
-@NgModule({ 
+@NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
@@ -113,6 +115,7 @@ import { UsernamePipe } from './pipe/username.pipe';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
+    MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
@@ -124,6 +127,7 @@ import { UsernamePipe } from './pipe/username.pipe';
     MatDialogModule,
     MatCardModule,
     MatListModule,
+    MatGridListModule,
     MatExpansionModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, GetVisaEmployeesEffects, UpdateVisaAuthDocEffects]),
     ReactiveFormsModule

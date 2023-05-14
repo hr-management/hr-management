@@ -61,28 +61,6 @@ exports.getHousingDetails = async (req, res) => {
   }
 };
 
-// creating a new facility report
-exports.createReport = async (req, res) => {
-  try {
-    const housing = await Housing.findById(req.body.housingId);
-    if (!housing) {
-      return res.status(404).json({ error: "Housing not found" });
-    }
-    const report = {
-      title: req.body.title,
-      description: req.body.description,
-      createdBy: req.body.createdBy,
-      comments: [],
-    };
-    housing.reports.push(report);
-    await housing.save();
-    res.status(201).json(report);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-
 // getting a specific facility report
 exports.getReportById = async (req, res) => {
   try {
@@ -102,13 +80,7 @@ exports.getReportById = async (req, res) => {
 // creating a new facility report
 exports.createReport = async (req, res) => {
   try {
-    const { title, description } = req.body;
-    console.log('user info', req.body);
-    const createdBy = req.user ? req.user._id : null;
-
-    if (!createdBy) {
-      return res.status(401).json({ error: "User not authenticated" });
-    }
+    const { title, description, createdBy } = req.body;
 
     const newReport = {
       title,
@@ -118,7 +90,7 @@ exports.createReport = async (req, res) => {
     };
 
     const housing = await Housing.findOneAndUpdate(
-      { _id: req.user.assignedHouse },
+      { _id: req.body.assignedHouse },
       { $push: { reports: newReport } },
       { new: true }
     );
@@ -132,6 +104,7 @@ exports.createReport = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // getting all comments on a specific facility report
 exports.getReportComments = async (req, res) => {

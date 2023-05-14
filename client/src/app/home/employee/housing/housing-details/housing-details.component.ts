@@ -76,6 +76,7 @@ export class HousingDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHouseData();
+    // console.log(this.houseId)
   }
 
   getHousingDetails(houseId: string) {
@@ -92,6 +93,7 @@ export class HousingDetailsComponent implements OnInit {
     this.authService.getInfo().subscribe((response: any) => {
       const userData = response.body; // This is assuming the response includes the 'body' property.
       this.houseId = userData.user.assignedHouse._id;
+      console.log(userData.user.assignedHouse._id)
       this.username = userData.user.username;
       this.getHousingDetails(this.houseId);
     }, error => {
@@ -99,13 +101,48 @@ export class HousingDetailsComponent implements OnInit {
     });
   }
 
+  // createReport(title: string, description: string) {
+  //   this.http.post(`http://localhost:3001/api/housing/${this.houseId}/report`, { title, description }).subscribe(response => {
+  //     // If the report creation was successful, refresh the housing details to include the new report.
+  //     this.getHousingDetails(this.houseId);
+  //   }, error => {
+  //     console.error('Failed to create report:', error);
+  //   });
+  // }
+
   createReport(title: string, description: string) {
-    this.http.post(`http://localhost:3001/api/housing/${this.houseId}/report`, { title, description }).subscribe(response => {
-      // If the report creation was successful, refresh the housing details to include the new report.
-      this.getHousingDetails(this.houseId);
-    }, error => {
-      console.error('Failed to create report:', error);
-    });
+    const apiUrl = `http://localhost:3001/api/housing`;
+    const apiUrlReport = `http://localhost:3001/api/housing/facility-reports`;
+
+    // http://localhost:3001/api/housing/645de4285b1de6a2494a9150
+
+    const token = localStorage.getItem('token'); // replace 'token' with your token key
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const decodedToken = jwt_decode(token) as DecodedToken;
+    const createdBy = decodedToken.userId;
+
+    // Get housing details first
+    this.http.get<any>(`${apiUrl}/${this.houseId}`).subscribe(
+      (house: any) => {
+        // console.log('house!!:', `${apiUrl}/${this.houseId}`, house)
+        // Then, create report
+        this.http.post(apiUrlReport, { title, description, createdBy, assignedHouse: this.houseId }).subscribe(
+          () => {
+            this.getHousingDetails(this.houseId);
+          },
+          (error) => {
+            console.log('Error occurred while adding comment:', error);
+          }
+        );
+      },
+      (error) => {
+        console.log('Error occurred while fetching house details:', error);
+      }
+    );
   }
 
   addComment(reportId: string, comment: string) {
