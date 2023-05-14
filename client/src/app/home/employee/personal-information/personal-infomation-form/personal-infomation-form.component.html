@@ -18,6 +18,7 @@
           (change)="doHandleAvatarUpload($event)"
         />
         <button
+          style="width: 200px"
           mat-flat-button
           color="primary"
           (click)="avatar.click()"
@@ -82,6 +83,7 @@
             placeholder="Email"
             formControlName="email"
             type="email"
+            [readonly]="displayCarInfo"
           />
           <mat-error *ngIf="form.controls['email'].errors?.['required']">
             Required
@@ -93,12 +95,7 @@
 
         <mat-form-field>
           <mat-label>SSN</mat-label>
-          <input
-            matInput
-            placeholder="SSN"
-            formControlName="ssn"
-            required
-          />
+          <input matInput placeholder="SSN" formControlName="ssn" required />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -159,19 +156,11 @@
       <p class="row">
         <mat-form-field>
           <mat-label>Zip</mat-label>
-          <input
-            matInput
-            placeholder="Zip"
-            formControlName="zip"
-          />
-          <mat-error
-            *ngIf="form.controls['zip'].errors?.['minlength']"
-          >
+          <input matInput placeholder="Zip" formControlName="zip" />
+          <mat-error *ngIf="form.controls['zip'].errors?.['minlength']">
             Zip length must be 6
           </mat-error>
-          <mat-error
-            *ngIf="form.controls['zip'].errors?.['maxlength']"
-          >
+          <mat-error *ngIf="form.controls['zip'].errors?.['maxlength']">
             Zip length must be 6
           </mat-error>
         </mat-form-field>
@@ -343,7 +332,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card style="margin-top: 32px">
+  <mat-card style="margin-top: 32px" *ngIf="displayCarInfo">
     <mat-card-content>
       <mat-card-title>Documents</mat-card-title>
 
@@ -495,17 +484,17 @@
             </td>
 
             <td>
-              {{ element.value.feedback || "-" }}
+              {{ element.feedback || "-" }}
             </td>
 
             <td>
               <a
-                *ngIf="element.value['file']"
+                *ngIf="element['file']"
                 target="__blank"
-                [href]="element.value['file']"
+                [href]="element['file']"
                 >Open File</a
               >
-              <div *ngIf="!element.value['file']">No File</div>
+              <div *ngIf="!element['file']">No File</div>
             </td>
 
             <td>
@@ -542,7 +531,59 @@
                 color="primary"
                 (click)="handleWorkAuthDocDownload(i)"
                 [disabled]="!isEdit"
-                [hidden]="hideUplodProfile || !element.value.file"
+                [hidden]="hideUplodProfile || !element.file"
+              >
+                Download
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!displayCarInfo">
+    <mat-card-content>
+      <mat-card-title>Document</mat-card-title>
+      <p class="row" *ngIf="form.value['dphoto']">
+        DriverLicense
+        <button
+          [disabled]="!isEdit"
+          mat-flat-button
+          style="margin-left: 12px"
+          color="primary"
+          (click)="handleDriverLicenseDownload()"
+        >
+          Download
+        </button>
+      </p>
+
+      <div class="row"></div>
+
+      <div class="row" style="width: 1000px">
+        <table formArrayName="workAuthDoc">
+          <tr>
+            <th>Work authorization</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr
+            *ngFor="let element of workAuthDocArray; let i = index"
+            [formGroupName]="i"
+          >
+            <td>
+              {{ element.type }}
+            </td>
+            <td>
+              {{ element.status }}
+            </td>
+            <td>
+              <button
+                mat-flat-button
+                style="margin-left: 12px"
+                color="primary"
+                (click)="handleWorkAuthDocDownload(i)"
+                [disabled]="!isEdit"
               >
                 Download
               </button>

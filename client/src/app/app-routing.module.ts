@@ -11,8 +11,6 @@ import { HousingManagementComponent } from './home/hr/housing-management/housing
 import { OnboardingApplicationComponent } from './home/employee/onboarding-application/onboarding-application.component';
 import { PersonalInformationComponent } from './home/employee/personal-information/personal-information.component';
 import { EmployeePersonalInfoComponent } from './home/hr/employee-profiles/employee-personal-info/employee-personal-info.component';
-import { FacilityReportDetailsComponent } from './home/employee/housing/facility-report-details/facility-report-details.component';
-import { FacilityReportsComponent } from './home/employee/housing/facility-reports/facility-reports.component';
 import { HousingDetailsComponent } from './home/employee/housing/housing-details/housing-details.component';
 import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
 
@@ -31,9 +29,7 @@ const routes: Routes = [
       { path: 'onboarding-application', component: OnboardingApplicationComponent },
       { path: 'personal-information', component: PersonalInformationComponent },
       { path: 'visa-status', component: VisaStatusComponent },
-      { path: 'assigned-house/:houseId', component: HousingDetailsComponent },
-      { path: 'facility-reports', component: FacilityReportsComponent },
-      { path: 'facility-reports/:reportId', component: FacilityReportDetailsComponent },
+      { path: 'assigned-house', component: HousingDetailsComponent },
     ]
   },
   { path: 'login', component: LoginComponent },

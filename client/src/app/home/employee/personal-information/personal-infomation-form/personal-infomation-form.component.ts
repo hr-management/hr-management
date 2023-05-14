@@ -4,26 +4,26 @@ import {
   Input,
   Output,
   SimpleChanges,
-} from '@angular/core';
+} from "@angular/core";
 import {
   FormArray,
   UntypedFormBuilder,
   UntypedFormGroup,
-} from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonService } from 'src/app/services/CommonService/common-service.service';
-import { downloadURL } from 'src/app/utils';
+} from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { CommonService } from "src/app/services/CommonService/common-service.service";
+import { downloadURL } from "src/app/utils";
 
 import {
   buildFinalValues,
   generateFormGroup,
   getInitialValue,
-} from '../utils/helper';
+} from "../utils/helper";
 
 @Component({
-  selector: 'app-personal-infomation-form',
-  templateUrl: './personal-infomation-form.component.html',
-  styleUrls: ['./personal-infomation-form.component.scss'],
+  selector: "app-personal-infomation-form",
+  templateUrl: "./personal-infomation-form.component.html",
+  styleUrls: ["./personal-infomation-form.component.scss"],
 })
 export class PersonalInfomationFormComponent {
   @Input() user: any;
@@ -36,11 +36,11 @@ export class PersonalInfomationFormComponent {
 
   maxDate = new Date();
 
-  visaTypes = ['H1-B', 'L2', 'F1(CPT/OPT)', 'H4', 'Other'];
-  workAuthStatus = ['notSubmitted', 'submitted', 'rejected', 'approved'];
+  visaTypes = ["H1-B", "L2", "F1(CPT/OPT)", "H4", "Other"];
+  workAuthStatus = ["notSubmitted", "submitted", "rejected", "approved"];
 
   workAuthDocArray: any;
-
+  displayedColumns = ["WorkAuthorizationDoc", "Status", "File"];
   showWorkAuthorization = false;
   showF1Receipt = false;
   showOtherVisa = false;
@@ -56,7 +56,7 @@ export class PersonalInfomationFormComponent {
 
   onCitizenshipChange(event: Event) {
     const citizenship = (event.target as HTMLSelectElement).value;
-    if (citizenship === 'no') {
+    if (citizenship === "no") {
       this.showWorkAuthorization = true;
     } else {
       this.showWorkAuthorization = false;
@@ -69,12 +69,12 @@ export class PersonalInfomationFormComponent {
   onAuthorizationChange(event: Event) {
     const authorization = (event.target as HTMLSelectElement).value;
     switch (authorization) {
-      case 'f1':
+      case "f1":
         this.showF1Receipt = true;
         this.showOtherVisa = false;
         this.showStartEndDate = false;
         break;
-      case 'other':
+      case "other":
         this.showF1Receipt = false;
         this.showOtherVisa = true;
         this.showStartEndDate = false;
@@ -88,7 +88,7 @@ export class PersonalInfomationFormComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['user']) {
+    if (changes["user"]) {
       if (this.user) {
         console.log(this.user);
         const { initialValue, workAuthDoc } = getInitialValue(
@@ -97,7 +97,7 @@ export class PersonalInfomationFormComponent {
         );
         this.form.patchValue(initialValue);
         this.form.setControl(
-          'workAuthDoc',
+          "workAuthDoc",
           this.fb.array(
             workAuthDoc.map((doc: any) =>
               this.fb.group({
@@ -109,9 +109,11 @@ export class PersonalInfomationFormComponent {
             )
           )
         );
-        this.workAuthDocArray = (
-          this.form.get('workAuthDoc') as FormArray
-        ).controls;
+        // this.workAuthDocArray = (
+        //   this.form.get('workAuthDoc') as FormArray
+        // ).controls;
+        this.workAuthDocArray = this.user.workAuthDoc;
+        console.log(this.workAuthDocArray);
       }
     }
     if (this.isEdit) {
@@ -129,20 +131,27 @@ export class PersonalInfomationFormComponent {
   }
 
   handleWorkAuthDocDownload(index: number) {
-    const url = this.form.value['workAuthDoc'][index]?.file;
+    const url = this.form.value["workAuthDoc"][index]?.file;
+    if (url) {
+      downloadURL(url);
+    }
+  }
+
+  handleDriverLicenseDownload() {
+    const url = this.form.value["dphoto"];
     if (url) {
       downloadURL(url);
     }
   }
 
   handleUpload(file: File, callback: (url: string) => void) {
-    this.snackBar.open('Uploading', 'Close');
+    this.snackBar.open("Uploading", "Close");
     this.commonService.upload(file).subscribe((data) => {
       if (data.body.url) {
         callback(data.body.url);
-        this.snackBar.open(data.body.message, 'Close');
+        this.snackBar.open(data.body.message, "Close");
       } else {
-        this.snackBar.open('Upload Failed', 'Close');
+        this.snackBar.open("Upload Failed", "Close");
       }
     });
   }
@@ -180,18 +189,18 @@ export class PersonalInfomationFormComponent {
   }
 
   handleDeleteAuthDoc(i: number) {
-    const workAuthDoc = this.form.get('workAuthDoc') as FormArray;
+    const workAuthDoc = this.form.get("workAuthDoc") as FormArray;
     workAuthDoc.removeAt(i);
   }
 
   handleAddAuthDoc() {
-    const workAuthDoc = this.form.get('workAuthDoc') as FormArray;
+    const workAuthDoc = this.form.get("workAuthDoc") as FormArray;
     workAuthDoc.push(
       this.fb.group({
-        type: '',
-        status: '',
-        file: '',
-        feedback: '',
+        type: "",
+        status: "",
+        file: "",
+        feedback: "",
       })
     );
   }

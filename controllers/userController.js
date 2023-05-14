@@ -56,9 +56,23 @@ const userVisaUpload = async (req,res) => {
     } else {
         return res.status(400).json({ message: "Waiting for HR to approve", success: false });
     }
+}
+
+const getUserInfoById = async (req, res) => {
+    try {
+      const userId = req.params.userId; // Assuming the user ID is passed as a request parameter
+      const user = await userModel.findById(userId);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+      res.status(200).json({ success: true, user });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err.message });
+    }
 };
 
 module.exports = {
     userOnboarding,
     userVisaUpload,
+    getUserInfoById
 };
