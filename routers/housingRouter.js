@@ -16,6 +16,7 @@ Router.get('/:houseId', housingController.getHouseDetails);
 Router.delete('/:houseId', housingController.deleteHouse);
 
 Router.get('/house-details', housingController.getHousingDetails);
+
 Router.post('/facility-reports', housingController.createReport);
 Router.get('/facility-reports', housingController.getReports);
 Router.get('/facility-reports/:reportId', housingController.getReportById);

@@ -101,4 +101,3 @@ const housingSchema = new mongoose.Schema({
 const Housing = mongoose.model("Housing", housingSchema);
 
 module.exports = Housing;
-

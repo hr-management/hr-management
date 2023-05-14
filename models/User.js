@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     state: { type: String },
     zip: { type: String },
   },
+  assignedHouse: {
+    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Housing' },  // Use 'Housing' not 'housings'
+    houseNumber: { type: Number }, // other fields related to assignedHouse can be added here
+  },
   cellPhoneNumber: { type: String },
   workPhoneNumber: { type: String, default: "" },
   carInfo: {
