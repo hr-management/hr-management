@@ -1,0 +1,23 @@
+:host {
+  flex-grow: 1;
+}
+
+.visa-status-page {
+  padding: 24px;
+}
+
+.visa-step {
+  display: flex;
+  margin-bottom: 24px;
+  .visa-item {
+    margin-right: 24px;
+    font-size: 16px;
+    .visa-item-active {
+      color: #056de8;
+    }
+  }
+}
+.visa-status span {
+  font-size: 16px;
+  font-weight: bold;
+}

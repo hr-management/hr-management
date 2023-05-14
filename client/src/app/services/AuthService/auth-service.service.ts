@@ -28,4 +28,12 @@ export class AuthService {
       observe: 'response',
     });
   }
+
+  upadteUserVisa(
+    params: Record<string, unknown>
+  ): Observable<HttpResponse<any>> {
+    return this.http.put<any>('/api/user/visa/upload', params, {
+      observe: 'response',
+    });
+  }
 }

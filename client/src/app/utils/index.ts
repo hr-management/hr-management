@@ -1,8 +1,10 @@
-function downloadURL(url: string) {
+function downloadURL(url: string, fileName?: string) {
   var aElement = document.createElement('a');
   aElement.href = url;
   aElement.target = '_blank';
-//   aElement.download = filename;
+  if (fileName) {
+    aElement.download = fileName;
+  }
   document.body.appendChild(aElement);
   aElement.click();
   document.body.removeChild(aElement);
