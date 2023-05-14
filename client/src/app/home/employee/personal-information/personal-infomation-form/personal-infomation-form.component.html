@@ -83,6 +83,7 @@
             placeholder="Email"
             formControlName="email"
             type="email"
+            [readonly]="displayCarInfo"
           />
           <mat-error *ngIf="form.controls['email'].errors?.['required']">
             Required
@@ -483,17 +484,17 @@
             </td>
 
             <td>
-              {{ element.value.feedback || "-" }}
+              {{ element.feedback || "-" }}
             </td>
 
             <td>
               <a
-                *ngIf="element.value['file']"
+                *ngIf="element['file']"
                 target="__blank"
-                [href]="element.value['file']"
+                [href]="element['file']"
                 >Open File</a
               >
-              <div *ngIf="!element.value['file']">No File</div>
+              <div *ngIf="!element['file']">No File</div>
             </td>
 
             <td>
@@ -530,7 +531,7 @@
                 color="primary"
                 (click)="handleWorkAuthDocDownload(i)"
                 [disabled]="!isEdit"
-                [hidden]="hideUplodProfile || !element.value.file"
+                [hidden]="hideUplodProfile || !element.file"
               >
                 Download
               </button>
@@ -541,7 +542,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card>
+  <mat-card *ngIf="!displayCarInfo">
     <mat-card-content>
       <mat-card-title>Document</mat-card-title>
       <p class="row" *ngIf="form.value['dphoto']">
