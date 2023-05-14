@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee.component.scss']
 })
 export class EmployeeComponent {
-    sideBarLinks:any[] =['onboarding-application','personal-information','assigned-house']
+    sideBarLinks:any[] =['onboarding-application','personal-information','assigned-house', 'visa-status']
     constructor(private router: Router) { }
 
   ngOnInit() {
