@@ -15,6 +15,12 @@ export class AuthService {
     });
   }
 
+  getInfo(): Observable<HttpResponse<any>> {
+    return this.http.get<any>('/api/auth/user/info', {
+      observe: 'response',
+    });
+  }
+
   updateStatus(params: Record<string, unknown>): Observable<HttpResponse<any>> {
     return this.http.put<any>('/api/user/onboarding/status', params, {
       observe: 'response',

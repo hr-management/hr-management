@@ -49,42 +49,15 @@ exports.deleteHouse = async (req, res) => {
 // getting housing details
 exports.getHousingDetails = async (req, res) => {
   try {
-    const housingDetails = await Housing.find({}, { address: 1, roommates: 1 });
-    res.status(200).json(housingDetails);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+    const houseDetails = await Housing.findOne({}).select('address roommates');
 
-// creating a new facility report
-exports.createReport = async (req, res) => {
-  try {
-    const housing = await Housing.findById(req.body.housingId);
-    if (!housing) {
-      return res.status(404).json({ error: "Housing not found" });
+    if (!houseDetails) {
+      return res.status(404).json({ error: 'House details not found' });
     }
-    const report = {
-      title: req.body.title,
-      description: req.body.description,
-      createdBy: req.body.createdBy,
-      comments: [],
-    };
-    housing.reports.push(report);
-    await housing.save();
-    res.status(201).json(report);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
-// getting all facility reports
-exports.getReports = async (req, res) => {
-  try {
-    const housing = await Housing.find();
-    const reports = housing.map((h) => h.reports).flat();
-    res.status(200).json(reports);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.json(houseDetails);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch house details' });
   }
 };
 
@@ -103,6 +76,35 @@ exports.getReportById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// creating a new facility report
+exports.createReport = async (req, res) => {
+  try {
+    const { title, description, createdBy } = req.body;
+
+    const newReport = {
+      title,
+      description,
+      createdBy,
+      comments: [],
+    };
+
+    const housing = await Housing.findOneAndUpdate(
+      { _id: req.body.assignedHouse },
+      { $push: { reports: newReport } },
+      { new: true }
+    );
+
+    if (!housing) {
+      return res.status(404).json({ error: "Housing not found" });
+    }
+
+    res.status(201).json(newReport);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 // getting all comments on a specific facility report
 exports.getReportComments = async (req, res) => {
@@ -150,7 +152,7 @@ exports.addReportComment = async (req, res) => {
     await Housing.updateOne(
       { "reports._id": req.params.reportId },
       { $push: { "reports.$.comments": comment } }
-    );    
+    );
     res.status(201).json(comment);
   } catch (err) {
     res.status(500).json({ error: err.message });

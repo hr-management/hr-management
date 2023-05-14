@@ -1,72 +1,96 @@
-.form-container {
-  max-width: 300px;
-  margin: auto;
-  padding: 20px;
-  margin-bottom: 20px;
+$primary-color: #3f51b5;
+$warn-color: #f44336;
+$white-color: #fff;
+
+$full-width: 100%;
+$elevation-z8: 8px;
+$large-size: 350px;
+$medium-size: 24px;
+$houses-grid-gap: 20px;
+$house-item-padding: 20px;
+$house-item-margin: 10px;
+$house-item-border-radius: 10px;
+$house-item-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$house-item-bg-color: #fff;
+
+.allHouses {
+  margin-top: 40px; // Adjust this value to create more space above "Existing Houses"
 }
 
-.list-item-content {
+.houses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $houses-grid-gap;
+}
+
+.house-item {
+  padding: $house-item-padding;
+  margin-bottom: $house-item-margin;
+  border-radius: $house-item-border-radius;
+  box-shadow: $house-item-box-shadow;
+  background-color: $house-item-bg-color;
+}
+
+
+body {
+  margin-left: 20px;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+}
+
+button[color="primary"] {
+  background-color: $primary-color;
+  color: $white-color;
+}
+
+button[color="warn"] {
+  background-color: $warn-color;
+  color: $white-color;
+}
+
+.allHouses {
   display: flex;
   flex-direction: column;
-  margin-right: 16px;
+  justify-content: center;
+}
+
+.house-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 40px; 
+}
+
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding: $medium-size;
+  box-shadow: 0 $elevation-z8 $elevation-z8 rgba(0, 0, 0, 0.2);
+  width: 300px; 
 }
 
 .list-item-actions {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.full-width-input {
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
 }
 
-.house-container {
-  padding-left: 20px; /* Adjust the value as needed */
+.round-icon {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px; // adjust this value as needed
+  background-color: $primary-color;
+  color: $white-color;
+  height: 36px;
+  width: 36px;
 }
 
-  // :host {
-//     flex-grow: 1;
-//     padding: 20px;
-// }
-
-// form {
-//     display: flex;
-//     flex-direction: column;
-//     max-width: 600px;
-
-//     .form-input {
-//         display: flex;
-//         justify-content: space-between;
-//     }
-
-//     mat-form-field {
-//         width: 280px;
-//     }
-
-//     mat-form-field[name="email"] {
-//         margin-right: 10px;
-//     }
-// }
-
-// mat-divider {
-//     margin: 20px 0;
-// }
-
-// mat-button-toggle-group {
-//     margin-bottom: 16px;
-// }
-
-// tr[mat-row]:hover {
-//     background-color: rgb(233, 233, 233);
-// }
-
-// .list-item-content {
-//     display: flex;
-//     flex-direction: column;
-//   }
-  
-//   .list-item-actions {
-//     margin-top: 8px;
-//   }
-  
+.small-icon {
+  font-size: 16px; // adjust this value as needed
+  width: 16px;
+  height: 16px;
+}
