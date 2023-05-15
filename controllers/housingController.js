@@ -164,7 +164,12 @@ exports.updateReportComment = async (req, res) => {
   try {
     const result = await Housing.updateOne(
       { "reports._id": req.params.reportId },
-      { $set: { "reports.$.comments.$[comment].description": req.body.description } },
+      { 
+        $set: { 
+          "reports.$.comments.$[comment].description": req.body.description,
+          "reports.$.comments.$[comment].timestamp": new Date() 
+        } 
+      },
       { arrayFilters: [{ "comment._id": req.params.commentId }] }
     );
 
@@ -177,4 +182,5 @@ exports.updateReportComment = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 

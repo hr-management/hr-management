@@ -1,7 +1,7 @@
 .housing-details {
   max-width: 800px;
   margin: 0 auto;
-  margin-top: 20px;
+  // margin-top: 20px;
   margin-left: 20px;
 }
 
@@ -12,6 +12,8 @@ h2 {
 
 .comment-list {
   border-bottom: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 h2 {
@@ -27,15 +29,33 @@ mat-card-title {
   flex-direction: column;
 }
 
-.comment-btn {
-  margin-left: 30px;
+.comment-btn,
+button[mat-button] {
+  color: white;
+  background-color: #3f51b5;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
 }
 
-// .add-comment-form {
-//   display: flex;
-//   flex-direction: column;
-//   width: 30%;
-// }
+.comment-btn {
+  margin-left: 30px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+
+button[mat-button]:hover {
+  background-color: white;
+  color: black;
+}
 
 .address {
   font-size: 20px;
@@ -91,12 +111,47 @@ mat-list-item {
   overflow: visible;
 }
 
-.comment-list {
-  margin-bottom: 10px; /* Adjust this value as needed */
-  border-bottom: 1px solid #ddd;
+.comment-details {
+  flex-grow: 1;
+}
+
+.comment-btn {
+  margin-left: 10px;
 }
 
 .comment-list {
-  min-height: 130px; /* Adjust this value as needed */
-  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  min-height: 100px; 
+}
+
+.comment-content {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.comment-description {
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+}
+
+.comment-metadata {
+  font-size: 14px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.comment-textarea {
+  flex-grow: 1;
+  height: auto;
+  // max-height: 100px; /* Adjust the height as needed */
+  overflow-y: auto;
+  resize: vertical; /* Allow vertical resizing */
 }

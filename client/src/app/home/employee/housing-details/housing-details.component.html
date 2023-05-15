@@ -10,7 +10,7 @@
     </mat-list>
     <h2 class="section-title">Reports:</h2>
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let report of reports">
+      <mat-expansion-panel *ngFor="let report of reports" [expanded]="selectedReport?._id === report._id">
         <mat-expansion-panel-header>
           <mat-panel-title class="report-title">
             {{ report.title }} - {{ report.status }}
@@ -22,23 +22,35 @@
         <h4 class="section-title">Comments:</h4>
         <mat-list>
           <ng-container *ngFor="let comment of report.comments">
-            <mat-list-item class="comment-list" *ngIf="!editingComments[comment._id]">
-              {{ comment.description }} by {{ comment.createdBy | username | async }} at {{ comment.timestamp |
-              date:'yyyy-MM-dd' }}
-              <button mat-button (click)="startEditing(comment)">Edit</button>
+            <mat-list-item class="comment-list" *ngIf="editingComments[comment._id]; else viewMode">
+              <div class="comment-content">
+                <form (submit)="updateComment(report._id, comment._id, commentText.value); stopEditing(comment)"
+                  class="edit-comment-form">
+                  <mat-form-field appearance="fill" class="comment-textarea">
+                    <textarea matInput placeholder="Comment" #commentText>{{comment.description}}</textarea>
+                  </mat-form-field>
+                  <button mat-raised-button class="comment-btn" color="primary" type="submit">Update Comment</button>
+                </form>
+              </div>
             </mat-list-item>
-            <mat-list-item class="comment-list" *ngIf="editingComments[comment._id]">
-              <form (submit)="updateComment(report._id, comment._id, commentText.value); stopEditing(comment)"
-                class="edit-comment-form">
-                <mat-form-field appearance="fill">
-                  <textarea matInput rows="3" placeholder="Comment" #commentText>{{comment.description}}</textarea>
-                </mat-form-field>
-                <button mat-raised-button class="comment-btn" color="primary" type="submit">Update Comment</button>
-              </form>
-            </mat-list-item>
+            <ng-template #viewMode>
+              <mat-list-item class="comment-list">
+                <div class="comment-content">
+                  <div class="comment-details">
+                    <span class="comment-description">{{ comment.description }}</span>
+                    <span class="comment-metadata">
+                      by {{ comment.createdBy | username | async }} at {{ comment.timestamp | date:'yyyy-MM-dd' }}
+                    </span>
+                  </div>
+                  <button mat-icon-button color="primary" (click)="startEditing(comment)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+              </mat-list-item>
+            </ng-template>
+            <!--  -->
           </ng-container>
         </mat-list>
-
         <h4 class="section-title">Add Comment:</h4>
         <form (submit)="addComment(report._id, commentText.value)" class="add-comment-form">
           <mat-form-field appearance="fill">
@@ -58,5 +70,3 @@
       </mat-form-field>
       <button mat-raised-button class="create-report-btn" color="primary" type="submit">Create Report</button>
     </form>
-  </mat-card-content>
-</mat-card>
