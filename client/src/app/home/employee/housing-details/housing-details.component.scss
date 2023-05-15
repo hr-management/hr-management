@@ -80,3 +80,23 @@ mat-card-title {
 .section-title {
   margin-top: 30px;
 }
+
+.edit-comment-form {
+  position: relative;
+  z-index: 1;
+}
+
+mat-list-item {
+  height: auto;
+  overflow: visible;
+}
+
+.comment-list {
+  margin-bottom: 10px; /* Adjust this value as needed */
+  border-bottom: 1px solid #ddd;
+}
+
+.comment-list {
+  min-height: 130px; /* Adjust this value as needed */
+  border-bottom: 1px solid #ddd;
+}
