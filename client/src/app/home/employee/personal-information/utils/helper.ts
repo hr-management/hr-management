@@ -12,7 +12,7 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     middleName: [''],
     preferredName: [''],
     email: ['', [required, email]],
-    ssn: ['', [required]],
+    ssn: ['', [required, minLength(9), maxLength(9)]],
     birthDate: ['', [required]],
     gender: [''],
 
@@ -24,8 +24,8 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     zip: ['', [required, minLength(6), maxLength(6)]],
 
     //contact info
-    cellPhoneNumber: ['', [required, minLength(5)]],
-    workPhoneNumber: ['', [minLength(5)]],
+    cellPhoneNumber:  ['', [required, minLength(10), maxLength(10)]],
+    workPhoneNumber: ['', [minLength(10), maxLength(10)]],
 
     //employeement
     type: [''],
