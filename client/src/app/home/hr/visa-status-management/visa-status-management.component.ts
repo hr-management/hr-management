@@ -92,7 +92,7 @@ export class VisaStatusManagementComponent {
         for (let doc of employee.workAuthDoc) {
             curDoc = doc
             if (doc.status === "notSubmitted") {
-              nextStep = `Submit ${doc.type}`
+              nextStep = `Need to submit ${doc.type}`
               nextAction = "submit"
               break
             } else if (doc.status === "submitted") {

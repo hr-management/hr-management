@@ -92,7 +92,7 @@ exports.getVisaEmployees = async (req, res) => {
       visaEmployees = await userModel
         .find({
           "visa.type": "F1(CPT/OPT)",
-          OPTCompleted: false,
+          applicationStatus: { $ne: "approved" },
         })
         .sort({ lastName: 1 });
       employeeType = "Inprogress visa employees";
