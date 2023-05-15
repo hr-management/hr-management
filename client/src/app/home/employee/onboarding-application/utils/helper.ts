@@ -37,10 +37,19 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     ephone: [''],
     eemail: ['', [email]],
     erelationship: [''],
+
+    workAuthDoc: fb.array([]),
   });
 }
 
 export function getInitialValue(user: any) {
+  const workAuthDoc = (user.workAuthDoc || []).map((workDoc: any) => ({
+    type: workDoc.type,
+    status: workDoc.status,
+    file: workDoc.file,
+    feedback: workDoc.feedback,
+  }));
+
   return {
     profilePhoto:
       !user.profilePhoto || user.profilePhoto === 'defaultImage'
@@ -73,6 +82,16 @@ export function getInitialValue(user: any) {
     ephone: user.emergencyContact?.phone || '',
     eemail: user.emergencyContact?.email || '',
     erelationship: user.emergencyContact?.relationship || '',
+
+    make: user.carInfo.make,
+    model: user.carInfo.model,
+    color: user.carInfo.color,
+
+    hasDriverLicense: user.driverLicense.licenseNumber ? 'Yes' : 'No',
+    dlicenseNumber: user.driverLicense.licenseNumber || '',
+    dexpirationDate: user.driverLicense.expirationDate || '',
+    dphoto: user.driverLicense.photo || '',
+    workAuthDoc
   };
 }
 
@@ -90,6 +109,19 @@ export function buildFinalValues(value: any) {
     ephone,
     eemail,
     erelationship,
+
+    make,
+    model,
+    color,
+
+    dlicenseNumber,
+    dexpirationDate,
+    dphoto,
+
+    type,
+
+    workAuthDoc,
+
     ...rest
   } = value;
   return {
@@ -109,5 +141,19 @@ export function buildFinalValues(value: any) {
       email: eemail,
       relationship: erelationship,
     },
+    carInfo: {
+      make,
+      model,
+      color,
+    },
+    driverLicense: {
+      licenseNumber: dlicenseNumber,
+      expirationDate: dexpirationDate,
+      photo: dphoto,
+    },
+    visa: {
+      type,
+    },
+    workAuthDoc
   };
 }

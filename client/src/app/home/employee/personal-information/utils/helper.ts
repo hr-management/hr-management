@@ -102,7 +102,7 @@ export function getInitialValue(user: any, fb: UntypedFormBuilder) {
     eemail: user.emergencyContact?.email || '',
     erelationship: user.emergencyContact?.relationship || '',
 
-    hasDriverLicense: !!user.driverLicense.licenseNumber ? 'Yes' : 'No',
+    hasDriverLicense: user.driverLicense.licenseNumber ? 'Yes' : 'No',
     dlicenseNumber: user.driverLicense.licenseNumber || '',
     dexpirationDate: user.driverLicense.expirationDate || '',
     dphoto: user.driverLicense.photo || '',
