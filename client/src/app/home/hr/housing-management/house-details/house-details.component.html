@@ -12,7 +12,7 @@
     </mat-list>
   </mat-card-content>
 
-  <h3 class="mat-card-title" *ngIf="house.reports && house.reports.length > 0">Facility Reports</h3>
+  <h3 class="mat-card-title">Facility Reports</h3>
   <mat-card-content *ngFor="let report of house.reports | slice:(page-1)*pageSize:page*pageSize" class="report-card">
     <mat-list>
       <mat-list-item><b>Title:</b> {{ report.title }}</mat-list-item>
@@ -22,7 +22,7 @@
       <mat-list-item><b>Status:</b> {{ report.status }}</mat-list-item>
     </mat-list>
     <mat-divider></mat-divider>
-    <div *ngIf="report.comments.length > 0">
+    <div>
       <h4>Comments:</h4>
       <mat-list *ngFor="let comment of report.comments" class="comment-card">
         <mat-list-item><b>Description:</b> {{ comment.description }}</mat-list-item>
@@ -42,7 +42,7 @@
   <mat-paginator [length]="house.reports.length" [pageSize]="pageSize" (page)="pageEvent = $event"></mat-paginator>
 
 
-  <h3 class="mat-card-title" *ngIf="house.roommates && house.roommates.length > 0">Roommates</h3>
+  <h3 class="mat-card-title">Roommates</h3>
   <mat-card-content *ngFor="let roommate of house.roommates" class="roommate-card">
     <mat-list>
       <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName ||

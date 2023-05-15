@@ -42,9 +42,11 @@ interface Facility {
 }
 
 interface Comment {
+  _id: string;
   description: string;
   createdBy: string;
   timestamp: Date;
+  isEditing?: boolean; // Add this line
 }
 
 interface House {
@@ -69,7 +71,9 @@ export class HousingDetailsComponent implements OnInit {
   houseId: any;
   username: any;
   house: House | null = null;
-  selectedReport: Report | null = null; // Variable to track the selected report
+  selectedReport: Report | null = null;
+
+  editingComments: { [key: string]: boolean } = {};
 
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -177,7 +181,36 @@ export class HousingDetailsComponent implements OnInit {
         console.log('Error occurred while adding comment:', error);
       }
     );
+
   }
+
+  updateComment(reportId: string, commentId: string, commentText: string) {
+    const apiUrl = `http://localhost:3001/api/housing/facility-reports/${reportId}/comments/${commentId}`;
+
+    this.http.put(apiUrl, { description: commentText }).subscribe(
+      () => {
+        this.getHousingDetails(this.houseId);
+        this.editingComments[commentId] = false; // stop editing after updating the comment
+      },
+      (error) => {
+        console.log('Error occurred while updating comment:', error);
+      }
+    );
+  }
+
+
+  startEditing(comment: Comment) {
+    if (comment._id) {
+      this.editingComments[comment._id] = true;
+    }
+  }
+
+  stopEditing(comment: Comment) {
+    if (comment._id) {
+      this.editingComments[comment._id] = false;
+    }
+  }
+
 
   openReport(reportId: string) {
     this.selectedReport = this.reports.find(report => report._id === reportId) || null;

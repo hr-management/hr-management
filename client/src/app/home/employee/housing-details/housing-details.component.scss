@@ -1,0 +1,102 @@
+.housing-details {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+mat-card-title,
+h2 {
+  color: #3f51b5;
+}
+
+.comment-list {
+  border-bottom: 1px solid #ddd;
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+mat-card-title {
+  margin: 15px;
+}
+
+.createReport {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-btn {
+  margin-left: 30px;
+}
+
+// .add-comment-form {
+//   display: flex;
+//   flex-direction: column;
+//   width: 30%;
+// }
+
+.address {
+  font-size: 20px;
+  color: #333;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #555;
+}
+
+.roommate-info {
+  font-size: 16px;
+  color: #777;
+}
+
+.report-title {
+  font-size: 18px;
+  color: #333;
+}
+
+.report-description {
+  font-size: 16px;
+  color: #666;
+}
+
+.report-info {
+  font-size: 14px;
+  color: #888;
+}
+
+.comment-btn {
+  font-size: 14px;
+  color: #fff;
+}
+
+.create-report-btn {
+  font-size: 16px;
+  color: #fff;
+}
+
+.section-title {
+  margin-top: 30px;
+}
+
+.edit-comment-form {
+  position: relative;
+  z-index: 1;
+}
+
+mat-list-item {
+  height: auto;
+  overflow: visible;
+}
+
+.comment-list {
+  margin-bottom: 10px; /* Adjust this value as needed */
+  border-bottom: 1px solid #ddd;
+}
+
+.comment-list {
+  min-height: 130px; /* Adjust this value as needed */
+  border-bottom: 1px solid #ddd;
+}
