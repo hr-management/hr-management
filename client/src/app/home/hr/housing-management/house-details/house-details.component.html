@@ -1,4 +1,4 @@
-<mat-card *ngIf="house" class="house-card">
+<mat-card *ngIf="house$ | async as house" class="house-card">
   <mat-card-title>House Details</mat-card-title>
   <mat-card-content>
     <mat-list>
@@ -14,11 +14,6 @@
 
   <div class="report-header">
     <h3 class="mat-card-title">Facility Reports</h3>
-    <!-- <div class="sort-buttons"> -->
-    <!-- <button mat-raised-button color="primary" (click)="toggleSortByLatest()">
-        Sort by {{ sortByLatest ? 'Latest' : 'Oldest' }}
-      </button> -->
-    <!-- </div> -->
   </div>
   <mat-card-content *ngFor="let report of sortedReports | slice:(page-1)*pageSize:page*pageSize" class="report-card">
     <mat-list>
@@ -52,9 +47,8 @@
   <h3 class="mat-card-title">Roommates</h3>
   <mat-card-content *ngFor="let roommate of house.roommates" class="roommate-card">
     <mat-list>
-      <!-- {{roommate._id}} -->
-      <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName || roommate.legalFullName}}</b></a></mat-list-item>
-      <!-- <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName || -->
+      <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName ||
+            roommate.legalFullName}}</b></a></mat-list-item>
       <mat-list-item><b>Phone Number:</b> {{ roommate.phoneNumber }}</mat-list-item>
       <mat-list-item><b>Email:</b> {{ roommate.email }}</mat-list-item>
       <mat-list-item><b>Car Information:</b> {{ roommate.carInformation }}</mat-list-item>
@@ -62,6 +56,3 @@
     <mat-divider></mat-divider>
   </mat-card-content>
 </mat-card>
-<!-- 645bcdc6d5f8905ed9567de7
-645effc4f073efce575a2337
-645b477a6b91983b4967bbda -->
