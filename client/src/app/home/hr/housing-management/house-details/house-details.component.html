@@ -52,11 +52,8 @@
   <h3 class="mat-card-title">Roommates</h3>
   <mat-card-content *ngFor="let roommate of house.roommates" class="roommate-card">
     <mat-list>
-      {{roommate._id}}
-      <mat-list-item><a [routerLink]="['/employee-profiles', '645b477a6b91983b4967bbd7']"><b>{{ roommate.preferredName
-            ||
-            roommate.legalFullName
-            }}</b></a></mat-list-item>
+      <!-- {{roommate._id}} -->
+      <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName || roommate.legalFullName}}</b></a></mat-list-item>
       <!-- <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName || -->
       <mat-list-item><b>Phone Number:</b> {{ roommate.phoneNumber }}</mat-list-item>
       <mat-list-item><b>Email:</b> {{ roommate.email }}</mat-list-item>
@@ -65,3 +62,6 @@
     <mat-divider></mat-divider>
   </mat-card-content>
 </mat-card>
+<!-- 645bcdc6d5f8905ed9567de7
+645effc4f073efce575a2337
+645b477a6b91983b4967bbda -->

@@ -84,7 +84,7 @@ export class HouseDetailsComponent implements OnInit {
 
     this.http.get<any>(apiUrl).subscribe(
       (house: any) => {
-        console.log(house)
+        console.log(house);
         this.house = house;
         this.sortReportsByDate(); // Sort reports after fetching house details
       },
@@ -108,7 +108,7 @@ export class HouseDetailsComponent implements OnInit {
 
     this.http.post(apiUrl, { description: comment, createdBy }).subscribe(
       () => {
-        this.fetchHouseDetails(); 
+        this.fetchHouseDetails();
       },
       (error) => {
         console.log('Error occurred while adding comment:', error);
@@ -122,20 +122,18 @@ export class HouseDetailsComponent implements OnInit {
 
   sortReportsByDate() {
     if (this.house) {
-      this.sortedReports = this.house.reports.slice(); 
-  
+      this.sortedReports = this.house.reports.slice();
+
       if (this.sortByLatest) {
         this.sortedReports.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
       } else {
         this.sortedReports.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
-      }
+      };
     }
   }
-  
+
   toggleSortByLatest() {
     this.sortByLatest = !this.sortByLatest;
     this.sortReportsByDate();
   }
-  
 }
-
