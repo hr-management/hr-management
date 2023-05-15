@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     zip: { type: String },
   },
   assignedHouse: {
-    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Housing' },  // Use 'Housing' not 'housings'
+    _id: { type: mongoose.Schema.Types.ObjectId, ref: "Housing" }, // Use 'Housing' not 'housings'
     houseNumber: { type: Number }, // other fields related to assignedHouse can be added here
   },
   cellPhoneNumber: { type: String },
@@ -37,7 +37,11 @@ const userSchema = new mongoose.Schema({
   },
   applicationRejectedFeedback: { type: String, default: "" },
   requireWorkAuthorization: { type: Boolean },
-  citizenship: { type: String, enum: ['Green Card','Citzen', 'Other'], default: 'Other'},
+  citizenship: {
+    type: String,
+    enum: ["Green Card", "Citzen", "Other"],
+    default: "Other",
+  },
   visa: {
     type: {
       type: String,
@@ -59,7 +63,6 @@ const userSchema = new mongoose.Schema({
       feedback: { type: String, default: "" },
     },
   ],
-  OPTCompleted: { type: Boolean, default: false },
   driverLicense: {
     licenseNumber: { type: String, default: "" },
     expirationDate: { type: String, default: "" },
