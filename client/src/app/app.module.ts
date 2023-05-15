@@ -128,7 +128,8 @@ import { UsernamePipe } from './pipe/username.pipe';
     MatGridListModule,
     MatExpansionModule,
     EffectsModule.forRoot([LoginEffects, GetUserEffects, SignupEffects, EmployeesEffects, GetApplicationsEffects, UpdateApplicationEffects, GetVisaEmployeesEffects, UpdateVisaAuthDocEffects]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

@@ -1,26 +1,49 @@
 <!-- housing-management.component.html -->
-<!-- Import Angular Material components -->
 <div class="house-container">
+  <h2 class="mat-h2">Add New House</h2>
   <form class="mat-elevation-z8 form-container" (submit)="addHouse()">
-    <h2 class="mat-h2">Add New House</h2>
-    <mat-form-field class="full-width-input">
-      <input matInput type="text" name="address" [(ngModel)]="newHouse.address" placeholder="Address" required>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input matInput type="text" name="landlordFullName" [(ngModel)]="newHouse.landlord.legalFullName"
-        placeholder="Landlord Legal Full Name" required>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input matInput type="text" name="landlordPhoneNumber" [(ngModel)]="newHouse.landlord.phoneNumber"
-        placeholder="Landlord Phone Number" required>
-    </mat-form-field>
-    <mat-form-field class="full-width-input">
-      <input matInput type="email" name="landlordEmail" [(ngModel)]="newHouse.landlord.email"
-        placeholder="Landlord Email" required>
-    </mat-form-field>
+    <div class="form-column">
+      <h3 class="mat-subheading">Landlord Information</h3>
+      <mat-form-field class="full-width-input">
+        <mat-label>Address</mat-label>
+        <input matInput type="text" name="address" [(ngModel)]="newHouse.address" required>
+      </mat-form-field>
+      <mat-form-field class="half-width-input">
+        <mat-label>Legal Full Name</mat-label>
+        <input matInput type="text" name="landlordFullName" [(ngModel)]="newHouse.landlord.legalFullName" required>
+      </mat-form-field>
+      <mat-form-field class="half-width-input">
+        <mat-label>Phone Number</mat-label>
+        <input matInput type="text" name="landlordPhoneNumber" [(ngModel)]="newHouse.landlord.phoneNumber" required>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <mat-label>Landlord Email</mat-label>
+        <input matInput type="email" name="landlordEmail" [(ngModel)]="newHouse.landlord.email" required>
+      </mat-form-field>
+    </div>
+    <div class="form-column">
+      <h3 class="mat-subheading">Facility Information</h3>
+      <mat-form-field class="half-width-input">
+        <mat-label>Beds</mat-label>
+        <input matInput type="number" name="beds" [(ngModel)]="newHouse.facility.beds" required>
+      </mat-form-field>
+      <mat-form-field class="half-width-input">
+        <mat-label>Mattresses</mat-label>
+        <input matInput type="number" name="mattresses" [(ngModel)]="newHouse.facility.mattresses" required>
+      </mat-form-field>
+      <mat-form-field class="half-width-input">
+        <mat-label>Tables</mat-label>
+        <input matInput type="number" name="tables" [(ngModel)]="newHouse.facility.tables" required>
+      </mat-form-field>
+      <mat-form-field class="half-width-input">
+        <mat-label>Chairs</mat-label>
+        <input matInput type="number" name="chairs" [(ngModel)]="newHouse.facility.chairs" required>
+      </mat-form-field>
+    </div>
     <button mat-raised-button color="primary" type="submit">Add House</button>
   </form>
-
+  
+  
   <!-- Display existing houses -->
   <div *ngIf="houses" class="allHouses">
     <h2 class="mat-h2">Existing Houses</h2>

@@ -1,8 +1,6 @@
-// housing-management.component.ts
-
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { HousingHrService, House, Report } from '../../../services/housingManagementService/housing-hr.service';
 
 @Component({
   selector: 'app-housing-management',
@@ -12,26 +10,31 @@ import { Router } from '@angular/router';
 export class HousingManagementComponent implements OnInit {
   houses: any[] = [];
   newHouse: any = {
-    address: "",
+    address: '',
     landlord: {
-      legalFullName: "",
-      phoneNumber: "",
-      email: "",
+      legalFullName: '',
+      phoneNumber: '',
+      email: '',
     },
+    facility: {
+      beds: 0,
+      mattresses: 0,
+      tables: 0,
+      chairs: 0,
+    }
   };
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private housingManagementService: HousingHrService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.fetchHouses();
   }
 
-  // houses: any[] = []; // Define houses as an array of objects
-
   fetchHouses() {
-    const apiUrl = 'http://localhost:3001/api/housing/';
-
-    this.http.get<any[]>(apiUrl).subscribe(
+    this.housingManagementService.fetchHouses().subscribe(
       (houses: any[]) => {
         this.houses = houses;
       },
@@ -41,34 +44,35 @@ export class HousingManagementComponent implements OnInit {
     );
   }
 
-
   addHouse() {
-    const apiUrl = 'http://localhost:3001/api/housing/';
-
-    this.http.post<any>(apiUrl, this.newHouse).subscribe(
-      house => {
+    this.housingManagementService.addHouse(this.newHouse).subscribe(
+      (house: any) => {
         this.houses.push(house);
         this.newHouse = {
-          address: "",
+          address: '',
           landlord: {
-            legalFullName: "",
-            phoneNumber: "",
-            email: "",
+            legalFullName: '',
+            phoneNumber: '',
+            email: '',
           },
+          facility: {
+            beds: 0,
+            mattresses: 0,
+            tables: 0,
+            chairs: 0,
+          }
         };
       },
-      error => {
+      (error) => {
         console.log('Error adding house:', error);
       }
     );
   }
 
-
   deleteHouse(houseId: string) {
-    this.http.delete(`http://localhost:3001/api/housing/${houseId}`).subscribe(
+    this.housingManagementService.deleteHouse(houseId).subscribe(
       () => {
-        this.houses = this.houses.filter(house => house._id !== houseId
-        );
+        this.houses = this.houses.filter(house => house._id !== houseId);
       },
       error => {
         console.log('Error deleting house:', error);
@@ -77,10 +81,8 @@ export class HousingManagementComponent implements OnInit {
   }
 
   viewHouseDetails(houseId: string) {
-    // Navigate to the house details page by appending the houseId to the URL
     this.router.navigate(['/house-details', houseId]);
   }
-
 }
 
 // // housing-management.component.ts

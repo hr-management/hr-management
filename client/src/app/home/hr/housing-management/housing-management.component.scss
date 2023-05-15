@@ -19,7 +19,7 @@ $house-item-bg-color: #fff;
 
 .houses-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: $houses-grid-gap;
 }
 
@@ -30,7 +30,6 @@ $house-item-bg-color: #fff;
   box-shadow: $house-item-box-shadow;
   background-color: $house-item-bg-color;
 }
-
 
 body {
   margin-left: 20px;
@@ -61,13 +60,13 @@ button[color="warn"] {
   margin-left: 40px; 
 }
 
-
 .form-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Two-column layout
+  grid-gap: $medium-size; // Adjust the gap between columns as needed
   padding: $medium-size;
   box-shadow: 0 $elevation-z8 $elevation-z8 rgba(0, 0, 0, 0.2);
-  width: 300px; 
+  width: 500px; // Adjust the width of the form container as needed
 }
 
 .list-item-actions {
@@ -93,4 +92,8 @@ button[color="warn"] {
   font-size: 16px; // adjust this value as needed
   width: 16px;
   height: 16px;
+}
+
+.mat-h2 {
+  margin-left: 1rem;
 }
