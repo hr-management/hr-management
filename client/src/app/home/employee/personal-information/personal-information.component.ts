@@ -60,6 +60,7 @@ export class PersonalInformationComponent {
   }
 
   handleSave() {
+    console.log(this.personForm?.form)
     if (this.personForm?.form.valid) {
       const params = buildFinalValues(this.personForm?.form.value);
       this.authService.updateUserInfo(params).subscribe((res) => {

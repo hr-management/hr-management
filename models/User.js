@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
   },
   applicationRejectedFeedback: { type: String, default: "" },
   requireWorkAuthorization: { type: Boolean },
+  citizenship: { type: String, enum: ['Green Card','Citzen', 'Other'], default: 'Other'},
   visa: {
     type: {
       type: String,

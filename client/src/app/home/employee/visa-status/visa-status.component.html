@@ -1,18 +1,93 @@
-<p>{{user.workAuthDoc[user.workAuthDoc.length - 1].type}}</p>
-<p>{{user.workAuthDoc[user.workAuthDoc.length - 1].status}}</p>
-<div *ngIf="user.workAuthDoc[0].type === 'OPT_Receipt'">
-    <ng-container *ngIf="user.workAuthDoc[user.workAuthDoc.length - 1].type === 'OPT_Receipt'">
-      <app-opt-receipt [workAuthDoc]="user.workAuthDoc"></app-opt-receipt>
-    </ng-container>
-    <!-- <ng-template #optEadOrI983OrI20>
-      <ng-container *ngIf="user.workAuthDoc[user.workAuthDoc.length - 1].type === 'OPT_EAD'; else I983OrI20">
-        <app-opt-ead [user]="user"></app-opt-ead>
-      </ng-container>
-      <ng-container *ngIf="user.workAuthDoc[user.workAuthDoc.length - 1].type === 'I983'; else I20">
-        <app-i983 [user]="user"></app-i983>
-      </ng-container>
-      <ng-container *ngIf="user.workAuthDoc[user.workAuthDoc.length - 1].type === 'I20'">
-        <app-i20 [user]="user"></app-i20>
-      </ng-container> -->
-    <!-- </ng-template> -->
-  </div>
+<div class="visa-status-page">
+  <mat-card>
+    <mat-card-content>
+      <div class="visa-step">
+        <div *ngFor="let visa of visa_order; index as i" class="visa-item">
+          <span
+            [ngClass]="
+              i > currentIndex ? 'visa-item-inactive' : 'visa-item-active'
+            "
+          >
+            {{ visa }}
+          </span>
+        </div>
+      </div>
+      <div class="visa-status">
+        <p>
+          Status:
+          <span>
+            {{ current.status }}
+          </span>
+        </p>
+        <p>
+          Message:
+          <span>
+            {{ message }}
+          </span>
+        </p>
+        <p *ngIf="current.feedback">
+          HR's feedback:
+          <span>
+            {{ current.feedback }}
+          </span>
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="canDownloadTemplates">
+    <mat-card-content>
+      <button mat-raised-button (click)="handleDownload('empty')">
+        Empty Template
+      </button>
+      <button
+        mat-raised-button
+        style="margin-left: 12px"
+        color="primary"
+        (click)="handleDownload('sample')"
+      >
+        Sample Template
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card style="margin-top: 24px">
+    <mat-card-content>
+      <div>
+        <a *ngIf="uploadedFileUrl" target="__blank" [href]="uploadedFileUrl"
+          >Open File</a
+        >
+        <span *ngIf="!uploadedFileUrl">No File</span>
+      </div>
+
+      <input
+        #fileUpload
+        hidden="true"
+        type="file"
+        onclick="this.value=null"
+        (change)="doUpload($event)"
+      />
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="fileUpload.click()"
+        [disabled]="!canUpload"
+      >
+        Upload File
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="canUpload" style="margin-top: 24px">
+    <mat-card-content>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="handleSubmit()"
+        [disabled]="!uploadedFileUrl"
+      >
+        Submit
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

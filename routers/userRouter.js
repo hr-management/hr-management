@@ -14,10 +14,17 @@ Router.put(
     'cellPhoneNumber',
     'ssn',
     'birthDate',
-    // visa | green card missing
+    // green card missing
     'emergencyContact',
   ]),
   userController.userOnboarding
+);
+
+Router.put(
+  '/visa/upload',
+  authorization,
+  requiredValidator('body', ['file']),
+  userController.userVisaUpload
 );
 
 Router.post(

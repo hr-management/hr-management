@@ -22,6 +22,9 @@ server.use("/api/employees", hrRouter);
 server.use('/api/housing', housingRouter);
 server.use('/api/user', userRouter);
 
+// Serving static files 
+server.use(express.static('public'));
+
 server.all("*", (req, res) => {
   res.json({ message: "./pages/404page" });
 });

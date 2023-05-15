@@ -64,7 +64,6 @@ import { UpdateVisaAuthDocEffects } from './store/visaEmployees/update-visa-auth
 import { HouseDetailsComponent } from './home/hr/housing-management/house-details/house-details.component';
 import { ConfirmDailogComponent } from './home/employee/personal-information/confirm-dailog/confirm-dailog.component';
 import { VisaStatusComponent } from './home/employee/visa-status/visa-status.component';
-import { OptReceiptComponent } from './home/employee/visa-status/opt-receipt/opt-receipt.component';
 import { UsernamePipe } from './pipe/username.pipe';
 
 @NgModule({
@@ -96,7 +95,6 @@ import { UsernamePipe } from './pipe/username.pipe';
     OnboardingApplicationFormComponent,
     HouseDetailsComponent,
     VisaStatusComponent,
-    OptReceiptComponent,
     UsernamePipe
 
   ],

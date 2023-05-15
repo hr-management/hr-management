@@ -24,6 +24,40 @@ const userOnboarding = async (req, res) => {
     }
 };
 
+const userVisaUpload = async (req,res) => {
+    const file = req.body.file;
+    const visa_order = ['OPT_Receipt', 'OPT_EAD', 'I-983', 'I-20'];
+    const workAuthDoc = req.tokenUser.workAuthDoc;
+
+
+    if(workAuthDoc.legnth === 0) {
+        return res.status(400).json({ message: "You should submit in onboarding application page", success: false });
+    }
+    if(workAuthDoc.legnth === 4) {
+        return res.status(400).json({ message: "All documents have been approved", success: false });
+    }
+    const { status, type} = workAuthDoc[workAuthDoc.length - 1];
+    if (status === 'rejected') {
+        // update
+        const updateDoc = {status: 'submitted', file, type, feedback: '' };
+        const result = await userModel.findOneAndUpdate(
+            { _id: req.tokenUser._id, workAuthDoc: { $elemMatch: { type }} },
+            { $set: { 'workAuthDoc.$': updateDoc }},
+          );
+        return res.status(200).json({ success: true, data: result });
+    }else if(status === 'approved') {
+        // create
+        const newAuthDoc = { status: 'submitted', file, type: visa_order[workAuthDoc.length], feedhback: '' };
+        const result = await userModel.findOneAndUpdate(
+            { _id: req.tokenUser._id },
+            { $push: { workAuthDoc: newAuthDoc } },
+          );
+        return res.status(200).json({ success: true, data: result });
+    } else {
+        return res.status(400).json({ message: "Waiting for HR to approve", success: false });
+    }
+}
+
 const getUserInfoById = async (req, res) => {
     try {
       const userId = req.params.userId; // Assuming the user ID is passed as a request parameter
@@ -39,5 +73,6 @@ const getUserInfoById = async (req, res) => {
 
 module.exports = {
     userOnboarding,
+    userVisaUpload,
     getUserInfoById
 };

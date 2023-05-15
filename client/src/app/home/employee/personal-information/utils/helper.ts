@@ -40,13 +40,13 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
      eemail: ['', [required, email]],
      erelationship: ['', [required]],
 
-    // TODO
-    citizenship: [''],
+    citizenship: ['', [required]],
 
     // carInfo
     make: [''],
     model: [''],
     color: [''],
+
 
     // workAuthDoc
     workAuthDoc: fb.array([]),
@@ -59,11 +59,13 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
   });
 }
 
+const defaultProfile = '../../../assets/profile.png';
+
 export function getInitialValue(user: any, fb: UntypedFormBuilder) {
   const initialValue = {
     profilePhoto:
       !user.profilePhoto || user.profilePhoto === 'defaultImage'
-        ? '../../../assets/profile.png'
+        ? defaultProfile
         : user.profilePhoto,
     firstName: user.firstName || '',
     lastName: user.lastName || '',
@@ -91,7 +93,7 @@ export function getInitialValue(user: any, fb: UntypedFormBuilder) {
     model: user.carInfo.model,
     color: user.carInfo.color,
 
-    citizenship: false,
+    citizenship: user.citizenship || '',
 
     efirstName: user.emergencyContact?.firstName || '',
     elastName: user.emergencyContact?.lastName || '',

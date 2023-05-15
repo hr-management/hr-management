@@ -38,9 +38,10 @@ export class PersonalInfomationFormComponent {
 
   visaTypes = ['H1-B', 'L2', 'F1(CPT/OPT)', 'H4', 'Other'];
   workAuthStatus = ['notSubmitted', 'submitted', 'rejected', 'approved'];
+  workAuthOpt_Receipt_File = '';
 
   workAuthDocArray: any;
-
+  displayedColumns = ['WorkAuthorizationDoc', 'Status', 'File'];
   showWorkAuthorization = false;
   showF1Receipt = false;
   showOtherVisa = false;
@@ -56,7 +57,7 @@ export class PersonalInfomationFormComponent {
 
   onCitizenshipChange(event: Event) {
     const citizenship = (event.target as HTMLSelectElement).value;
-    if (citizenship === 'no') {
+    if (citizenship !== 'Other') {
       this.showWorkAuthorization = true;
     } else {
       this.showWorkAuthorization = false;
@@ -109,9 +110,8 @@ export class PersonalInfomationFormComponent {
             )
           )
         );
-        this.workAuthDocArray = (
-          this.form.get('workAuthDoc') as FormArray
-        ).controls;
+        this.workAuthDocArray = this.user.workAuthDoc;
+        console.log(this.workAuthDocArray);
       }
     }
     if (this.isEdit) {
@@ -130,6 +130,13 @@ export class PersonalInfomationFormComponent {
 
   handleWorkAuthDocDownload(index: number) {
     const url = this.form.value['workAuthDoc'][index]?.file;
+    if (url) {
+      downloadURL(url);
+    }
+  }
+
+  handleDriverLicenseDownload() {
+    const url = this.form.value['dphoto'];
     if (url) {
       downloadURL(url);
     }
@@ -163,36 +170,20 @@ export class PersonalInfomationFormComponent {
     });
   }
 
-  doHandleAuthDocUpload(event: any, index: number) {
+  doHandleAuthDocUpload(event: any) {
     this.handleUpload(event.target.files[0], (url) => {
-      this.form.patchValue({
-        workAuthDoc: this.form.value.workAuthDoc.map((doc: any, i: number) => {
-          if (i === index) {
-            return {
-              ...doc,
-              file: url,
-            };
-          }
-          return doc;
-        }),
-      });
+      this.workAuthOpt_Receipt_File = url;
+      this.form.setControl(
+        'workAuthDoc',
+        this.fb.array([
+          this.fb.group({
+            status: 'submitted',
+            file: url,
+            type: 'OPT_Receipt',
+            feedback: '',
+          }),
+        ])
+      );
     });
-  }
-
-  handleDeleteAuthDoc(i: number) {
-    const workAuthDoc = this.form.get('workAuthDoc') as FormArray;
-    workAuthDoc.removeAt(i);
-  }
-
-  handleAddAuthDoc() {
-    const workAuthDoc = this.form.get('workAuthDoc') as FormArray;
-    workAuthDoc.push(
-      this.fb.group({
-        type: '',
-        status: '',
-        file: '',
-        feedback: '',
-      })
-    );
   }
 }
