@@ -39,3 +39,12 @@ button{
         margin-left: 24px;
     }
 }
+.documentTableData{
+    display: flex;
+   justify-content: baseline;
+   margin:3px 0;
+    mat-icon{
+     
+       font-size: 20px;
+    }
+}

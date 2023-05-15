@@ -99,7 +99,16 @@
       <th mat-header-cell *matHeaderCellDef>Documents</th>
       <td mat-cell *matCellDef="let data">
         <div *ngFor="let document of data.approvedFiles">
-          <a target="__blank" [href]="document.file">{{document.fileName}}</a>
+          <div class="documentTableData">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="attach_file"
+            ></mat-icon
+            ><a target="__blank" [href]="document.file"
+              >{{document.fileName}}</a
+            >
+          </div>
         </div>
       </td>
     </ng-container>
