@@ -340,7 +340,7 @@
       <p>
         Do you have a driver's license?
         <mat-form-field>
-          <mat-select formControlName="hasDriverLicense">
+          <mat-select  placeholder="Select an option" formControlName="hasDriverLicense">
             <mat-option value="Yes">Yes</mat-option>
             <mat-option value="No">No</mat-option>
           </mat-select>
@@ -422,10 +422,10 @@
         >
           <mat-option value="Green Card'">Green Card</mat-option>
           <mat-option value="Citzen">Citzen</mat-option>
-          <mat-option value="Other">Other</mat-option>
+          <mat-option value="No">No</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field *ngIf="showWorkAuthorization">
+      <mat-form-field *ngIf="form.value['citizenship'] === 'No'">
         <mat-label>What is your work authorization?</mat-label>
         <mat-select
           formControlName="type"
@@ -439,7 +439,7 @@
         </mat-select>
       </mat-form-field>
 
-      <div class="row" style="width: 1000px">
+      <div class="row" style="width: 1000px" *ngIf="form.value['type'] === 'f1'">
         <table>
           <tr>
             <th>Work authorization</th>

@@ -28,7 +28,7 @@ import {
 export class PersonalInfomationFormComponent {
   @Input() user: any;
   @Input() isEdit: boolean = false;
-
+  @Input() applicationStatus: string ="";
   @Input() hideUplodProfile: boolean = false;
   @Input() displayCarInfo: boolean = false;
 
