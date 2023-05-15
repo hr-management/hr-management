@@ -1,6 +1,5 @@
 <div class="home">
-  <app-header></app-header>
-
+  <app-side-bar [links]="sideBarLinks"></app-side-bar>
   <app-hr *ngIf="(this.state|async).user.role==='HR'"> </app-hr>
   <app-employee *ngIf="(this.state|async).user.role==='employee'">
   </app-employee>
