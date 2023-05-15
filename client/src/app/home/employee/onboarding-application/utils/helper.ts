@@ -13,17 +13,18 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     city: [''],
     state: [''],
     zip: ['', [minLength(6), maxLength(6)]],
-    cellPhoneNumber: ['', [minLength(5)]],
-    workPhoneNumber: ['', [minLength(5)]],
+    cellPhoneNumber:  ['', [required, minLength(10), maxLength(10)]],
+    workPhoneNumber: ['', [minLength(10), maxLength(10)]],
     make:[''],
     model:[''],
     color:[''],
     email: ['', [required, email]],
-    ssn:[''],
+    ssn: ['', [required, minLength(9), maxLength(9)]],
     birthDate: [''],
     gender: [''],
     citizenship:[''],
     authorization:[''],
+    type:[''],
     visaTitle:[''],
     startDate: [''],
     endDate: [''],
@@ -39,6 +40,7 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     erelationship: [''],
 
     workAuthDoc: fb.array([]),
+
   });
 }
 
@@ -118,9 +120,11 @@ export function buildFinalValues(value: any) {
     dexpirationDate,
     dphoto,
 
-    type,
-
     workAuthDoc,
+
+    type,
+    startDate,
+    endDate, 
 
     ...rest
   } = value;
@@ -153,6 +157,8 @@ export function buildFinalValues(value: any) {
     },
     visa: {
       type,
+      startDate,
+      endDate
     },
     workAuthDoc
   };
