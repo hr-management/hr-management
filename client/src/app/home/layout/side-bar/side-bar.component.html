@@ -1,8 +1,10 @@
-<mat-nav-list>
-  <mat-list-item
+<h1>XXX Company</h1>
+<nav>
+  <a
     *ngFor="let link of links"
     [routerLink]="link"
     routerLinkActive="active-link"
-    >{{link.split("-").join(" ") | titlecase}}
-  </mat-list-item>
-</mat-nav-list>
+  >
+    {{link.split("-").join(" ") | titlecase}}
+  </a>
+</nav>

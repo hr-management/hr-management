@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./hr.component.scss']
 })
 export class HrComponent {
-  sideBarLinks:any[] =['employee-profiles','visa-status-management','hiring-management','housing-management']
   constructor(private router: Router) { }
 
   ngOnInit() {

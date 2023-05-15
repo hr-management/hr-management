@@ -10,8 +10,17 @@ import * as GetUserAction from "../store/auth/get-user.actions"
 })
 export class HomeComponent {
   state: Observable<any>
+  sideBarLinks:any[] =[]
+
   constructor( private store: Store<AppState>) {
     this.state = this.store.pipe(select("user"))
+    this.state.subscribe(data => {
+      if (data.user.role === "HR") {
+        this.sideBarLinks=['employee-profiles','visa-status-management','hiring-management','housing-management']
+      } else {
+        this.sideBarLinks=['onboarding-application','personal-information','assigned-house', 'visa-status']
+      }
+    })
   }
   ngOnInit() {
   this.store.dispatch(GetUserAction.GetUsersStart())
