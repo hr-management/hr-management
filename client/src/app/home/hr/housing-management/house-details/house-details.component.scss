@@ -3,6 +3,8 @@
   margin-left: 20px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  // width: 80%; 
+  width: 800px; 
 }
 
 .report-card,
@@ -55,3 +57,11 @@ form {
 h3 {
   margin-top: 30px;
 }
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+

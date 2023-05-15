@@ -1,4 +1,3 @@
-// house-details.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -15,6 +14,7 @@ interface Landlord {
   phoneNumber: string;
   email: string;
 }
+
 interface Roommate {
   _id: string;
   preferredName?: string;
@@ -65,8 +65,10 @@ export class HouseDetailsComponent implements OnInit {
   houseId!: string;
   house: House | null = null;
   newComment: { [reportId: string]: string } = {};
-  pageSize = 1;
+  pageSize = 3;
   pageEvent!: PageEvent;
+  sortedReports: Report[] = [];
+  sortByLatest = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -84,6 +86,7 @@ export class HouseDetailsComponent implements OnInit {
       (house: any) => {
         console.log(house)
         this.house = house;
+        this.sortReportsByDate(); // Sort reports after fetching house details
       },
       (error) => {
         console.log('Error occurred while fetching house details:', error);
@@ -92,10 +95,9 @@ export class HouseDetailsComponent implements OnInit {
   }
 
   addComment(reportId: string, comment: string) {
-    // const createdBy = "609a7a245ef93200158d2b1a";  // replace this with actual user ID
     const apiUrl = `http://localhost:3001/api/housing/facility-reports/${reportId}/comments`;
 
-    const token = localStorage.getItem('token'); // replace 'token' with your token key
+    const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found');
       return;
@@ -103,27 +105,10 @@ export class HouseDetailsComponent implements OnInit {
 
     const decodedToken = jwt_decode(token) as DecodedToken;
     const createdBy = decodedToken.userId;
-    console.log(decodedToken)
-
-    // const hrUrl = `http://localhost:3001/api/employees/${createdBy}`;
-
-    // Router.get("/", authorization, HROnly, getAllEmployees);
-
-
-    this.http.get<any>(apiUrl).subscribe(
-      (house: any) => {
-        console.log(house)
-        this.house = house;
-      },
-      (error) => {
-        console.log('Error occurred while fetching house details:', error);
-      }
-    );
 
     this.http.post(apiUrl, { description: comment, createdBy }).subscribe(
       () => {
-        // Fetch the house details again to update the comments
-        this.fetchHouseDetails();
+        this.fetchHouseDetails(); 
       },
       (error) => {
         console.log('Error occurred while adding comment:', error);
@@ -135,5 +120,22 @@ export class HouseDetailsComponent implements OnInit {
     return this.pageEvent ? this.pageEvent.pageIndex + 1 : 1;
   }
 
-
+  sortReportsByDate() {
+    if (this.house) {
+      this.sortedReports = this.house.reports.slice(); 
+  
+      if (this.sortByLatest) {
+        this.sortedReports.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+      } else {
+        this.sortedReports.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+      }
+    }
+  }
+  
+  toggleSortByLatest() {
+    this.sortByLatest = !this.sortByLatest;
+    this.sortReportsByDate();
+  }
+  
 }
+

@@ -12,12 +12,18 @@ import { Router } from '@angular/router';
 export class HousingManagementComponent implements OnInit {
   houses: any[] = [];
   newHouse: any = {
-    address: "",
+    address: '',
     landlord: {
-      legalFullName: "",
-      phoneNumber: "",
-      email: "",
+      legalFullName: '',
+      phoneNumber: '',
+      email: '',
     },
+    facility: {
+      beds: 0,
+      mattresses: 0,
+      tables: 0,
+      chairs: 0,
+    }
   };
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -46,23 +52,28 @@ export class HousingManagementComponent implements OnInit {
     const apiUrl = 'http://localhost:3001/api/housing/';
 
     this.http.post<any>(apiUrl, this.newHouse).subscribe(
-      house => {
+      (house: any) => {
         this.houses.push(house);
         this.newHouse = {
-          address: "",
+          address: '',
           landlord: {
-            legalFullName: "",
-            phoneNumber: "",
-            email: "",
+            legalFullName: '',
+            phoneNumber: '',
+            email: '',
           },
+          facility: {
+            beds: 0,
+            mattresses: 0,
+            tables: 0,
+            chairs: 0,
+          }
         };
       },
-      error => {
+      (error) => {
         console.log('Error adding house:', error);
       }
     );
   }
-
 
   deleteHouse(houseId: string) {
     this.http.delete(`http://localhost:3001/api/housing/${houseId}`).subscribe(
