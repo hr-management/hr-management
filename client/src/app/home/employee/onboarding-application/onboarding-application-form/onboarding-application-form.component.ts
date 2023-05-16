@@ -22,38 +22,6 @@ export class OnboardingApplicationFormComponent {
   showOtherVisa = false;
   showStartEndDate = false;
 
-  onCitizenshipChange(event: Event) {
-    const citizenship = (event.target as HTMLSelectElement).value;
-    if (citizenship === 'no') {
-      this.showWorkAuthorization = true;
-    } else {
-      this.showWorkAuthorization = false;
-      this.showF1Receipt = false;
-      this.showOtherVisa = false;
-      this.showStartEndDate = false;
-    }
-  }
-
-  onAuthorizationChange(event: Event) {
-    const authorization = (event.target as HTMLSelectElement).value;
-    switch (authorization) {
-      case 'f1':
-        this.showF1Receipt = true;
-        this.showOtherVisa = false;
-        this.showStartEndDate = false;
-        break;
-      case 'other':
-        this.showF1Receipt = false;
-        this.showOtherVisa = true;
-        this.showStartEndDate = false;
-        break;
-      default:
-        this.showF1Receipt = false;
-        this.showOtherVisa = false;
-        this.showStartEndDate = true;
-        break;
-    }
-  }
 
   maxDate = new Date();
   constructor(private fb: UntypedFormBuilder) {

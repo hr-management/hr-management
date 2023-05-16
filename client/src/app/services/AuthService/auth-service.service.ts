@@ -35,7 +35,7 @@ export class AuthService {
     });
   }
 
-  upadteUserVisa(
+  updateUserVisa(
     params: Record<string, unknown>
   ): Observable<HttpResponse<any>> {
     return this.http.put<any>('/api/user/visa/upload', params, {

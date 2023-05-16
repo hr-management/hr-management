@@ -71,7 +71,7 @@ export class PersonalInfomationFormComponent {
   onAuthorizationChange(event: Event) {
     const authorization = (event.target as HTMLSelectElement).value;
     switch (authorization) {
-      case 'f1':
+      case 'F1(CPT/OPT)':
         this.showF1Receipt = true;
         this.showOtherVisa = false;
         this.showStartEndDate = false;
@@ -121,13 +121,6 @@ export class PersonalInfomationFormComponent {
       this.form.enable();
     } else {
       this.form.disable();
-    }
-  }
-
-  handleDownload(field: string) {
-    const url = this.form.value[field];
-    if (url) {
-      downloadURL(url);
     }
   }
 
