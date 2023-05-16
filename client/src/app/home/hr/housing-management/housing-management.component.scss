@@ -19,7 +19,7 @@ $house-item-bg-color: #fff;
 
 .houses-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: $houses-grid-gap;
 }
 

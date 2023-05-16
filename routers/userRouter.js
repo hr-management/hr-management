@@ -45,4 +45,6 @@ Router.post(
 
 Router.get('/:userId', userController.getUserInfoById);
 
+Router.get('/house/:houseId', userController.getUsersByHouseId);
+
 module.exports = Router;

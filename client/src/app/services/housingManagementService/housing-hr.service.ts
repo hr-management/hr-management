@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, catchError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 interface DecodedToken {
@@ -103,6 +103,24 @@ export class HousingHrService {
     return this.http.get<any>(`http://localhost:3001/api/user/${userId}`);
   }
 
+  getUsersByHouseId(houseId: string): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:3001/api/user/house/${houseId}`).pipe(
+      catchError(error => {
+        console.error('Error fetching users: ', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  // getUsersByHouseId(houseId: string): Observable<any[]> {
+  //   return this.http.get<User[]>(`${this.baseUrl}/houses/${houseId}/users`).pipe(
+  //     catchError(error => {
+  //       console.error('Error fetching users: ', error);
+  //       return throwError(error);
+  //     })
+  //   );
+  // }
+  
   private convertToHouseModel(data: any): House {
     const house: House = {
       _id: data._id,
