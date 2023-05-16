@@ -80,7 +80,7 @@ export class VisaStatusComponent {
           this.message = message;
           // canUpload
           this.canUpload =
-            (type !== 'I-20' && status === 'approved') || status === 'rejected';
+            (type !== 'I-20' && status === 'approved') || status === 'rejected' || status === 'notSubmitted';
           // canDownloadTemplates
           this.canDownloadTemplates =
             type === 'OPT_EAD' && status === 'approved';
@@ -96,19 +96,19 @@ export class VisaStatusComponent {
     if (fileType === 'empty') {
       // TODO SERVER URL
       url = 'http://localhost:3001/empty-template.pdf';
-      downloadURL(url, 'empty-template.pdf');
+      downloadURL(url);
     }
     if (fileType === 'sample') {
       // TODO SERVER URL
       url = 'http://localhost:3001/sample-template.pdf';
-      downloadURL(url, 'sample-template.pdf');
+      downloadURL(url);
     }
   }
 
   handleSubmit() {
     this.snackBar.open('Loading', 'Close');
     this.authService.upadteUserVisa({ file: this.uploadedFileUrl }).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         if (res.body.success) {
           this.snackBar.open('Success', 'Close');
           // refresh userinfo

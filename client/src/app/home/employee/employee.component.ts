@@ -11,8 +11,7 @@ export class EmployeeComponent {
 
   ngOnInit() {
     if (window.location.pathname === "/") {
-      this.router.navigate(['/onboarding-application']);
+      this.router.navigate(['/personal-information']);
     }
-  
 }
 }
