@@ -43,8 +43,7 @@
     <th mat-header-cell *matHeaderCellDef>Work Authorization Title</th>
 
     <td mat-cell *matCellDef="let employee">
-      {{employee.requireWorkAuthorization? employee.visa.type:"Citizen/Green
-      Card"}}
+      {{employee.citizenship==='No'? employee.visa.type:"Citizen/Green Card"}}
     </td>
   </ng-container>
 
