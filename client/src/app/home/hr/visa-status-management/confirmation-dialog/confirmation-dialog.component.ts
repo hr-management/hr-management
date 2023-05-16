@@ -27,15 +27,10 @@ export class ConfirmationDialogComponent {
       // close dialog if update is successful
       if(data.visaEmployees.length){
         const cur = data.visaEmployees.find((a: any) => a._id === this.data.data.id)
-        if (this.data.action === "reject") {
-            if (cur?.workAuthDoc.at(-1).status === "rejected") {
+        if (cur?.workAuthDoc.at(-1).status === "rejected" || cur?.workAuthDoc.at(-1).status === "approved") {
             this.dialogRef.close()
           }
-        } else {
-          if ((cur?.workAuthDoc.length===4 && cur?.workAuthDoc.at(-1).status === "approved") || (cur?.workAuthDoc.at(-1).status === "notSubmitted") ) {
-            this.dialogRef.close()
-          }
-        }      
+           
     }
       if (data.error) {
         this.snackBar.open("Something went wrong. Please try again.", 'Close', { duration: 3000 });

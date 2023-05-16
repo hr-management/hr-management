@@ -32,7 +32,7 @@ export const reducer = createReducer(
   on(VisaEmployeesActions.updateVisaAuthDocSuccess, (state, payload) => {
     const newVisaEmployees = state.visaEmployees.map(e => {
       if (e._id === payload.id) {
-        return {...e, workAuthDoc: payload.workAuthDoc,OPTCompleted:payload.OPTCompleted}
+        return {...e, workAuthDoc: payload.workAuthDoc,}
       }
       return e
     })

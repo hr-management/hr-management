@@ -21,7 +21,7 @@ export const updateVisaAuthDocStart = createAction(
 
 export const updateVisaAuthDocSuccess = createAction(
   '[VisaEmployees] Update VisaAuthDoc Success',
-  props<{id:string,workAuthDoc:any[],OPTCompleted:Boolean}>()
+  props<{id:string,workAuthDoc:any[]}>()
 );
 
 export const updateVisaAuthDocFailure = createAction(
