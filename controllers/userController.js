@@ -29,10 +29,6 @@ const userVisaUpload = async (req, res) => {
     const visa_order = ['OPT_Receipt', 'OPT_EAD', 'I-983', 'I-20'];
     const workAuthDoc = req.tokenUser.workAuthDoc;
 
-
-    if (workAuthDoc.legnth === 0) {
-        return res.status(400).json({ message: "You should submit in onboarding application page", success: false });
-    }
     if (workAuthDoc.legnth === 4) {
         return res.status(400).json({ message: "All documents have been approved", success: false });
     }
@@ -47,7 +43,7 @@ const userVisaUpload = async (req, res) => {
         return res.status(200).json({ success: true, data: result });
     } else if (status === 'approved') {
         // create
-        const newAuthDoc = { status: 'submitted', file, type: visa_order[workAuthDoc.length], feedhback: '' };
+        const newAuthDoc = { status: 'submitted', file, type: visa_order[workAuthDoc.length], feedback: '' };
         const result = await userModel.findOneAndUpdate(
             { _id: req.tokenUser._id },
             { $push: { workAuthDoc: newAuthDoc } },
