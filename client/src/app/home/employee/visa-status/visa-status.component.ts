@@ -107,7 +107,7 @@ export class VisaStatusComponent {
 
   handleSubmit() {
     this.snackBar.open('Loading', 'Close');
-    this.authService.upadteUserVisa({ file: this.uploadedFileUrl }).subscribe({
+    this.authService.updateUserVisa({ file: this.uploadedFileUrl }).subscribe({
       next: (res: any) => {
         if (res.body.success) {
           this.snackBar.open('Success', 'Close');
