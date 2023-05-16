@@ -39,6 +39,7 @@ export class PersonalInfomationFormComponent {
   visaTypes = ['H1-B', 'L2', 'F1(CPT/OPT)', 'H4', 'Other'];
   workAuthStatus = ['notSubmitted', 'submitted', 'rejected', 'approved'];
   workAuthOpt_Receipt_File = '';
+  workAuthOpt_Receipt_Status = 'notSubmitted';
 
   workAuthDocArray: any;
   displayedColumns = ['WorkAuthorizationDoc', 'Status', 'File'];
@@ -111,6 +112,8 @@ export class PersonalInfomationFormComponent {
           )
         );
         this.workAuthDocArray = this.user.workAuthDoc;
+        this.workAuthOpt_Receipt_File = this.workAuthDocArray?.[0]?.file ?? '';
+        this.workAuthOpt_Receipt_Status = this.workAuthDocArray?.[0]?.status ?? 'notSubmitted';
         console.log(this.workAuthDocArray);
       }
     }

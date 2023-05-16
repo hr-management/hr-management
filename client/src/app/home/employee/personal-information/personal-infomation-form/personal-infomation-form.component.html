@@ -458,7 +458,7 @@
 
           <tr>
             <td>OPT_Receipt</td>
-            <td>{{workAuthOpt_Receipt_File ? 'submmited' :'notSubmitted'}}</td>
+            <td>{{ workAuthOpt_Receipt_Status }}</td>
             <td>
               <a
                 *ngIf="workAuthOpt_Receipt_File"
@@ -481,7 +481,6 @@
                 color="primary"
                 (click)="workAuthDoc.click()"
                 [disabled]="!isEdit"
-                [hidden]="hideUplodProfile"
               >
                 Upload
               </button>
