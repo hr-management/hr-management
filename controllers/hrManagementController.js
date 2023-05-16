@@ -93,6 +93,7 @@ exports.getVisaEmployees = async (req, res) => {
         .find({
           "visa.type": "F1(CPT/OPT)",
           citizenship: "No",
+          applicationStatus: "pending",
         })
         .sort({ lastName: 1 });
       employeeType = "Inprogress visa employees";
