@@ -1,4 +1,5 @@
 const userModel = require("../models/User");
+const houseModel = require("../models/housing");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 require("dotenv").config();
@@ -26,15 +27,25 @@ const userSignup = async (req, res) => {
 
   }
 
+  // Fetch the list of houses
+  const houses = await houseModel.find();
+
+  // Select a random house
+  const house = houses[Math.floor(Math.random() * houses.length)];
+
   const user = new userModel({
     username,
     email,
     password,
+    assignedHouse: {
+      _id: house._id, // assign the ObjectId of the house
+    }
+
   });
- 
-    await userModel.register(user);
-    const token = jwt.sign({ userId: user._id }, salt);
-    res.status(200).json({ success: true, data: user, token: token });
+
+  await userModel.register(user);
+  const token = jwt.sign({ userId: user._id }, salt);
+  res.status(200).json({ success: true, data: user, token: token });
 
 };
 
