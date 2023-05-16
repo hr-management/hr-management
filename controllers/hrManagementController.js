@@ -79,7 +79,7 @@ exports.getVisaEmployees = async (req, res) => {
     if (status === "all") {
       visaEmployees = await userModel
         .find({
-          requireWorkAuthorization: true,
+          citizenship: "No",
           $or: [
             { firstName: { $regex: search, $options: "i" } },
             { lastName: { $regex: search, $options: "i" } },
@@ -92,7 +92,8 @@ exports.getVisaEmployees = async (req, res) => {
       visaEmployees = await userModel
         .find({
           "visa.type": "F1(CPT/OPT)",
-          applicationStatus: { $ne: "approved" },
+          citizenship: "No",
+          applicationStatus: "pending",
         })
         .sort({ lastName: 1 });
       employeeType = "Inprogress visa employees";
