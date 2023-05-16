@@ -81,49 +81,52 @@ export class VisaStatusManagementComponent {
   processVisaEmployeesData(data:any[]):any[] {
     const processedData = []
     for (let employee of data) {
-     
+     const visaOrder =  ["OPT_Receipt", "OPT_EAD", "I-983", "I-20"];
       const name = `${employee.firstName} ${employee.middleName} ${employee.lastName}` 
       let nextStep = ""
       let nextAction = ""
       let file = ""
       let approvedFiles = []
-      let curDoc = null
-      if (employee.visa.type === "F1(CPT/OPT)") {
-        for (let doc of employee.workAuthDoc) {
-            curDoc = doc
-            if (doc.status === "notSubmitted") {
-              nextStep = `Need to submit ${doc.type}`
-              nextAction = "submit"
-              break
-            } else if (doc.status === "submitted") {
-              nextStep = `Wait for HR approval`
-              nextAction = "HR approval"
-              file = doc.file
-              break
-            } else if (doc.status === "rejected") {
-              nextStep = `Rejected`
-              nextAction = "rejected"
-              file = doc.file
-              break
-            } else {
-              approvedFiles.push({fileName:doc.type,file:doc.file})
-            }
-            }
-      } else {
-        if (employee.workAuthDoc[0]) {
-          approvedFiles.push({fileName:employee.workAuthDoc[0].type,file:employee.workAuthDoc[0].file} )
+      let lastDoc = null
+      for (let doc of employee.workAuthDoc) {
+        if (doc.status === "approved") {
+          approvedFiles.push({ fileName: doc.type, file: doc.file })
         }
         
       }
+      if (employee.visa.type === "F1(CPT/OPT)") {
+         lastDoc = employee.workAuthDoc.at(-1)
+        if (employee.workAuthDoc.length === 4 && lastDoc.status === "approved" ) {
+          nextStep = `Done! All OPT documents have been approved.`
+        } else {
+          
+          if (lastDoc.status === "approved") {
+              nextStep = `Need to submit ${visaOrder[employee.workAuthDoc.length]}`
+              nextAction = "submit"
+              
+            } else if (lastDoc.status === "submitted") {
+              nextStep = `Wait for HR approval`
+              nextAction = "HR approval"
+              file = lastDoc.file
+              
+            } else if (lastDoc.status === "rejected") {
+              nextStep = `Rejected`
+              nextAction = "rejected"
+              file = lastDoc.file
+              
+            }
+        }
+        
+      } 
       
       processedData.push(
         {
           id: employee._id,
-          curDoc,
           name,
           nextStep,
           nextAction,
           file,
+          lastDoc,
           approvedFiles,
           workAuthTitle: employee.visa.type,
           startDate: new Date(employee.visa.startDate).toLocaleDateString('en-us', { year: "numeric", month: "short", day: "numeric" }),

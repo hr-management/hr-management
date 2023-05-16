@@ -177,21 +177,12 @@ exports.updateVisaAuthStatus = async (req, res) => {
           message: "You can't update this visa auth status.",
         });
       }
-      let OPTCompleted = false;
       if (status === "approve") {
         workAuthDocs[curStep].status = "approved";
 
-        if (curStep < 3) {
-          workAuthDocs.push({
-            type: docTypes[curStep + 1],
-            status: "notSubmitted",
-          });
-        } else {
-          OPTCompleted = true;
-        }
         await userModel.updateOne(
           { _id: employee._id },
-          { workAuthDoc: workAuthDocs, OPTCompleted }
+          { workAuthDoc: workAuthDocs }
         );
         return res.status(200).json({
           success: true,
@@ -199,7 +190,6 @@ exports.updateVisaAuthStatus = async (req, res) => {
             ? docTypes[curStep + 1]
             : "Approved all documentations.",
           workAuthDoc: workAuthDocs,
-          OPTCompleted,
         });
       } else {
         workAuthDocs[curStep].status = "rejected";
@@ -215,7 +205,6 @@ exports.updateVisaAuthStatus = async (req, res) => {
           success: true,
           rejected: docTypes[curStep],
           workAuthDoc: workAuthDocs,
-          OPTCompleted,
           feedback,
         });
       }

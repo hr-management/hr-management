@@ -20,7 +20,7 @@ export class UpdateVisaAuthDocEffects {
       return this.http.put<any>(`/api/employees/visaEmployees/${id}/workAuthStatus`,{status,feedback}).pipe(
         map((data) => {
           console.log(data)
-          return VisaEmployeesActions.updateVisaAuthDocSuccess({id,workAuthDoc:data.workAuthDoc,OPTCompleted:data.OPTCompleted})
+          return VisaEmployeesActions.updateVisaAuthDocSuccess({id,workAuthDoc:data.workAuthDoc})
         }),
         catchError((err: HttpErrorResponse) => {
           if (err.status === 403) {
