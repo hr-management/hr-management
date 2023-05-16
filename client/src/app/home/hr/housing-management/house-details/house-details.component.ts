@@ -21,7 +21,7 @@ export class HouseDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private housingHrService: HousingHrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -30,12 +30,39 @@ export class HouseDetailsComponent implements OnInit {
     });
   }
 
+
+  // Add this to your HouseDetailsComponent
+  roommatesInfo: { [key: string]: Observable<any> } = {};
+
   fetchHouseDetails() {
     this.house$ = this.housingHrService.getHouseDetails(this.houseId);
     this.house$.subscribe((house: House | null) => {
       this.sortReportsByDate();
+  
+      // Fetch each roommate's user info
+      if (house) {
+        house.roommates.forEach((roommate) => {
+          this.roommatesInfo[roommate._id] = this.housingHrService.getUserInfo(roommate._id);
+          this.roommatesInfo[roommate._id].subscribe(
+            data => {
+              console.log('UserInfo data: ', data);
+            },
+            error => {
+              console.error('UserInfo error: ', error);
+            }
+          );
+        });
+      }
     });
-  }
+  }  
+
+
+  // fetchHouseDetails() {
+  //   this.house$ = this.housingHrService.getHouseDetails(this.houseId);
+  //   this.house$.subscribe((house: House | null) => {
+  //     this.sortReportsByDate();
+  //   });
+  // }
 
   addComment(reportId: string, comment: string) {
     this.housingHrService.addComment(reportId, comment).subscribe(

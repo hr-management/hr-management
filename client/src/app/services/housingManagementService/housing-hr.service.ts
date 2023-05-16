@@ -97,6 +97,11 @@ export class HousingHrService {
     return this.http.delete<void>(`${this.apiUrlHr}${houseId}`);
   }
 
+  // Add this to your HousingHrService
+  getUserInfo(userId: string): Observable<any> {
+    // console.log('URL: ', `http://localhost:3001/api/user/${userId}`)
+    return this.http.get<any>(`http://localhost:3001/api/user/${userId}`);
+  }
 
   private convertToHouseModel(data: any): House {
     const house: House = {

@@ -47,12 +47,28 @@
   <h3 class="mat-card-title">Roommates</h3>
   <mat-card-content *ngFor="let roommate of house.roommates" class="roommate-card">
     <mat-list>
-      <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName ||
-            roommate.legalFullName}}</b></a></mat-list-item>
-      <mat-list-item><b>Phone Number:</b> {{ roommate.phoneNumber }}</mat-list-item>
-      <mat-list-item><b>Email:</b> {{ roommate.email }}</mat-list-item>
-      <mat-list-item><b>Car Information:</b> {{ roommate.carInformation }}</mat-list-item>
+      <mat-list-item *ngIf="roommatesInfo[roommate._id] | async as userInfo"><b>First Name:</b> {{
+        userInfo.user.firstName }}</mat-list-item>
+      <mat-list-item *ngIf="roommatesInfo[roommate._id] | async as userInfo"><b>Last Name:</b> {{ userInfo.user.lastName
+        }}</mat-list-item>
+      <mat-list-item *ngIf="roommatesInfo[roommate._id] | async as userInfo"><b>Phone Number:</b> {{
+        userInfo.user.cellPhoneNumber }}</mat-list-item>
+      <mat-list-item *ngIf="roommatesInfo[roommate._id] | async as userInfo"><b>Email:</b> {{ userInfo.user.email
+        }}</mat-list-item>
+      <mat-list-item *ngIf="roommatesInfo[roommate._id] | async as userInfo"><b>Car Information:</b> Make: {{
+        userInfo.user.carInfo.make }}, Model: {{ userInfo.user.carInfo.model }}, Color: {{ userInfo.user.carInfo.color
+        }}</mat-list-item>
     </mat-list>
     <mat-divider></mat-divider>
   </mat-card-content>
+
+
 </mat-card>
+
+<!-- <mat-list-item *ngIf="roommatesInfo[roommate._id] | async as userInfo"><b>Legal Name:</b> {{ userInfo.carInfo.color }}</mat-list-item> -->
+
+<!-- <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName ||
+            roommate.legalFullName}}</b></a></mat-list-item>
+      <mat-list-item><b>Phone Number:</b> {{ roommate.phoneNumber }}</mat-list-item>
+      <mat-list-item><b>Email:</b> {{ roommate.email }}</mat-list-item>
+      <mat-list-item><b>Car Information:</b> {{ roommate.carInformation }}</mat-list-item> -->
