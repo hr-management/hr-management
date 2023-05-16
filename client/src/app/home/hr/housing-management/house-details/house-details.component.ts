@@ -1,8 +1,10 @@
+//house-details.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { HousingHrService, House, Report } from '../../../../services/housingManagementService/housing-hr.service';
 import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-house-details',
@@ -39,30 +41,33 @@ export class HouseDetailsComponent implements OnInit {
     this.house$.subscribe((house: House | null) => {
       this.sortReportsByDate();
   
-      // Fetch each roommate's user info
       if (house) {
-        house.roommates.forEach((roommate) => {
-          this.roommatesInfo[roommate._id] = this.housingHrService.getUserInfo(roommate._id);
-          this.roommatesInfo[roommate._id].subscribe(
-            data => {
-              console.log('UserInfo data: ', data);
-            },
-            error => {
-              console.error('UserInfo error: ', error);
-            }
-          );
-        });
+        this.housingHrService.getUsersByHouseId(house._id).subscribe(
+          (roommates: any[]) => {
+            house.roommates = roommates;
+  
+            this.roommatesInfo = {};
+  
+            house.roommates.forEach((roommate) => {
+              console.log('Roommate info: ', roommate);
+
+              this.roommatesInfo[roommate._id] = this.housingHrService.getUserInfo(roommate._id);
+            });
+  
+            console.log('Roommates info: ', this.roommatesInfo);
+          },
+          (error) => {
+            console.error('Error fetching roommates info: ', error);
+          }
+        );
       }
     });
   }  
 
-
-  // fetchHouseDetails() {
-  //   this.house$ = this.housingHrService.getHouseDetails(this.houseId);
-  //   this.house$.subscribe((house: House | null) => {
-  //     this.sortReportsByDate();
-  //   });
-  // }
+  objectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
+  
 
   addComment(reportId: string, comment: string) {
     this.housingHrService.addComment(reportId, comment).subscribe(

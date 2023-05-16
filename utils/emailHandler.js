@@ -23,7 +23,9 @@ module.exports = async (data) => {
                         <p>To complete your registration, please follow the link below:</p>
                         <a href="${registrationLink}">Registration Link</a>
                         <p>This link is valid for the next 3 hours, so please complete your registration as soon as possible.</p>
-                        <p>If you have any questions or concerns, please don't hesitate to reach out to our support team at [Email Address].</p>
+                        <p>If you have any questions or concerns, please don't hesitate to reach out to our support team at ${
+                          sender.email
+                        }.</p>
                         <p>We look forward to welcoming you to the Company XXX community!</p>
                         <br>
                         <p>Best regards,</p>

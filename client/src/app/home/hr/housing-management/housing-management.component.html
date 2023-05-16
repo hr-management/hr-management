@@ -54,7 +54,8 @@
           <p matLine><strong>Landlord: </strong>{{ house?.landlord?.legalFullName }}</p>
           <p matLine><strong>Phone: </strong>{{ house?.landlord?.phoneNumber }}</p>
           <p matLine><strong>Email: </strong>{{ house?.landlord?.email }}</p>
-          <p matLine><strong>Number of Residents: </strong>{{ house?.roommates?.length }}</p>
+          <!-- <p matLine><strong>Number of Residents: </strong>{{ house?.roommates?.length }}</p> -->
+          <p matLine><strong>Number of Residents: </strong>{{ house?.numberOfResidents }}</p>
         </div>
         <div class="list-item-actions">
           <button mat-icon-button class="round-icon" color="primary" (click)="viewHouseDetails(house._id)">
