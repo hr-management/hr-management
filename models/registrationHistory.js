@@ -13,11 +13,6 @@ const RegistrationHistorySchema = new mongoose.Schema({
     type: String,
     required: [true, "please provide the registration link."],
   },
-  status: {
-    type: String,
-    enum: ["sent", "registered"],
-    required: [true, "please provide status: sent or registered"],
-  },
 });
 const RegistrationHistoryModel = mongoose.model(
   "registrationHistory",
