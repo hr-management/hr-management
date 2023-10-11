@@ -1,3 +1,4 @@
+<!-- house-details.component.html -->
 <mat-card *ngIf="house$ | async as house" class="house-card">
   <mat-card-title>House Details</mat-card-title>
   <mat-card-content>
@@ -45,14 +46,33 @@
   <mat-paginator [length]="sortedReports.length" [pageSize]="pageSize" (page)="pageEvent = $event"></mat-paginator>
 
   <h3 class="mat-card-title">Roommates</h3>
-  <mat-card-content *ngFor="let roommate of house.roommates" class="roommate-card">
-    <mat-list>
-      <mat-list-item><a [routerLink]="['/employee-profiles', roommate._id]"><b>{{ roommate.preferredName ||
-            roommate.legalFullName}}</b></a></mat-list-item>
-      <mat-list-item><b>Phone Number:</b> {{ roommate.phoneNumber }}</mat-list-item>
-      <mat-list-item><b>Email:</b> {{ roommate.email }}</mat-list-item>
-      <mat-list-item><b>Car Information:</b> {{ roommate.carInformation }}</mat-list-item>
-    </mat-list>
-    <mat-divider></mat-divider>
-  </mat-card-content>
-</mat-card>
+  <ng-container *ngIf="roommatesInfo && objectKeys(roommatesInfo).length > 0; else noRoommates">
+    <mat-card class="employee-card" *ngFor="let employeeId of objectKeys(roommatesInfo)">
+      <ng-container *ngIf="roommatesInfo[employeeId] | async as userInfo">
+        <mat-card-header>
+          <mat-card-title>
+            <a [routerLink]="['/employee-profiles', employeeId]">{{ userInfo.user.firstName }} {{ userInfo.user.lastName }}</a>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              <b>Phone Number:</b> {{ userInfo.user.workPhoneNumber }}
+            </mat-list-item>
+            <mat-list-item>
+              <b>Email:</b> {{ userInfo.user.email }}
+            </mat-list-item>
+            <mat-list-item>
+              <b>Car Information:</b> Make: {{ userInfo.user.carInfo.make }}, Model: {{ userInfo.user.carInfo.model }},
+              Color: {{ userInfo.user.carInfo.color }}
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </ng-container>
+    </mat-card>
+  </ng-container>
+  
+  <ng-template #noRoommates>
+    <p>No roommates found.</p>
+  </ng-template>
+  

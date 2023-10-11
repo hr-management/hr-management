@@ -1,6 +1,9 @@
+// <!-- house-details.component.html -->
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HousingHrService, House, Report } from '../../../services/housingManagementService/housing-hr.service';
+import { forkJoin } from 'rxjs'; 
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-housing-management',
@@ -33,16 +36,41 @@ export class HousingManagementComponent implements OnInit {
     this.fetchHouses();
   }
 
+  // fetchHouses() {
+  //   this.housingManagementService.fetchHouses().subscribe(
+  //     (houses: any[]) => {
+  //       this.houses = houses;
+  //     },
+  //     (error) => {
+  //       console.log('Error occurred while fetching houses:', error);
+  //     }
+  //   );
+  // }
+
   fetchHouses() {
     this.housingManagementService.fetchHouses().subscribe(
       (houses: any[]) => {
-        this.houses = houses;
+        const houseObservables = houses.map(house => {
+          return this.housingManagementService.getUsersByHouseId(house._id)
+            .pipe(
+              map(users => {
+                return {...house, numberOfResidents: users.length};
+              })
+            );
+        });
+        
+        forkJoin(houseObservables).subscribe(
+          (housesWithResidents) => {
+            this.houses = housesWithResidents;
+          }
+        );
       },
       (error) => {
         console.log('Error occurred while fetching houses:', error);
       }
     );
   }
+  
 
   addHouse() {
     this.housingManagementService.addHouse(this.newHouse).subscribe(

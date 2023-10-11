@@ -4,8 +4,8 @@
     <h2 class="section-title">Roommates:</h2>
     <mat-list>
       <mat-list-item class="roomate-list" *ngFor="let roommate of roommates">
-        <h3 matLine class="roommate-info">{{ roommate.preferredName }} ({{ roommate.legalFullName }}) - {{
-          roommate.phoneNumber }}</h3>
+        <h3 matLine class="roommate-info">{{ roommate.firstName }} {{ roommate.lastName }} - {{
+          roommate.workPhoneNumber }}</h3>
       </mat-list-item>
     </mat-list>
     <h2 class="section-title">Reports:</h2>

@@ -24,34 +24,30 @@ const userOnboarding = async (req, res) => {
     }
 };
 
-const userVisaUpload = async (req,res) => {
+const userVisaUpload = async (req, res) => {
     const file = req.body.file;
     const visa_order = ['OPT_Receipt', 'OPT_EAD', 'I-983', 'I-20'];
     const workAuthDoc = req.tokenUser.workAuthDoc;
 
-
-    if(workAuthDoc.legnth === 0) {
-        return res.status(400).json({ message: "You should submit in onboarding application page", success: false });
-    }
-    if(workAuthDoc.legnth === 4) {
+    if (workAuthDoc.legnth === 4) {
         return res.status(400).json({ message: "All documents have been approved", success: false });
     }
-    const { status, type} = workAuthDoc[workAuthDoc.length - 1];
+    const { status, type } = workAuthDoc[workAuthDoc.length - 1];
     if (status === 'rejected') {
         // update
-        const updateDoc = {status: 'submitted', file, type, feedback: '' };
+        const updateDoc = { status: 'submitted', file, type, feedback: '' };
         const result = await userModel.findOneAndUpdate(
-            { _id: req.tokenUser._id, workAuthDoc: { $elemMatch: { type }} },
-            { $set: { 'workAuthDoc.$': updateDoc }},
-          );
+            { _id: req.tokenUser._id, workAuthDoc: { $elemMatch: { type } } },
+            { $set: { 'workAuthDoc.$': updateDoc } },
+        );
         return res.status(200).json({ success: true, data: result });
-    }else if(status === 'approved') {
+    } else if (status === 'approved') {
         // create
-        const newAuthDoc = { status: 'submitted', file, type: visa_order[workAuthDoc.length], feedhback: '' };
+        const newAuthDoc = { status: 'submitted', file, type: visa_order[workAuthDoc.length], feedback: '' };
         const result = await userModel.findOneAndUpdate(
             { _id: req.tokenUser._id },
             { $push: { workAuthDoc: newAuthDoc } },
-          );
+        );
         return res.status(200).json({ success: true, data: result });
     } else {
         return res.status(400).json({ message: "Waiting for HR to approve", success: false });
@@ -60,19 +56,31 @@ const userVisaUpload = async (req,res) => {
 
 const getUserInfoById = async (req, res) => {
     try {
-      const userId = req.params.userId; // Assuming the user ID is passed as a request parameter
-      const user = await userModel.findById(userId);
-      if (!user) {
-        return res.status(404).json({ success: false, message: 'User not found' });
-      }
-      res.status(200).json({ success: true, user });
+        const userId = req.params.userId; // Assuming the user ID is passed as a request parameter
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        res.status(200).json({ success: true, user });
     } catch (err) {
-      res.status(500).json({ success: false, error: err.message });
+        res.status(500).json({ success: false, error: err.message });
+    }
+};
+
+const getUsersByHouseId = async (req, res) => {
+    try {
+        const houseId = req.params.houseId;  // Get houseId from request parameters
+        console.log('houseId:', houseId, 'User:', userModel);
+        const users = await userModel.find({ 'assignedHouse._id': houseId });
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
 module.exports = {
     userOnboarding,
     userVisaUpload,
-    getUserInfoById
+    getUserInfoById,
+    getUsersByHouseId
 };
