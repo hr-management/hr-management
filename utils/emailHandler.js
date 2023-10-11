@@ -21,7 +21,7 @@ module.exports = async (data) => {
         html: `<p>Dear ${receiver.name},</p>
                         <p>We are delighted to invite you to join Company XXX. As one of our newest members, you'll have access to a wide range of resources and opportunities to advance your career.</p>
                         <p>To complete your registration, please follow the link below:</p>
-                        <a href="${registrationLink}">Registration Link</a>
+                        <a href="${registrationLink}">${registrationLink}</a>
                         <p>This link is valid for the next 3 hours, so please complete your registration as soon as possible.</p>
                         <p>If you have any questions or concerns, please don't hesitate to reach out to our support team at ${
                           sender.email
