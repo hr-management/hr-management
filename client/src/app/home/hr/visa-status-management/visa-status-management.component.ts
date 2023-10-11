@@ -39,7 +39,7 @@ export class VisaStatusManagementComponent {
   ngOnInit() {
     this.store.dispatch(VisaEmployeesActions.getVisaEmployeesStart({ status: "inprogress",search:"" }))
     this.sendNotification$.pipe(throttleTime(5000)).subscribe((data:any) => {     
-      this.sendEmailService.sendDocumentNotificationEmail({id:data.id,documentName:data.curDoc.type}).subscribe({
+      this.sendEmailService.sendDocumentNotificationEmail({id:data.id,documentName:data.lastDoc.type}).subscribe({
         next: (data) => {
             this.snackBar.open(data.message, 'Close', { duration: 3000 });
         },

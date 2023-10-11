@@ -12,7 +12,7 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     street: [''],
     city: [''],
     state: [''],
-    zip: ['', [minLength(6), maxLength(6)]],
+    zip: ['', [minLength(5), maxLength(5)]],
     cellPhoneNumber:  ['', [required, minLength(10), maxLength(10)]],
     workPhoneNumber: ['', [minLength(10), maxLength(10)]],
     make:[''],
