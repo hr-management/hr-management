@@ -17,11 +17,11 @@ export function generateFormGroup(fb: UntypedFormBuilder) {
     gender: [''],
 
     //address
-    building: ['', [required]],
+    building: [''],
     street: ['', [required]],
     city: ['', [required]],
     state: ['', [required]],
-    zip: ['', [required, minLength(6), maxLength(6)]],
+    zip: ['', [required, minLength(5), maxLength(5)]],
 
     //contact info
     cellPhoneNumber:  ['', [required, minLength(10), maxLength(10)]],

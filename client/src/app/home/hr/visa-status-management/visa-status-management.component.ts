@@ -95,6 +95,7 @@ export class VisaStatusManagementComponent {
         
       }
       if (employee.visa.type === "F1(CPT/OPT)") {
+        console.log(employee)
          lastDoc = employee.workAuthDoc.at(-1)
         if (employee.workAuthDoc.length === 4 && lastDoc.status === "approved" ) {
           nextStep = `Done! All OPT documents have been approved.`

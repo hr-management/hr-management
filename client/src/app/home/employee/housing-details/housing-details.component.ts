@@ -2,9 +2,6 @@ import jwt_decode from 'jwt-decode';
 import { Component, OnInit } from '@angular/core';
 import { HousingService } from 'src/app/services/housingService/housing.service';
 import { AuthService } from 'src/app/services/AuthService/auth-service.service';
-import { forkJoin, map, switchMap } from 'rxjs';
-import { HousingHrService } from 'src/app/services/housingManagementService/housing-hr.service';
-
 
 interface DecodedToken {
   userId: string;
@@ -17,10 +14,9 @@ interface Landlord {
 }
 interface Roommate {
   _id: string;
-  firstName: string;
-  lastName: string;
+  preferredName?: string;
   legalFullName: string;
-  workPhoneNumber: string;
+  phoneNumber: string;
   email: string;
   carInformation?: string;
 }
@@ -76,8 +72,7 @@ export class HousingDetailsComponent implements OnInit {
 
   constructor(
     private housingDetailsService: HousingService,
-    private authService: AuthService,
-    private housingHrService: HousingHrService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -99,25 +94,11 @@ export class HousingDetailsComponent implements OnInit {
   }
 
   getHousingDetails(houseId: string, reportId?: string) {
-    this.housingDetailsService.getHouseDetails(houseId).pipe(
-      switchMap((response: House) => {
+    this.housingDetailsService.getHouseDetails(houseId).subscribe(
+      (response: any) => {
         this.address = response.address;
-        this.reports = response.reports;
-
-        const roommatesObservable = this.housingHrService.getUsersByHouseId(response._id);
-
-        return roommatesObservable.pipe(
-          map((roommateDetails: Roommate[]) => {
-            console.log('roommateDetails: ', roommateDetails)
-            return { ...response, roommates: roommateDetails };
-          })
-        );
-      })
-    ).subscribe(
-      (response: House) => {
         this.roommates = response.roommates;
-
-        console.log('preferredName: ', this.roommates[0].firstName);
+        this.reports = response.reports;
 
         if (reportId) {
           this.openReport(reportId);
@@ -128,7 +109,6 @@ export class HousingDetailsComponent implements OnInit {
       }
     );
   }
-
 
   createReport(title: string, description: string) {
     const token = localStorage.getItem('token');
